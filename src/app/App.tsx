@@ -1,13 +1,11 @@
-import './App.css'
-import {Users} from "../features/users/ui/Users.tsx";
+import { AppLayout } from "../widgets";
 
 function App() {
-
   return (
     <>
-        <Users/>
+      <AppLayout />
     </>
-  )
+  );
 }
 
-export default App
+export default App;
