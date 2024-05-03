@@ -1,23 +1,23 @@
-export type FetchUsersResponseType = {
-    items: UserType[]
-    totalCount: number
-    error: string
-}
+export type UsersResponse = {
+  items: UserType[];
+  totalCount: number;
+  error: string;
+};
 
-export type FetchUsersRequestType = {
-    currentPage?: number
-    pageSize?: number
-    term?: string
-    friends?: boolean
-}
+export type UsersRequest = {
+  currentPage?: number;
+  pageSize?: number;
+  search?: string;
+  followed?: boolean;
+};
 
-type UserType = {
-    name: string
-    id: number
-    photos: {
-        small: null
-        large: null
-    }
-    status: null
-    followed: boolean
-}
+export type UserType = {
+  name: string;
+  id: number;
+  photos: {
+    small: null;
+    large: undefined;
+  };
+  status: null;
+  followed: boolean;
+};

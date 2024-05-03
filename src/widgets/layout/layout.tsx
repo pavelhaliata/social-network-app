@@ -7,7 +7,7 @@ import {
   WechatOutlined,
 } from "@ant-design/icons";
 import { Button, Layout, Menu, theme, Typography } from "antd";
-import { Users } from "../../features/users/ui/Users.tsx";
+import { UsersPage } from "../../pages/usersPage";
 
 const { Title } = Typography;
 
@@ -23,7 +23,7 @@ export const AppLayout = () => {
         return "Profile";
       }
       case currentKey === "2": {
-        return <Users />;
+        return <UsersPage />;
       }
     }
   };
@@ -92,7 +92,7 @@ export const AppLayout = () => {
             margin: "24px 16px",
             padding: 24,
             minHeight: 280,
-            height: "84vh",
+            height: "100%",
             background: colorBgContainer,
             borderRadius: borderRadiusLG,
           }}
