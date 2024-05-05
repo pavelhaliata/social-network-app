@@ -6,11 +6,11 @@ import { User } from "../../../entities/users";
 export const Users = React.memo(() => {
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [followed, setFollowed] = useState<boolean>(false);
-  const [pageSize, setPageSize] = useState(50);
+  const [pageSize, setPageSize] = useState(10);
   const [inputValue, setInputValue] = useState<string>("");
   const [search, setTerm] = useState("");
 
-  const { data, isLoading, isSuccess } = useGetUsersQuery({
+  const { data, isLoading } = useGetUsersQuery({
     currentPage,
     followed,
     pageSize,
@@ -24,11 +24,9 @@ export const Users = React.memo(() => {
   const searchUsersHandler = () => {
     if (inputValue) {
       setTerm(inputValue);
+      setInputValue("");
     } else {
-      console.log("please enter the name");
-    }
-    if (isSuccess) {
-      // setInputValue("");
+      alert("please enter the name");
     }
   };
 

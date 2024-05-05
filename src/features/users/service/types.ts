@@ -15,7 +15,7 @@ export type UserType = {
   name: string;
   id: number;
   photos: {
-    small: null;
+    small: undefined;
     large: undefined;
   };
   status: null;
