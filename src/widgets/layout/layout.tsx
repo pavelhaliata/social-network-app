@@ -7,7 +7,7 @@ import {
   WechatOutlined,
 } from "@ant-design/icons";
 import { Button, Layout, Menu, theme, Typography } from "antd";
-import { UsersPage } from "../../pages/usersPage";
+import { Link, Outlet } from "react-router-dom";
 
 const { Title } = Typography;
 
@@ -15,18 +15,7 @@ const { Header, Sider, Content, Footer } = Layout;
 
 export const AppLayout = () => {
   const [collapsed, setCollapsed] = useState<boolean>(false);
-  const [currentKey, setCurrentKey] = useState<"1" | "2" | "3">("1");
 
-  const renderWindow = () => {
-    switch (true) {
-      case currentKey === "1": {
-        return "Profile";
-      }
-      case currentKey === "2": {
-        return <UsersPage />;
-      }
-    }
-  };
   const {
     token: { colorBgContainer, borderRadiusLG },
   } = theme.useToken();
@@ -42,18 +31,12 @@ export const AppLayout = () => {
             {
               key: "1",
               icon: <UserOutlined />,
-              label: "Profile",
-              onClick: () => {
-                setCurrentKey("1");
-              },
+              label: <Link to="/">Profile</Link>,
             },
             {
               key: "2",
               icon: <TeamOutlined />,
-              label: "Users",
-              onClick: () => {
-                setCurrentKey("2");
-              },
+              label: <Link to="users">Users</Link>,
             },
             {
               key: "3",
@@ -82,6 +65,7 @@ export const AppLayout = () => {
               height: 64,
             }}
           />
+
           <Title level={4} style={{ marginLeft: "auto" }}>
             Communication platform
           </Title>
@@ -96,11 +80,17 @@ export const AppLayout = () => {
             borderRadius: borderRadiusLG,
           }}
         >
-          {renderWindow()}
+          <Outlet />
         </Content>
-        <Footer style={{ textAlign: "center" }}>
+        <Footer style={{ textAlign: "center", color: "black" }}>
           ©{new Date().getFullYear()} Created by Pawl_H
-          <Typography>https://github.com/pavelhaliata</Typography>
+          <a
+            style={{ display: "block" }}
+            href="https://github.com/pavelhaliata"
+            target="_blank"
+          >
+            GitHub
+          </a>
         </Footer>
       </Layout>
     </Layout>

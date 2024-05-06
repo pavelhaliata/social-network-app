@@ -1,1 +1,1 @@
-export { User } from "./user/ui/user.tsx";
+export { UserCard } from "./ui/UserCard.tsx";

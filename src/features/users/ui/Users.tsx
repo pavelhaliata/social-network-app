@@ -1,7 +1,7 @@
 import React, { ChangeEvent, useState } from "react";
 import { useGetUsersQuery } from "../service/usersApi.ts";
 import { Button, Flex, Input, Pagination, Select } from "antd";
-import { User } from "../../../entities/users";
+import { UserCard } from "../../../entities/users";
 
 export const Users = React.memo(() => {
   const [currentPage, setCurrentPage] = useState<number>(1);
@@ -90,7 +90,7 @@ export const Users = React.memo(() => {
 
       <Flex wrap="wrap" gap="small" align="center" justify="center">
         {users?.map((user) => (
-          <User key={user.id} user={user} isLoading={isLoading} />
+          <UserCard key={user.id} user={user} isLoading={isLoading} />
         ))}
       </Flex>
     </div>
