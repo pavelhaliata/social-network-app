@@ -41,7 +41,7 @@ export const AppLayout = () => {
             {
               key: "3",
               icon: <WechatOutlined />,
-              label: "Chat",
+              label: <Link to="chat">Chat</Link>,
             },
           ]}
         />

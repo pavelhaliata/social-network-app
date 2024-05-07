@@ -24,7 +24,7 @@ export const Users = React.memo(() => {
   const searchUsersHandler = () => {
     if (inputValue) {
       setTerm(inputValue);
-      setInputValue("");
+      // setInputValue("");
     } else {
       alert("please enter the name");
     }

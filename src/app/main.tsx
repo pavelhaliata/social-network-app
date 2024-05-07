@@ -11,7 +11,7 @@ const router = createBrowserRouter([
   {
     path: "/",
     element: <App />,
-    errorElement: <div style={{ color: "red" }}>some error</div>,
+    errorElement: <div style={{ color: "red" }}>oops! some error</div>,
     children: [
       {
         path: "users/*",

@@ -6,7 +6,7 @@ export const getUserProfileApi = baseApi.injectEndpoints({
     getUserProfile: builder.query<UserProfileType, number>({
       query: (userId: number) => `/profile/${userId}`,
     }),
-    getUserStatus: builder.query({
+    getUserStatus: builder.query<string, number>({
       query: (userId: number) => `/profile/status/${userId}`,
     }),
   }),
