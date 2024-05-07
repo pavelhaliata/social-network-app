@@ -1,6 +1,9 @@
 import { useNavigate, useParams } from "react-router-dom";
-import { useGetUserProfileQuery } from "../service/userProfileApi.ts";
-import { Card, Flex } from "antd";
+import {
+  useGetUserProfileQuery,
+  useGetUserStatusQuery,
+} from "../service/userProfileApi.ts";
+import { Flex } from "antd";
 import { useEffect } from "react";
 
 type Props = {};
@@ -13,32 +16,37 @@ export const UserProfile = ({}: Props) => {
     isLoading,
     isSuccess,
   } = useGetUserProfileQuery(Number(userId));
+  const { data: userStatus } = useGetUserStatusQuery(Number(userId));
+  console.log(user);
   useEffect(() => {
     if (isSuccess) {
     }
   }, [isSuccess]);
 
   return (
-    <Flex justify="center">
-      <Card title={user?.fullName} style={{ maxWidth: 550, width: "100%" }}>
+    <Flex gap={50}>
+      <div>
+        <img
+          src={user?.photos.large}
+          alt="user logo"
+          width={200}
+          height={200}
+          style={{ maxWidth: 200, width: "100%" }}
+        />
+      </div>
+      <div>
         <div>
-          <img
-            src={user?.photos.large}
-            alt="user logo"
-            width={200}
-            height={200}
-            style={{ maxWidth: 200, width: "100%" }}
-          />
+          <span style={{ fontWeight: 600 }}>Status: </span>
+          <span>{userStatus}</span>
         </div>
         <div>
-          <div>{user?.aboutMe}</div>
-          <div>{user?.lookingForAJobDescription}</div>
-          <a href={user?.contacts.github} target="_blank">
-            GitHub
-          </a>
-          <div>{user?.contacts.mainLink}</div>
+          <span style={{ fontWeight: 600 }}>Full Name: </span>
+          <span>{user?.fullName}</span>
         </div>
-      </Card>
+        <a href={user?.contacts.github} target="_blank">
+          GitHub
+        </a>
+      </div>
     </Flex>
   );
 };

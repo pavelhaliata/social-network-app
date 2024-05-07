@@ -41,14 +41,13 @@ export const Users = React.memo(() => {
           }}
         >
           <Input
-            width={900}
             variant="filled"
             placeholder="Serch users"
             value={inputValue}
             onChange={onChangeHandler}
           />
           <Button
-            style={{ width: 200 }}
+            style={{ maxWidth: 200, width: "100%" }}
             type="primary"
             onClick={searchUsersHandler}
           >
@@ -57,7 +56,7 @@ export const Users = React.memo(() => {
         </form>
         <Select
           defaultValue={followed}
-          style={{ width: 120 }}
+          style={{ maxWidth: 120, width: "100%" }}
           loading={isLoading}
           onChange={(value) => {
             setFollowed(value);
