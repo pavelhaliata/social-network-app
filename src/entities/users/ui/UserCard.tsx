@@ -1,7 +1,7 @@
 import { Card } from "antd";
-import defaultUserLogo from "../../../shared/assets/defaultUserLogo.svg";
 import { Link } from "react-router-dom";
 import { UserType } from "../../../features/users/service/types.ts";
+import { defaultUserLogo } from "../../../shared/assets";
 
 type Props = {
   user: UserType;
