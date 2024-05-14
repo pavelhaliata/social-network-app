@@ -8,5 +8,5 @@ export const baseApi = createApi({
     headers: { "API-KEY": import.meta.env.VITE_API_KEY },
   }),
   endpoints: () => ({}),
-  tagTypes: [],
+  tagTypes: ["Users", "Follow"],
 });

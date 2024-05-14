@@ -1,50 +1,37 @@
 import { useParams } from "react-router-dom";
 import {
+  useFollowUserMutation,
+  useGetFollowUserQuery,
   useGetUserProfileQuery,
   useGetUserStatusQuery,
+  useUnFollowUserMutation,
 } from "../service/userProfileApi.ts";
-import { Avatar, Flex, Image, Popover, Typography } from "antd";
-import {
-  FacebookOutlined,
-  GithubOutlined,
-  InstagramOutlined,
-  TwitterOutlined,
-  UserOutlined,
-  YoutubeOutlined,
-} from "@ant-design/icons";
-import { defaultUserLogo } from "../../../shared/assets";
+import { Avatar, Button, Flex, Image, Typography } from "antd";
+import { HeartFilled, HeartOutlined, UserOutlined } from "@ant-design/icons";
+import { SocialContacts } from "./SocialContacts.tsx";
 
 type Props = {};
 
 const Text = Typography;
 
 export const UserProfile = ({}: Props) => {
-  const { id: userId } = useParams();
+  const { id } = useParams();
+  const userId = Number(id);
   // const navigate = useNavigate();
-  const { data: user } = useGetUserProfileQuery(Number(userId));
-  const { data: userStatus } = useGetUserStatusQuery(Number(userId));
+  const { data: user } = useGetUserProfileQuery(userId);
+  const { data: userStatus } = useGetUserStatusQuery(userId);
+  const { data: isFollow } = useGetFollowUserQuery(userId);
+  const [followUser, { isLoading: isFollowUser }] = useFollowUserMutation();
+  const [unFollowUser, { isLoading: isUnFollowUser }] =
+    useUnFollowUserMutation();
 
-  // const socialIcons: { key: string; icon: React.ReactNode }[] = [
-  //   { key: "github", icon: <GithubOutlined className="text-2xl" /> },
-  //   { key: "facebook", icon: <FacebookOutlined className="text-2xl" /> },
-  //   { key: "instagram", icon: <InstagramOutlined className="text-2xl" /> },
-  //   { key: "twitter", icon: <TwitterOutlined className="text-2xl" /> },
-  //   { key: "youtube ", icon: <YoutubeOutlined className="text-2xl" /> },
-  // ];
+  const followUserHandler = () => {
+    followUser(userId).unwrap();
+  };
 
-  // const getSocialIcon = (iconKey: string) => {
-  //   const obj = socialIcons.find((el) => el.key === iconKey);
-  //   if (obj) return obj.icon;
-  //   return false;
-  // };
-  // let key: SocialContacts = {};
-  // if (user?.contacts) {
-  //   const contacts = Object.entries(user.contacts);
-  //   contacts.map((i) => {
-  //     key = i[0];
-  //     getSocialIcon(key);
-  //   });
-  // }
+  const unFollowUserHandler = () => {
+    unFollowUser(userId).unwrap();
+  };
 
   return (
     <Flex gap={50}>
@@ -53,7 +40,6 @@ export const UserProfile = ({}: Props) => {
           <Image
             src={user?.photos.large}
             alt="user logo"
-            fallback={defaultUserLogo}
             width={200}
             height={200}
             className="max-w-52 w-full object-cover rounded-lg"
@@ -62,7 +48,32 @@ export const UserProfile = ({}: Props) => {
           <Avatar shape="square" size={164} icon={<UserOutlined />} />
         )}
         <div>
-          <Text className="font-bold">Status: </Text>
+          {isFollow ? (
+            <>
+              <span>Unfollow:</span>
+              <Button
+                onClick={unFollowUserHandler}
+                type="text"
+                shape="circle"
+                loading={isFollowUser}
+                icon={<HeartFilled className="text-2xl" />}
+              />
+            </>
+          ) : (
+            <>
+              <span>Follow:</span>
+              <Button
+                onClick={followUserHandler}
+                type="text"
+                shape="circle"
+                loading={isUnFollowUser}
+                icon={<HeartOutlined className="text-2xl" />}
+              />
+            </>
+          )}
+        </div>
+        <div>
+          <Text className="font-bold">Status:</Text>
           <Text>{userStatus}</Text>
         </div>
       </div>
@@ -76,88 +87,13 @@ export const UserProfile = ({}: Props) => {
           <Text>{user?.aboutMe}</Text>
         </div>
         <div>
-          <Text className="font-bold">Job Description: </Text>
+          <Text className="font-bold">Job Description:</Text>
           <Text>{user?.lookingForAJobDescription}</Text>
         </div>
         <div>
-          <Text className="font-bold">Social: </Text>
-          {/*TODO: сделать map*/}
+          <Text className="font-bold">Social:</Text>
           <Flex className="gap-x-2">
-            {user?.contacts.github && (
-              <Popover
-                placement="bottomLeft"
-                title={"Git Hub"}
-                content={user?.contacts.github}
-              >
-                <a
-                  href={user?.contacts.github}
-                  target="_blank"
-                  className="p-1 rounded-md transition ease-in-out delay-150 hover:text-light-100 hover:bg-primary-500"
-                >
-                  <GithubOutlined className="text-2xl" />
-                </a>
-              </Popover>
-            )}
-            {user?.contacts.facebook && (
-              <Popover
-                placement="bottomLeft"
-                title={"Facebook"}
-                content={user?.contacts.facebook}
-              >
-                <a
-                  href={user?.contacts.facebook}
-                  target="_blank"
-                  className="p-1 rounded-md transition ease-in-out delay-150 hover:text-light-100 hover:bg-primary-500"
-                >
-                  <FacebookOutlined className="text-2xl" />
-                </a>
-              </Popover>
-            )}
-            {user?.contacts.twitter && (
-              <Popover
-                placement="bottomLeft"
-                title={"Twitter"}
-                content={user?.contacts.twitter}
-              >
-                <a
-                  href={user?.contacts.twitter}
-                  target="_blank"
-                  className="p-1 rounded-md transition ease-in-out delay-150 hover:text-light-100 hover:bg-primary-500"
-                >
-                  <TwitterOutlined className="text-2xl" />
-                </a>
-              </Popover>
-            )}
-            {user?.contacts.instagram && (
-              <Popover
-                placement="bottomLeft"
-                title={"Instagram"}
-                content={user?.contacts.instagram}
-              >
-                <a
-                  href={user?.contacts.instagram}
-                  target="_blank"
-                  className="p-1 rounded-md transition ease-in-out delay-100 hover:text-light-100 hover:bg-primary-500"
-                >
-                  <InstagramOutlined className="text-2xl" />
-                </a>
-              </Popover>
-            )}
-            {user?.contacts.youtube && (
-              <Popover
-                placement="bottomLeft"
-                title={"YouTube"}
-                content={user?.contacts.youtube}
-              >
-                <a
-                  href={user?.contacts.youtube}
-                  target="_blank"
-                  className="p-1 rounded-md transition ease-in-out delay-150 hover:text-light-100 hover:bg-primary-500"
-                >
-                  <YoutubeOutlined className="text-2xl" />
-                </a>
-              </Popover>
-            )}
+            <SocialContacts contacts={user?.contacts} />
           </Flex>
         </div>
       </Flex>

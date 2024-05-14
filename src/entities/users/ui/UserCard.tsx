@@ -1,7 +1,7 @@
-import { Card } from "antd";
+import { Avatar, Card } from "antd";
 import { Link } from "react-router-dom";
 import { UserType } from "../../../features/users/service/types.ts";
-import { defaultUserLogo } from "../../../shared/assets";
+import { UserOutlined } from "@ant-design/icons";
 
 type Props = {
   user: UserType;
@@ -16,21 +16,24 @@ export const UserCard = ({ user, isLoading }: Props) => {
       <Card
         loading={isLoading}
         hoverable
-        style={{ width: 240, height: 360, overflow: "hidden" }}
+        className="max-w-[240px] w-full h-[340px] overflow-hidden"
         cover={
           user.photos.large ? (
             <img
-              width={100}
-              height={240}
               alt="User Logo"
               src={user.photos.large}
+              className="border block"
             />
           ) : (
-            <img src={defaultUserLogo} alt="User Logo" />
+            <Avatar shape="square" size={240} icon={<UserOutlined />} />
           )
         }
       >
-        <Meta title={user.name} description={user.status} />
+        <Meta
+          title={user.name}
+          description={user.status}
+          className="whitespace-pre-line"
+        />
       </Card>
     </Link>
   );
