@@ -1,5 +1,6 @@
 import { baseApi } from "../../../shared/api";
-import { ResponseType, UserProfile } from "./types/userProfile.ts";
+import { UserProfile } from "./types/userProfile.ts";
+import { ResponseSchema } from "../../../shared/api/types";
 
 export const getUserProfileApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
@@ -13,14 +14,14 @@ export const getUserProfileApi = baseApi.injectEndpoints({
       query: (userId) => `/follow/${userId}`,
       providesTags: ["Follow"],
     }),
-    followUser: builder.mutation<ResponseType, number>({
+    followUser: builder.mutation<ResponseSchema, number>({
       query: (userId) => ({
         method: "POST",
         url: `/follow/${userId}`,
       }),
       invalidatesTags: ["Follow", "Users"],
     }),
-    unFollowUser: builder.mutation<ResponseType, number>({
+    unFollowUser: builder.mutation<ResponseSchema, number>({
       query: (userId) => ({
         method: "DELETE",
         url: `/follow/${userId}`,

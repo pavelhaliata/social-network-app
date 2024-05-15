@@ -6,7 +6,7 @@ export const getUsersApi = baseApi.injectEndpoints({
     getUsers: builder.query<UsersResponse, UsersRequest>({
       query: ({
         currentPage = 1,
-        pageSize = 50,
+        pageSize = 10,
         search = "",
         followed = null,
       }) =>

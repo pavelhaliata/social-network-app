@@ -21,7 +21,7 @@ export const AppLayout = () => {
   } = theme.useToken();
 
   return (
-    <Layout>
+    <Layout className="max-w-[1380px] m-auto max-h-full h-auto">
       <Sider trigger={null} collapsible collapsed={collapsed}>
         <Menu
           theme="dark"

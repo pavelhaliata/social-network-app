@@ -6,15 +6,13 @@ import {
   useGetUserStatusQuery,
   useUnFollowUserMutation,
 } from "../service/userProfileApi.ts";
-import { Avatar, Button, Flex, Image, Typography } from "antd";
+import { Avatar, Button, Flex, Image, Popover, Typography } from "antd";
 import { HeartFilled, HeartOutlined, UserOutlined } from "@ant-design/icons";
 import { SocialContacts } from "./SocialContacts.tsx";
 
-type Props = {};
-
 const Text = Typography;
 
-export const UserProfile = ({}: Props) => {
+export const UserProfile = () => {
   const { id } = useParams();
   const userId = Number(id);
   // const navigate = useNavigate();
@@ -50,34 +48,42 @@ export const UserProfile = ({}: Props) => {
         <div>
           {isFollow ? (
             <>
-              <span>Unfollow:</span>
-              <Button
-                onClick={unFollowUserHandler}
-                type="text"
-                shape="circle"
-                loading={isFollowUser}
-                icon={<HeartFilled className="text-2xl" />}
-              />
+              <Popover placement="bottom" content="Unfollow">
+                <Button
+                  onClick={unFollowUserHandler}
+                  type="text"
+                  shape="circle"
+                  loading={isUnFollowUser}
+                  icon={<HeartFilled className="text-2xl" />}
+                />
+                <Text className="font-bold inline-block cursor-pointer">
+                  My Friend
+                </Text>
+              </Popover>
             </>
           ) : (
             <>
-              <span>Follow:</span>
-              <Button
-                onClick={followUserHandler}
-                type="text"
-                shape="circle"
-                loading={isUnFollowUser}
-                icon={<HeartOutlined className="text-2xl" />}
-              />
+              <Popover placement="bottom" content="Follow">
+                <Button
+                  onClick={followUserHandler}
+                  type="text"
+                  shape="circle"
+                  loading={isFollowUser}
+                  icon={<HeartOutlined className="text-2xl" />}
+                />
+                <Text className="font-bold inline-block cursor-pointer">
+                  Add to friends
+                </Text>
+              </Popover>
             </>
           )}
         </div>
+      </div>
+      <Flex gap={10} className="flex-col">
         <div>
           <Text className="font-bold">Status:</Text>
           <Text>{userStatus}</Text>
         </div>
-      </div>
-      <Flex gap={10} className="flex-col">
         <div>
           <Text className="font-bold">Full Name:</Text>
           <Text>{user?.fullName}</Text>

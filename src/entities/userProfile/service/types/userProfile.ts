@@ -20,9 +20,3 @@ export type UserProfileContacts = {
   github: string;
   mainLink: string;
 };
-
-export type ResponseType<T = {}> = {
-  data: T;
-  messages: string[];
-  resultCode: number;
-};
