@@ -1,4 +1,4 @@
-import { UsersRequest, UsersResponse } from "./types.ts";
+import { UsersRequest, UsersResponse } from "./usersApiTypes.ts";
 import { baseApi } from "../../../shared/api";
 
 export const getUsersApi = baseApi.injectEndpoints({

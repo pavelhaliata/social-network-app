@@ -1,4 +1,4 @@
-import { UserProfileContacts } from "../service/types/userProfile.ts";
+import { UserProfileContacts } from "../service/types/userProfileTypes.ts";
 import { Popover } from "antd";
 import {
   FacebookOutlined,

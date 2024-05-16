@@ -1,4 +1,4 @@
-export type UserProfile = {
+export type UserProfileTypes = {
   aboutMe: string;
   contacts: UserProfileContacts;
   lookingForAJob: boolean;

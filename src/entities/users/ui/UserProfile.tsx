@@ -6,7 +6,7 @@ import {
   useGetUserStatusQuery,
   useUnFollowUserMutation,
 } from "../service/userProfileApi.ts";
-import { Avatar, Button, Flex, Image, Popover, Typography } from "antd";
+import { Avatar, Badge, Button, Flex, Image, Popover, Typography } from "antd";
 import { HeartFilled, HeartOutlined, UserOutlined } from "@ant-design/icons";
 import { SocialContacts } from "./SocialContacts.tsx";
 
@@ -35,13 +35,15 @@ export const UserProfile = () => {
     <Flex gap={50}>
       <div className="overflow-hidden">
         {user?.photos.large ? (
-          <Image
-            src={user?.photos.large}
-            alt="user logo"
-            width={200}
-            height={200}
-            className="max-w-52 w-full object-cover rounded-lg"
-          />
+          <Badge.Ribbon placement={"start"} text="Open to work">
+            <Image
+              src={user?.photos.large}
+              alt="user logo"
+              width={200}
+              height={200}
+              className="max-w-52 w-full object-cover rounded-lg"
+            />
+          </Badge.Ribbon>
         ) : (
           <Avatar shape="square" size={164} icon={<UserOutlined />} />
         )}

@@ -4,8 +4,8 @@ import App from "./App.tsx";
 import "./index.css";
 import { store } from "./store/store.ts";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import { Users } from "../features/users/ui/Users.tsx";
-import { UserProfile } from "../entities/userProfile";
+import { UserProfile } from "../entities/users";
+import { UsersPage } from "../pages/usersPage";
 
 const router = createBrowserRouter([
   {
@@ -15,7 +15,7 @@ const router = createBrowserRouter([
     children: [
       {
         path: "users/*",
-        element: <Users />,
+        element: <UsersPage />,
       },
       {
         path: "users/:id",

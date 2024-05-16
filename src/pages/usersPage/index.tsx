@@ -1,3 +1,3 @@
-import { Users } from "../../features/users/ui/Users.tsx";
+import { Users } from "../../features/users";
 
 export const UsersPage = () => <Users />;

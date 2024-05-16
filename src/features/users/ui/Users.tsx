@@ -5,7 +5,7 @@ import { UserCard } from "../../../entities/users";
 
 export const Users = React.memo(() => {
   const [currentPage, setCurrentPage] = useState<number>(1);
-  const [followed, setFollowed] = useState<boolean>(false);
+  const [followed, setFollowed] = useState<boolean>(true);
   const [pageSize, setPageSize] = useState(10);
   const [inputValue, setInputValue] = useState<string>("");
   const [search, setTerm] = useState("");
@@ -32,7 +32,7 @@ export const Users = React.memo(() => {
 
   return (
     <div>
-      <Flex gap={10} style={{ marginBottom: 40 }}>
+      <Flex gap={10} className="mb-10">
         <form
           style={{
             display: "flex",
@@ -56,7 +56,7 @@ export const Users = React.memo(() => {
         </form>
         <Select
           defaultValue={followed}
-          style={{ maxWidth: 120, width: "100%" }}
+          className="max-w-[120px] w-full"
           loading={isLoading}
           onChange={(value) => {
             setFollowed(value);
@@ -71,7 +71,7 @@ export const Users = React.memo(() => {
           ]}
         />
       </Flex>
-      <div style={{ maxWidth: "100%", textAlign: "center", marginBottom: 40 }}>
+      <div className="max-w-full text-center mb-10">
         <Pagination
           total={totalCount}
           showSizeChanger

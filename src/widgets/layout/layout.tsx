@@ -48,11 +48,9 @@ export const AppLayout = () => {
       </Sider>
       <Layout>
         <Header
+          className={`p-[10px] bg-${colorBgContainer} flex items-center`}
           style={{
-            padding: 10,
             background: colorBgContainer,
-            display: "flex",
-            alignItems: "center",
           }}
         >
           <Button
