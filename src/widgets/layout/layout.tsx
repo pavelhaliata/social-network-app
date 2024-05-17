@@ -31,7 +31,7 @@ export const AppLayout = () => {
             {
               key: "1",
               icon: <UserOutlined />,
-              label: <Link to="/">Profile</Link>,
+              label: <Link to="self-profile">Profile</Link>,
             },
             {
               key: "2",

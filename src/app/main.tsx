@@ -6,6 +6,7 @@ import { store } from "./store/store.ts";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { UserProfile } from "../entities/users";
 import { UsersPage } from "../pages/usersPage";
+import { SelfProfilePage } from "../pages/selfProfilePage";
 
 const router = createBrowserRouter([
   {
@@ -13,6 +14,10 @@ const router = createBrowserRouter([
     element: <App />,
     errorElement: <div style={{ color: "red" }}>oops! some error</div>,
     children: [
+      {
+        path: "self-profile",
+        element: <SelfProfilePage />,
+      },
       {
         path: "users/*",
         element: <UsersPage />,
