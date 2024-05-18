@@ -7,6 +7,7 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { UserProfile } from "../entities/users";
 import { UsersPage } from "../pages/usersPage";
 import { SelfProfilePage } from "../pages/selfProfilePage";
+import { SightInPage } from "../pages/auth";
 
 const router = createBrowserRouter([
   {
@@ -27,6 +28,10 @@ const router = createBrowserRouter([
         element: <UserProfile />,
       },
     ],
+  },
+  {
+    path: "/auth-login",
+    element: <SightInPage />,
   },
 ]);
 
