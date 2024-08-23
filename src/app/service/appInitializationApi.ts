@@ -1,6 +1,6 @@
 import { baseApi } from "../../shared/api";
 import { ResponseSchema } from "../../shared/api/types";
-import { initializeApp } from "../model/appSlice.ts";
+import { initializeApp, isLogin } from "../model/appSlice.ts";
 
 export const appInitializationApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
@@ -8,11 +8,13 @@ export const appInitializationApi = baseApi.injectEndpoints({
       query: () => ({
         url: "auth/me",
       }),
-      onQueryStarted: async (_, { dispatch, queryFulfilled }) => {
+      async onQueryStarted(_args, { dispatch, queryFulfilled }) {
         try {
           const { data } = await queryFulfilled;
-          console.log(data);
-          return data;
+          if (data.resultCode === 0) {
+            console.log(data);
+            dispatch(isLogin(true));
+          }
         } catch (e) {
           console.error(e);
         } finally {

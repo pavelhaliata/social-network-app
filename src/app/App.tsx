@@ -4,8 +4,8 @@ import { Loader } from "../shared/components";
 import { useAppSelector } from "./store";
 
 function App() {
-  useInitializeAppQuery();
   const isInitialized = useAppSelector((state) => state.app.initialized);
+  useInitializeAppQuery();
 
   if (!isInitialized) {
     return <Loader />;

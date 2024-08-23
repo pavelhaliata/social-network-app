@@ -8,8 +8,8 @@ import { AppDispatch, AppRootState } from "./types.ts";
 
 export const store = configureStore({
   reducer: {
-    [baseApi.reducerPath]: getUsersApi.reducer,
     app: appReducer,
+    [baseApi.reducerPath]: getUsersApi.reducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware().concat(baseApi.middleware),

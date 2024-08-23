@@ -7,14 +7,29 @@ import {
   WechatOutlined,
 } from "@ant-design/icons";
 import { Button, Layout, Menu, theme, Typography } from "antd";
-import { Link, Outlet } from "react-router-dom";
+import { Link, matchPath, Outlet, useLocation } from "react-router-dom";
 
 const { Title } = Typography;
-
 const { Header, Sider, Content, Footer } = Layout;
+
+const useRouteMatch = (patterns: readonly string[]) => {
+  const { pathname } = useLocation();
+
+  for (let i = 0; i < patterns.length; i += 1) {
+    const pattern = patterns[i];
+    const possibleMatch = matchPath(pattern, pathname);
+    if (possibleMatch !== null) {
+      return possibleMatch;
+    }
+  }
+  return null;
+};
 
 export const AppLayout = () => {
   const [collapsed, setCollapsed] = useState<boolean>(false);
+
+  const routeMatch = useRouteMatch(["self-profile", "users", "chat"]);
+  const currentTab = routeMatch?.pattern?.path || "self-profile";
 
   const {
     token: { colorBgContainer, borderRadiusLG },
@@ -26,20 +41,20 @@ export const AppLayout = () => {
         <Menu
           theme="dark"
           mode="inline"
-          defaultSelectedKeys={["1"]}
+          defaultSelectedKeys={[currentTab]}
           items={[
             {
-              key: "1",
+              key: "self-profile",
               icon: <UserOutlined />,
               label: <Link to="self-profile">Profile</Link>,
             },
             {
-              key: "2",
+              key: "users",
               icon: <TeamOutlined />,
               label: <Link to="users">Users</Link>,
             },
             {
-              key: "3",
+              key: "chat",
               icon: <WechatOutlined />,
               label: <Link to="chat">Chat</Link>,
             },

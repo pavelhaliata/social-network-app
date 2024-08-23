@@ -4,8 +4,14 @@ export const selfProfileApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
     getAuthData: builder.query({
       query: () => ({
-        url: "auth/me",
+        url: "profile",
       }),
+      async onQueryStarted(_args, { dispatch, queryFulfilled }) {
+        const { data } = await queryFulfilled;
+        console.log("selfProfile: ", data);
+      },
     }),
   }),
 });
+
+export const { useGetAuthDataQuery } = selfProfileApi;

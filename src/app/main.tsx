@@ -8,6 +8,7 @@ import { UsersPage } from "../pages/usersPage";
 import { SelfProfilePage } from "../pages/selfProfilePage";
 import { SightInPage } from "../pages/auth";
 import { store } from "./store";
+import { ProtectedRoute } from "./hoc/ProtectedRoute.tsx";
 
 const router = createBrowserRouter([
   {
@@ -21,11 +22,19 @@ const router = createBrowserRouter([
       },
       {
         path: "users/*",
-        element: <UsersPage />,
+        element: (
+          <ProtectedRoute>
+            <UsersPage />
+          </ProtectedRoute>
+        ),
       },
       {
         path: "users/:id",
         element: <UserProfile />,
+      },
+      {
+        path: "chat",
+        element: <div>chat page</div>,
       },
     ],
   },
