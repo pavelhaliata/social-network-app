@@ -18,7 +18,11 @@ const router = createBrowserRouter([
     children: [
       {
         path: "self-profile",
-        element: <SelfProfilePage />,
+        element: (
+          <ProtectedRoute>
+            <SelfProfilePage />
+          </ProtectedRoute>
+        ),
       },
       {
         path: "users/*",
@@ -30,7 +34,11 @@ const router = createBrowserRouter([
       },
       {
         path: "users/:id",
-        element: <UserProfile />,
+        element: (
+          <ProtectedRoute>
+            <UserProfile />
+          </ProtectedRoute>
+        ),
       },
       {
         path: "chat",

@@ -1,15 +1,7 @@
-import { Button, Input } from "antd";
+import { SignInForm } from "./SignInForm.tsx";
 
 type Props = {};
 
 export const SignIn = ({}: Props) => {
-  return (
-    <div className="max-w-96 m-auto p-16 border">
-      <form>
-        <Input />
-        <Input />
-        <Button type="primary">Sign In</Button>
-      </form>
-    </div>
-  );
+  return <SignInForm />;
 };
