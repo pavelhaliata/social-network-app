@@ -1,10 +1,26 @@
 import { Button, Checkbox, Input } from "antd";
 import frontImg from "../../../shared/assets/img/frontImg.jpg";
 import { LockTwoTone, MailTwoTone } from "@ant-design/icons";
+import { Controller, SubmitHandler, useForm } from "react-hook-form";
+import { LoginData } from "../model/types/authType.ts";
 
-type Props = {};
+type Props = {
+  onSubmit: (data: LoginData) => void;
+};
 
-export const SignInForm = ({}: Props) => {
+export const SignInForm = ({ onSubmit }: Props) => {
+  const { control, handleSubmit } = useForm({
+    defaultValues: {
+      email: "",
+      password: "",
+      rememberMe: false,
+    },
+  });
+  const onSubmitHandler: SubmitHandler<LoginData> = (data) => {
+    // console.log("data: ", data);
+    onSubmit(data);
+  };
+
   return (
     <div className="min-h-screen flex items-center justify-center bg-primary-500 p-8">
       <div className="relative max-w-[850px] w-full bg-light-100 py-10 px-8 rounded-lg overflow-hidden">
@@ -35,25 +51,44 @@ export const SignInForm = ({}: Props) => {
               >
                 Login
               </div>
-              <form action="#">
+              <form onSubmit={handleSubmit(onSubmitHandler)}>
                 <div className="mt-8">
                   <div className="flex items-center h-12 w-full my-3">
-                    <Input
-                      size={"large"}
-                      prefix={<MailTwoTone />}
-                      type="text"
-                      placeholder="Enter your email"
+                    <Controller
+                      name="email"
+                      control={control}
+                      render={({ field }) => (
+                        <Input
+                          size={"large"}
+                          prefix={<MailTwoTone />}
+                          type="text"
+                          placeholder="Enter your email"
+                          {...field}
+                        />
+                      )}
+                      rules={{
+                        pattern:
+                          /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/,
+                        required: true,
+                      }}
                     />
                   </div>
                   <div className="flex items-center h-12 w-full my-3">
-                    <Input
-                      size={"large"}
-                      prefix={<LockTwoTone />}
-                      type="password"
-                      placeholder="Enter your password"
+                    <Controller
+                      name="password"
+                      control={control}
+                      render={({ field }) => (
+                        <Input
+                          size={"large"}
+                          prefix={<LockTwoTone />}
+                          type="password"
+                          placeholder="Enter your password"
+                          {...field}
+                        />
+                      )}
                     />
                   </div>
-                  <div className="text-primary-500">
+                  <div className="text-primary-500 font-medium">
                     <a
                       href="https://social-network.samuraijs.com/login"
                       target="_blank"
@@ -62,20 +97,21 @@ export const SignInForm = ({}: Props) => {
                       Forgot password?
                     </a>
                   </div>
-                  <div className="mt-5 button input-box">
+                  <div className="mt-5">
                     <Button
                       type="primary"
                       size="large"
                       className="w-full text-light-100"
+                      htmlType="submit"
                     >
                       Sign in
                     </Button>
                   </div>
-                  <div className="text-primary-500 mt-5">
+                  <div className="text-center text-light-900 font-medium mt-5 ">
                     <span className="">Remember me: </span>
                     <Checkbox />
                   </div>
-                  <div className="text-center text-light-900 mt-5">
+                  <div className="text-center text-light-900 font-medium mt-5">
                     Don't have an account?{" "}
                     <a
                       href="https://social-network.samuraijs.com/signUp"
