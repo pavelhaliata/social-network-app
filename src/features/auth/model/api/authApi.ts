@@ -1,9 +1,31 @@
 import { baseApi } from "../../../../shared/api";
 import { ResponseSchema } from "../../../../shared/api/types";
-import { LoginData } from "../types/authType.ts";
+import { AuthUserData, LoginData } from "../types/authType.ts";
+import { isAuthenticated, setAuthUserData } from "../slices/authSlice.ts";
+import { initializeApp } from "../../../../app/model/appSlice.ts";
 
 export const authApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
+    authMe: builder.query<ResponseSchema<AuthUserData>, void>({
+      query: () => ({
+        url: "auth/me",
+      }),
+      async onQueryStarted(_args, { dispatch, queryFulfilled }) {
+        try {
+          const { data } = await queryFulfilled;
+          console.log(data);
+          if (data.resultCode === 0) {
+            dispatch(isAuthenticated({ isAuthenticated: true }));
+            dispatch(setAuthUserData(data.data));
+          } else {
+            dispatch(isAuthenticated({ isAuthenticated: false }));
+          }
+        } catch (e) {
+        } finally {
+          dispatch(initializeApp());
+        }
+      },
+    }),
     login: builder.mutation<ResponseSchema<{ userId: number }>, LoginData>({
       query: (data) => ({
         method: "POST",
@@ -13,8 +35,8 @@ export const authApi = baseApi.injectEndpoints({
       async onQueryStarted(_args, { dispatch, queryFulfilled }) {
         try {
           const { data } = await queryFulfilled;
-          if (data.resultCode === 1) {
-            console.log(data);
+          if (data.resultCode === 0) {
+            dispatch(isAuthenticated({ isAuthenticated: true }));
           }
         } catch (e) {
           console.error(e);
@@ -25,4 +47,4 @@ export const authApi = baseApi.injectEndpoints({
   overrideExisting: true,
 });
 
-export const { useLoginMutation } = authApi;
+export const { useLoginMutation, useAuthMeQuery } = authApi;

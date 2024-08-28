@@ -11,9 +11,11 @@ export const ProtectedRoute = ({
   redirectPath = "/auth-login",
   children,
 }: ProtectedRouteType): ReactNode => {
-  const isLoggedIn = useAppSelector<boolean>((state) => state.app.isLogin);
+  const isAuthenticated = useAppSelector<boolean>(
+    (state) => state.auth.isAuthenticated,
+  );
 
-  if (!isLoggedIn) {
+  if (!isAuthenticated) {
     return <Navigate to={redirectPath} replace />;
   }
   return children;

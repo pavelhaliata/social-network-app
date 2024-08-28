@@ -6,7 +6,7 @@ export const selfProfileApi = baseApi.injectEndpoints({
       query: () => ({
         url: "profile",
       }),
-      async onQueryStarted(_args, { dispatch, queryFulfilled }) {
+      async onQueryStarted(_args, { queryFulfilled }) {
         const { data } = await queryFulfilled;
         console.log("selfProfile: ", data);
       },
