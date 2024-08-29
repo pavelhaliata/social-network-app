@@ -11,8 +11,7 @@ import { Loader } from "../shared/components";
 
 function App() {
   const isInitialized = useAppSelector((state) => state.app.initialized);
-  const { data } = useAuthMeQuery();
-  console.log("isAuthenticated: ", data);
+  const {} = useAuthMeQuery();
 
   const router = createBrowserRouter([
     {

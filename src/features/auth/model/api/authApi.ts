@@ -13,7 +13,6 @@ export const authApi = baseApi.injectEndpoints({
       async onQueryStarted(_args, { dispatch, queryFulfilled }) {
         try {
           const { data } = await queryFulfilled;
-          console.log(data);
           if (data.resultCode === 0) {
             dispatch(isAuthenticated({ isAuthenticated: true }));
             dispatch(setAuthUserData(data.data));
@@ -21,12 +20,16 @@ export const authApi = baseApi.injectEndpoints({
             dispatch(isAuthenticated({ isAuthenticated: false }));
           }
         } catch (e) {
+          console.error(e);
         } finally {
           dispatch(initializeApp());
         }
       },
     }),
-    login: builder.mutation<ResponseSchema<{ userId: number }>, LoginData>({
+    login: builder.mutation<
+      ResponseSchema<{ token: number; userId: number }>,
+      LoginData
+    >({
       query: (data) => ({
         method: "POST",
         url: "auth/login",
@@ -37,6 +40,8 @@ export const authApi = baseApi.injectEndpoints({
           const { data } = await queryFulfilled;
           if (data.resultCode === 0) {
             dispatch(isAuthenticated({ isAuthenticated: true }));
+          } else {
+            // console.log(data.messages);
           }
         } catch (e) {
           console.error(e);

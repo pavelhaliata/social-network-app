@@ -1,23 +1,36 @@
 import { Button, Checkbox, Input } from "antd";
 import frontImg from "../../../shared/assets/img/frontImg.jpg";
 import { LockTwoTone, MailTwoTone } from "@ant-design/icons";
-import { Controller, SubmitHandler, useForm } from "react-hook-form";
+import {
+  Controller,
+  SubmitHandler,
+  useForm,
+  UseFormSetError,
+} from "react-hook-form";
 import { LoginData } from "../model/types/authType.ts";
 
 type Props = {
-  onSubmit: (data: LoginData) => void;
+  onSubmit: (data: LoginData, setError: UseFormSetError<LoginData>) => void;
 };
 
 export const SignInForm = ({ onSubmit }: Props) => {
-  const { control, handleSubmit } = useForm({
+  const {
+    control,
+    handleSubmit,
+    formState: { errors, isDirty },
+    setError,
+  } = useForm({
+    mode: "onBlur",
     defaultValues: {
       email: "",
       password: "",
       rememberMe: false,
+      captcha: "",
     },
   });
+
   const onSubmitHandler: SubmitHandler<LoginData> = (data) => {
-    onSubmit(data);
+    onSubmit(data, setError);
   };
 
   return (
@@ -52,10 +65,21 @@ export const SignInForm = ({ onSubmit }: Props) => {
               </div>
               <form onSubmit={handleSubmit(onSubmitHandler)}>
                 <div className="mt-8">
-                  <div className="flex items-center h-12 w-full my-3">
+                  <div className="h-12 w-full my-4">
                     <Controller
                       name="email"
                       control={control}
+                      rules={{
+                        pattern: {
+                          value:
+                            /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/,
+                          message: "Email incorrect",
+                        },
+                        required: {
+                          value: true,
+                          message: "Required field",
+                        },
+                      }}
                       render={({ field }) => (
                         <Input
                           size={"large"}
@@ -65,17 +89,25 @@ export const SignInForm = ({ onSubmit }: Props) => {
                           {...field}
                         />
                       )}
-                      rules={{
-                        pattern:
-                          /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/,
-                        required: true,
-                      }}
                     />
+                    <div className="text-danger-500 text-sm font-medium">
+                      {errors.email ? (
+                        <p>{errors.email.message}</p>
+                      ) : errors.root?.serverError ? (
+                        <p>{errors.root.serverError.message}</p>
+                      ) : null}
+                    </div>
                   </div>
-                  <div className="flex items-center h-12 w-full my-3">
+                  <div className="h-12 w-full my-4">
                     <Controller
                       name="password"
                       control={control}
+                      rules={{
+                        required: {
+                          value: true,
+                          message: "Required field",
+                        },
+                      }}
                       render={({ field }) => (
                         <Input
                           size={"large"}
@@ -86,6 +118,9 @@ export const SignInForm = ({ onSubmit }: Props) => {
                         />
                       )}
                     />
+                    <div className="text-danger-500 text-sm font-medium">
+                      {errors.password && <p>{errors.password.message}</p>}
+                    </div>
                   </div>
                   <div className="text-primary-500 font-medium">
                     <a
@@ -102,8 +137,9 @@ export const SignInForm = ({ onSubmit }: Props) => {
                       size="large"
                       className="w-full text-light-100"
                       htmlType="submit"
+                      disabled={isDirty}
                     >
-                      Sign in
+                      Sign In
                     </Button>
                   </div>
                   <div className="text-center text-light-900 font-medium mt-5 ">
@@ -111,14 +147,29 @@ export const SignInForm = ({ onSubmit }: Props) => {
                     <Checkbox />
                   </div>
                   <div className="text-center text-light-900 font-medium mt-5">
-                    Don't have an account?{" "}
+                    <span>Don't have an account?</span>{" "}
                     <a
                       href="https://social-network.samuraijs.com/signUp"
                       target="_blank"
                       className="text-primary-500 hover:underline hover:underline-offset-2"
                     >
-                      SigUp now
+                      Sign Up
                     </a>
+                    <br />
+                    <span className="">
+                      or use{" "}
+                      <span
+                        className="text-primary-500 hover:underline hover:underline-offset-2 cursor-pointer"
+                        onClick={() => {
+                          onSubmitHandler({
+                            email: "free@samuraijs.com",
+                            password: "free",
+                          });
+                        }}
+                      >
+                        a demo account
+                      </span>
+                    </span>
                   </div>
                 </div>
               </form>
