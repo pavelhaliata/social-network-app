@@ -1,4 +1,4 @@
-import { Button, Checkbox, Input } from "antd";
+import { Button, Checkbox, Form, Input } from "antd";
 import frontImg from "../../../shared/assets/img/frontImg.jpg";
 import { LockTwoTone, MailTwoTone } from "@ant-design/icons";
 import {
@@ -30,6 +30,7 @@ export const SignInForm = ({ onSubmit }: Props) => {
   });
 
   const onSubmitHandler: SubmitHandler<LoginData> = (data) => {
+    console.log(data);
     onSubmit(data, setError);
   };
 
@@ -63,7 +64,7 @@ export const SignInForm = ({ onSubmit }: Props) => {
               >
                 Login
               </div>
-              <form onSubmit={handleSubmit(onSubmitHandler)}>
+              <Form onSubmitCapture={handleSubmit(onSubmitHandler)}>
                 <div className="mt-8">
                   <div className="h-12 w-full my-4">
                     <Controller
@@ -91,11 +92,7 @@ export const SignInForm = ({ onSubmit }: Props) => {
                       )}
                     />
                     <div className="text-danger-500 text-sm font-medium">
-                      {errors.email ? (
-                        <p>{errors.email.message}</p>
-                      ) : errors.root?.serverError ? (
-                        <p>{errors.root.serverError.message}</p>
-                      ) : null}
+                      {errors.email && <p>{errors.email.message}</p>}
                     </div>
                   </div>
                   <div className="h-12 w-full my-4">
@@ -119,7 +116,11 @@ export const SignInForm = ({ onSubmit }: Props) => {
                       )}
                     />
                     <div className="text-danger-500 text-sm font-medium">
-                      {errors.password && <p>{errors.password.message}</p>}
+                      {errors.password ? (
+                        <p>{errors.password.message}</p>
+                      ) : errors.root?.serverError ? (
+                        <p>{errors.root.serverError.message}</p>
+                      ) : null}
                     </div>
                   </div>
                   <div className="text-primary-500 font-medium">
@@ -137,14 +138,25 @@ export const SignInForm = ({ onSubmit }: Props) => {
                       size="large"
                       className="w-full text-light-100"
                       htmlType="submit"
-                      disabled={isDirty}
+                      // disabled={""}
                     >
                       Sign In
                     </Button>
                   </div>
                   <div className="text-center text-light-900 font-medium mt-5 ">
-                    <span className="">Remember me: </span>
-                    <Checkbox />
+                    <span>Remember me: </span>
+                    <Controller
+                      control={control}
+                      name="rememberMe"
+                      render={({ field: { onChange, value, name, ref } }) => (
+                        <Checkbox
+                          name={name}
+                          onChange={onChange}
+                          checked={value}
+                          ref={ref}
+                        />
+                      )}
+                    />
                   </div>
                   <div className="text-center text-light-900 font-medium mt-5">
                     <span>Don't have an account?</span>{" "}
@@ -172,7 +184,7 @@ export const SignInForm = ({ onSubmit }: Props) => {
                     </span>
                   </div>
                 </div>
-              </form>
+              </Form>
             </div>
           </div>
         </div>
