@@ -159,7 +159,7 @@ export const SignInForm = ({ onSubmit }: Props) => {
                     />
                   </div>
                   <div className="text-center text-light-900 font-medium mt-5">
-                    <span>Don't have an account?</span>{" "}
+                    <p>Don't have an account?</p>{" "}
                     <a
                       href="https://social-network.samuraijs.com/signUp"
                       target="_blank"
@@ -168,20 +168,20 @@ export const SignInForm = ({ onSubmit }: Props) => {
                       Sign Up
                     </a>
                     <br />
-                    <span className="">
+                    <p>
                       or use{" "}
                       <span
                         className="text-primary-500 hover:underline hover:underline-offset-2 cursor-pointer"
                         onClick={() => {
                           onSubmitHandler({
-                            email: "free@samuraijs.com",
-                            password: "free",
+                            email: import.meta.env.VITE_TEST_ACC_EMAIL,
+                            password: import.meta.env.VITE_TEST_ACC_PASSWORD,
                           });
                         }}
                       >
                         a demo account
                       </span>
-                    </span>
+                    </p>
                   </div>
                 </div>
               </Form>

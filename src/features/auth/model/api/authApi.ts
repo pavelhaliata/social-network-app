@@ -10,6 +10,7 @@ export const authApi = baseApi.injectEndpoints({
       query: () => ({
         url: "auth/me",
       }),
+      providesTags: ["authMe"],
       async onQueryStarted(_args, { dispatch, queryFulfilled }) {
         try {
           const { data } = await queryFulfilled;
@@ -35,13 +36,32 @@ export const authApi = baseApi.injectEndpoints({
         url: "auth/login",
         body: data,
       }),
+      invalidatesTags: ["authMe"],
       async onQueryStarted(_args, { dispatch, queryFulfilled }) {
         try {
           const { data } = await queryFulfilled;
           if (data.resultCode === 0) {
             dispatch(isAuthenticated({ isAuthenticated: true }));
           } else {
-            // console.log(data.messages);
+            console.log(data.messages);
+          }
+        } catch (e) {
+          console.error(e);
+        }
+      },
+    }),
+    logout: builder.mutation<ResponseSchema, void>({
+      query: () => ({
+        method: "DELETE",
+        url: "/auth/login",
+      }),
+      async onQueryStarted(_args, { dispatch, queryFulfilled }) {
+        try {
+          const { data } = await queryFulfilled;
+          if (data.resultCode === 0) {
+            dispatch(isAuthenticated({ isAuthenticated: false }));
+          } else {
+            console.log(data.messages);
           }
         } catch (e) {
           console.error(e);
@@ -52,4 +72,4 @@ export const authApi = baseApi.injectEndpoints({
   overrideExisting: true,
 });
 
-export const { useLoginMutation, useAuthMeQuery } = authApi;
+export const { useAuthMeQuery, useLoginMutation, useLogoutMutation } = authApi;

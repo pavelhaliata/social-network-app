@@ -1,32 +1,35 @@
 import { AppLayout } from "../widgets";
 import { useAppSelector } from "./store";
 import { useAuthMeQuery } from "../features/auth/model/api/authApi.ts";
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import {
+  createBrowserRouter,
+  Navigate,
+  RouterProvider,
+} from "react-router-dom";
 import { ProtectedRoute } from "./hoc/ProtectedRoute.tsx";
 import { SelfProfilePage } from "../pages/selfProfilePage";
 import { UsersPage } from "../pages/usersPage";
 import { UserProfile } from "../entities/users";
 import { SightInPage } from "../pages/auth";
 import { Loader } from "../shared/components";
+import { PageError } from "../shared/components/PageError/PageError.tsx";
 
-function App() {
+export const App = () => {
   const isInitialized = useAppSelector((state) => state.app.initialized);
-  const {} = useAuthMeQuery();
+  const { data } = useAuthMeQuery();
 
   const router = createBrowserRouter([
+    {
+      path: "/",
+      element: <Navigate to="/self-profile" replace />,
+      errorElement: <PageError />,
+    },
     {
       path: "/",
       element: (
         <ProtectedRoute>
           <AppLayout />
         </ProtectedRoute>
-      ),
-      errorElement: (
-        <div className="h-screen flex items-center justify-center">
-          <span className="text-dark-300 text-3xl font-bold">
-            404 ooops! page not found...
-          </span>
-        </div>
       ),
       children: [
         {
@@ -70,6 +73,4 @@ function App() {
   }
 
   return <RouterProvider router={router} />;
-}
-
-export default App;
+};

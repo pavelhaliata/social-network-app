@@ -33,13 +33,7 @@ export const Users = React.memo(() => {
   return (
     <div>
       <Flex gap={10} className="mb-10">
-        <form
-          style={{
-            display: "flex",
-            gap: 10,
-            width: "100%",
-          }}
-        >
+        <form className="flex gap-2.5 w-full">
           <Input
             variant="filled"
             placeholder="Serch users"
