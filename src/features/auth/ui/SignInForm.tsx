@@ -138,7 +138,7 @@ export const SignInForm = ({ onSubmit }: Props) => {
                       size="large"
                       className="w-full text-light-100"
                       htmlType="submit"
-                      // disabled={""}
+                      // disabled={""} TODO: добавить дизэйбл
                     >
                       Sign In
                     </Button>

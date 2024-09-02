@@ -1,6 +1,6 @@
 import { baseApi } from "../../../shared/api";
-import { UserProfileTypes } from "./types/userProfileTypes.ts";
 import { ResponseSchema } from "../../../shared/api/types";
+import { UserProfileTypes } from "./userProfileTypes.ts";
 
 export const getUserProfileApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({

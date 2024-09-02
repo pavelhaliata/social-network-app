@@ -8,7 +8,7 @@ export type UsersRequest = {
   currentPage?: number;
   pageSize?: number;
   search?: string;
-  followed?: boolean;
+  followed?: boolean | string;
 };
 
 export type UserType = {

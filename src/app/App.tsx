@@ -33,10 +33,18 @@ export const App = () => {
       ),
       children: [
         {
-          path: "self-profile",
+          path: "self-profile/*",
           element: (
             <ProtectedRoute>
               <SelfProfilePage />
+            </ProtectedRoute>
+          ),
+        },
+        {
+          path: "/edit-profile",
+          element: (
+            <ProtectedRoute>
+              <div>edit profile</div>
             </ProtectedRoute>
           ),
         },
@@ -49,7 +57,7 @@ export const App = () => {
           ),
         },
         {
-          path: "users/:id",
+          path: "users/:id/*",
           element: (
             <ProtectedRoute>
               <UserProfile />
