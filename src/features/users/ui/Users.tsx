@@ -79,7 +79,7 @@ export const Users = React.memo(() => {
           </Button>
         </form>
         <Select
-          defaultValue={followed}
+          defaultValue={followed} // TODO: исправить типизацию
           className="max-w-[120px] w-full"
           loading={isLoading}
           onChange={handleFollowChange}

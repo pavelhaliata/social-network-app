@@ -1,4 +1,3 @@
-import { AppLayout } from "../widgets";
 import { useAppSelector } from "./store";
 import { useAuthMeQuery } from "../features/auth/model/api/authApi.ts";
 import {
@@ -6,13 +5,13 @@ import {
   Navigate,
   RouterProvider,
 } from "react-router-dom";
+import { AppLayout } from "../widgets";
+import { Loader, PageError } from "../shared/components";
 import { ProtectedRoute } from "./hoc/ProtectedRoute.tsx";
-import { SelfProfilePage } from "../pages/selfProfilePage";
-import { UsersPage } from "../pages/usersPage";
+import { SelfProfilePage } from "../pages/selfProfile";
+import { UsersPage } from "../pages/users";
 import { UserProfile } from "../entities/users";
 import { SightInPage } from "../pages/auth";
-import { Loader } from "../shared/components";
-import { PageError } from "../shared/components/PageError/PageError.tsx";
 
 export const App = () => {
   const isInitialized = useAppSelector((state) => state.app.initialized);
@@ -33,7 +32,7 @@ export const App = () => {
       ),
       children: [
         {
-          path: "self-profile/*",
+          path: "self-profile",
           element: (
             <ProtectedRoute>
               <SelfProfilePage />
@@ -41,7 +40,7 @@ export const App = () => {
           ),
         },
         {
-          path: "/edit-profile",
+          path: "edit-profile",
           element: (
             <ProtectedRoute>
               <div>edit profile</div>

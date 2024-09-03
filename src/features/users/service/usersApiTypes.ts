@@ -1,5 +1,5 @@
 export type UsersResponse = {
-  items: UserType[];
+  items: UserInfo[];
   totalCount: number;
   error: string;
 };
@@ -11,7 +11,7 @@ export type UsersRequest = {
   followed?: boolean | string;
 };
 
-export type UserType = {
+export type UserInfo = {
   name: string;
   id: number;
   photos: {

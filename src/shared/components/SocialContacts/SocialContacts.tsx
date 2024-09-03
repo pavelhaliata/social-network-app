@@ -1,4 +1,3 @@
-import { UserProfileContacts } from "../service/types/userProfileTypes.ts";
 import { Popover } from "antd";
 import {
   FacebookOutlined,
@@ -7,9 +6,10 @@ import {
   TwitterOutlined,
   YoutubeOutlined,
 } from "@ant-design/icons";
+import { UserSocialContacts } from "../../../entities/users/model/types/userProfileType.ts";
 
 type Props = {
-  contacts: UserProfileContacts | undefined;
+  contacts?: UserSocialContacts;
 };
 
 export const SocialContacts = ({ contacts }: Props) => {

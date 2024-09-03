@@ -1,6 +1,6 @@
-export type UserProfileTypes = {
+export type UserProfile = {
   aboutMe: string;
-  contacts: UserProfileContacts;
+  contacts: UserSocialContacts;
   lookingForAJob: boolean;
   lookingForAJobDescription: string;
   fullName: string;
@@ -10,7 +10,8 @@ export type UserProfileTypes = {
     large: string;
   };
 };
-export type UserProfileContacts = {
+
+export type UserSocialContacts = {
   facebook: string;
   website: string;
   vk: string;

@@ -1,10 +1,10 @@
-import { baseApi } from "../../../shared/api";
-import { ResponseSchema } from "../../../shared/api/types";
-import { UserProfileTypes } from "./userProfileTypes.ts";
+import { baseApi } from "../../../../shared/api";
+import { ResponseSchema } from "../../../../shared/api/types";
+import { UserProfile } from "../types/userProfileType.ts";
 
 export const getUserProfileApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
-    getUserProfile: builder.query<UserProfileTypes, number>({
+    getUserProfile: builder.query<UserProfile, number>({
       query: (userId: number) => `/profile/${userId}`,
     }),
     getUserStatus: builder.query<string, number>({

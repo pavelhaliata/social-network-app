@@ -2,7 +2,7 @@ import { baseApi } from "../../../shared/api";
 
 export const selfProfileApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
-    getAuthData: builder.query({
+    editProfile: builder.query({
       query: () => ({
         method: "PUT",
         url: "profile",
@@ -15,4 +15,4 @@ export const selfProfileApi = baseApi.injectEndpoints({
   }),
 });
 
-export const { useGetAuthDataQuery } = selfProfileApi;
+export const { useEditProfileQuery } = selfProfileApi;

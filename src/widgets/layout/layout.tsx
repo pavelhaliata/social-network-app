@@ -52,7 +52,7 @@ export const AppLayout = () => {
             {
               key: "self-profile",
               icon: <UserOutlined />,
-              label: <Link to="self-profile">Profile</Link>,
+              label: <Link to="self-profile">My Profile</Link>,
             },
             {
               key: "users",
@@ -80,7 +80,7 @@ export const AppLayout = () => {
               height: 64,
             }}
           />
-          <h4 className="text-light-900">{userLogin}</h4>
+          <h3 className="text-light-900">{userLogin}</h3>
           <Button
             type="primary"
             onClick={() => {
