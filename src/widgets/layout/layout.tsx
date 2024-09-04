@@ -6,7 +6,7 @@ import {
   UserOutlined,
   WechatOutlined,
 } from "@ant-design/icons";
-import { Button, Layout, Menu } from "antd";
+import { Avatar, Button, Layout, Menu } from "antd";
 import { Link, matchPath, Outlet, useLocation } from "react-router-dom";
 import { useAppSelector } from "../../app/store";
 import { useLogoutMutation } from "../../features/auth/model/api/authApi.ts";
@@ -30,9 +30,10 @@ export const AppLayout = () => {
   const [collapsed, setCollapsed] = useState<boolean>(false);
 
   const routeMatch = useRouteMatch(["self-profile", "users", "chat"]);
-  const currentTab = routeMatch?.pattern?.path || "self-profile";
+  const currentTab = routeMatch?.pattern?.path || "users";
 
   const userLogin = useAppSelector((state) => state.auth.authUserData.login);
+  const userPhoto = useAppSelector((state) => state.app);
   const [signOut] = useLogoutMutation();
 
   return (
@@ -81,14 +82,20 @@ export const AppLayout = () => {
             }}
           />
           <h3 className="text-light-900">{userLogin}</h3>
-          <Button
-            type="primary"
-            onClick={() => {
-              signOut();
-            }}
-          >
-            Log Out
-          </Button>
+          <Avatar
+            size="large"
+            style={{ backgroundColor: "#326af3" }}
+            icon={<UserOutlined />}
+            className="cursor-pointer"
+          />
+          {/*<Button*/}
+          {/*  type="primary"*/}
+          {/*  onClick={() => {*/}
+          {/*    signOut();*/}
+          {/*  }}*/}
+          {/*>*/}
+          {/*  Log Out*/}
+          {/*</Button>*/}
         </Header>
         <Content className="min-h-[85vh] my-6 mx-4 p-6 rounded-lg bg-light-100">
           <Outlet />

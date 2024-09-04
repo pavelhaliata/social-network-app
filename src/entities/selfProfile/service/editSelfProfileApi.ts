@@ -1,6 +1,6 @@
 import { baseApi } from "../../../shared/api";
 
-export const selfProfileApi = baseApi.injectEndpoints({
+export const editSelfProfileApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
     editProfile: builder.query({
       query: () => ({
@@ -15,4 +15,4 @@ export const selfProfileApi = baseApi.injectEndpoints({
   }),
 });
 
-export const { useEditProfileQuery } = selfProfileApi;
+export const { useEditProfileQuery } = editSelfProfileApi;

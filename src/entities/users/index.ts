@@ -1,4 +1,4 @@
-import { UserCard } from "./ui/UserCard.tsx";
 import { UserProfile } from "./ui/UserProfile.tsx";
+import { UserCard } from "./ui/UserCard.tsx";
 
-export { UserCard, UserProfile };
+export { UserProfile, UserCard };

@@ -10,12 +10,13 @@ import { Loader, PageError } from "../shared/components";
 import { ProtectedRoute } from "./hoc/ProtectedRoute.tsx";
 import { SelfProfilePage } from "../pages/selfProfile";
 import { UsersPage } from "../pages/users";
-import { UserProfile } from "../entities/users";
 import { SightInPage } from "../pages/auth";
+import { UserProfilePage } from "../pages/userProfile";
+import { EditSelfProfilePage } from "../pages/editSelfProfile";
 
 export const App = () => {
   const isInitialized = useAppSelector((state) => state.app.initialized);
-  const { data } = useAuthMeQuery();
+  useAuthMeQuery();
 
   const router = createBrowserRouter([
     {
@@ -43,7 +44,7 @@ export const App = () => {
           path: "edit-profile",
           element: (
             <ProtectedRoute>
-              <div>edit profile</div>
+              <EditSelfProfilePage />
             </ProtectedRoute>
           ),
         },
@@ -59,7 +60,7 @@ export const App = () => {
           path: "users/:id/*",
           element: (
             <ProtectedRoute>
-              <UserProfile />
+              <UserProfilePage />
             </ProtectedRoute>
           ),
         },
