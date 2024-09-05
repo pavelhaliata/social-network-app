@@ -9,7 +9,7 @@ import {
 import { Button, Layout, Menu } from "antd";
 import { Link, matchPath, Outlet, useLocation } from "react-router-dom";
 import { useAppSelector } from "../../app/store";
-import { LogOutButton } from "../../shared/components/LogOutButton/LogOutButton.tsx";
+import { TopProfileLink } from "../../shared/components/LogOutButton/TopProfileLink.tsx";
 import { useLogoutMutation } from "../../features/auth/model/api/authApi.ts";
 
 const { Header, Sider, Content, Footer } = Layout;
@@ -31,6 +31,7 @@ export const AppLayout = () => {
   const [collapsed, setCollapsed] = useState<boolean>(false);
 
   const routeMatch = useRouteMatch(["self-profile", "users", "chat"]);
+
   const currentTab = routeMatch?.pattern?.path || "";
 
   const userLogin = useAppSelector<string>(
@@ -41,8 +42,12 @@ export const AppLayout = () => {
   );
   const [logOut] = useLogoutMutation();
 
-  const logOutHandler = () => {
-    logOut();
+  const logOutHandler = async () => {
+    try {
+      await logOut().unwrap();
+    } catch (e) {
+      console.error(e);
+    }
   };
 
   return (
@@ -90,13 +95,11 @@ export const AppLayout = () => {
               height: 64,
             }}
           />
-          <div>
-            <LogOutButton
-              userLogin={userLogin}
-              userPhoto={userPhoto}
-              logOutCallback={logOutHandler}
-            />
-          </div>
+          <TopProfileLink
+            userLogin={userLogin}
+            userPhoto={userPhoto}
+            logOutCallback={logOutHandler}
+          />
         </Header>
         <Content className="min-h-[85vh] my-6 mx-4 p-6 rounded-lg bg-light-100">
           <Outlet />

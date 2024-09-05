@@ -159,7 +159,7 @@ export const SignInForm = ({ onSubmit }: Props) => {
                     />
                   </div>
                   <div className="text-center text-light-900 font-medium mt-5">
-                    <p>Don't have an account?</p>{" "}
+                    <p className="inline">Don't have an account? </p>
                     <a
                       href="https://social-network.samuraijs.com/signUp"
                       target="_blank"

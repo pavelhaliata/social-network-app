@@ -13,7 +13,8 @@ export const selfProfileApi = baseApi.injectEndpoints({
           const { data: res } = await queryFulfilled;
           dispatch(selfProfile(res));
         } catch (e) {
-          console.error(e);
+          const messageError = e as { error: { data: { message: string } } };
+          console.error(messageError.error.data.message);
         }
       },
     }),
