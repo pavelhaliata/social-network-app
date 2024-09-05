@@ -1,16 +1,18 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { AuthUserData } from "../types/authType.ts";
 
+const initialState: { authUserData: AuthUserData; isAuthenticated: boolean } = {
+  authUserData: {
+    id: null,
+    login: "",
+    email: "",
+  },
+  isAuthenticated: false,
+};
+
 export const authSlice = createSlice({
   name: "auth",
-  initialState: {
-    authUserData: {
-      id: 0,
-      email: "",
-      login: "",
-    },
-    isAuthenticated: false,
-  },
+  initialState,
   reducers: {
     isAuthenticated: (
       state,

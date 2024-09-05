@@ -13,10 +13,12 @@ import { UsersPage } from "../pages/users";
 import { SightInPage } from "../pages/auth";
 import { UserProfilePage } from "../pages/userProfile";
 import { EditSelfProfilePage } from "../pages/editSelfProfile";
+import { useUserProfileData } from "../entities/selfProfile/lib/hooks/useUserProfileData.ts";
 
 export const App = () => {
   const isInitialized = useAppSelector((state) => state.app.initialized);
   useAuthMeQuery();
+  useUserProfileData();
 
   const router = createBrowserRouter([
     {

@@ -13,10 +13,10 @@ export const authApi = baseApi.injectEndpoints({
       providesTags: ["authMe"],
       async onQueryStarted(_args, { dispatch, queryFulfilled }) {
         try {
-          const { data } = await queryFulfilled;
-          if (data.resultCode === 0) {
+          const { data: res } = await queryFulfilled;
+          if (res.resultCode === 0) {
             dispatch(isAuthenticated({ isAuthenticated: true }));
-            dispatch(setAuthUserData(data.data));
+            dispatch(setAuthUserData(res.data));
           } else {
             dispatch(isAuthenticated({ isAuthenticated: false }));
           }
@@ -39,11 +39,11 @@ export const authApi = baseApi.injectEndpoints({
       invalidatesTags: ["authMe"],
       async onQueryStarted(_args, { dispatch, queryFulfilled }) {
         try {
-          const { data } = await queryFulfilled;
-          if (data.resultCode === 0) {
+          const { data: res } = await queryFulfilled;
+          if (res.resultCode === 0) {
             dispatch(isAuthenticated({ isAuthenticated: true }));
           } else {
-            console.log(data.messages);
+            console.log(res.messages);
           }
         } catch (e) {
           console.error(e);

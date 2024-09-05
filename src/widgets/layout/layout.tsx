@@ -6,9 +6,10 @@ import {
   UserOutlined,
   WechatOutlined,
 } from "@ant-design/icons";
-import { Avatar, Button, Layout, Menu } from "antd";
+import { Button, Layout, Menu } from "antd";
 import { Link, matchPath, Outlet, useLocation } from "react-router-dom";
 import { useAppSelector } from "../../app/store";
+import { LogOutButton } from "../../shared/components/LogOutButton/LogOutButton.tsx";
 import { useLogoutMutation } from "../../features/auth/model/api/authApi.ts";
 
 const { Header, Sider, Content, Footer } = Layout;
@@ -30,11 +31,19 @@ export const AppLayout = () => {
   const [collapsed, setCollapsed] = useState<boolean>(false);
 
   const routeMatch = useRouteMatch(["self-profile", "users", "chat"]);
-  const currentTab = routeMatch?.pattern?.path || "users";
+  const currentTab = routeMatch?.pattern?.path || "";
 
-  const userLogin = useAppSelector((state) => state.auth.authUserData.login);
-  const userPhoto = useAppSelector((state) => state.app);
-  const [signOut] = useLogoutMutation();
+  const userLogin = useAppSelector<string>(
+    (state) => state.auth.authUserData.login,
+  );
+  const userPhoto = useAppSelector<string>(
+    (state) => state.profile.selfProfile.photos.large,
+  );
+  const [logOut] = useLogoutMutation();
+
+  const logOutHandler = () => {
+    logOut();
+  };
 
   return (
     <Layout className="max-w-[1380px] m-auto ">
@@ -81,21 +90,13 @@ export const AppLayout = () => {
               height: 64,
             }}
           />
-          <h3 className="text-light-900">{userLogin}</h3>
-          <Avatar
-            size="large"
-            style={{ backgroundColor: "#326af3" }}
-            icon={<UserOutlined />}
-            className="cursor-pointer"
-          />
-          {/*<Button*/}
-          {/*  type="primary"*/}
-          {/*  onClick={() => {*/}
-          {/*    signOut();*/}
-          {/*  }}*/}
-          {/*>*/}
-          {/*  Log Out*/}
-          {/*</Button>*/}
+          <div>
+            <LogOutButton
+              userLogin={userLogin}
+              userPhoto={userPhoto}
+              logOutCallback={logOutHandler}
+            />
+          </div>
         </Header>
         <Content className="min-h-[85vh] my-6 mx-4 p-6 rounded-lg bg-light-100">
           <Outlet />

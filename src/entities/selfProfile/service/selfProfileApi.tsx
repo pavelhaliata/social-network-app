@@ -10,9 +10,11 @@ export const selfProfileApi = baseApi.injectEndpoints({
       }),
       async onQueryStarted(_args, { dispatch, queryFulfilled }) {
         try {
-          const res = await queryFulfilled;
-          dispatch(selfProfile(res.data));
-        } catch (e) {}
+          const { data: res } = await queryFulfilled;
+          dispatch(selfProfile(res));
+        } catch (e) {
+          console.error(e);
+        }
       },
     }),
   }),
