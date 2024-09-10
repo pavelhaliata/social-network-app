@@ -21,7 +21,8 @@ export const authApi = baseApi.injectEndpoints({
             dispatch(isAuthenticated({ isAuthenticated: false }));
           }
         } catch (e) {
-          console.error(e);
+          const messageError = e as { error: { data: { message: string } } };
+          console.error(messageError.error.data.message);
         } finally {
           dispatch(initializeApp());
         }
@@ -46,7 +47,8 @@ export const authApi = baseApi.injectEndpoints({
             console.log(res.messages);
           }
         } catch (e) {
-          console.error(e);
+          const messageError = e as { error: { data: { message: string } } };
+          console.error(messageError.error.data.message);
         }
       },
     }),
@@ -57,14 +59,15 @@ export const authApi = baseApi.injectEndpoints({
       }),
       async onQueryStarted(_args, { dispatch, queryFulfilled }) {
         try {
-          const { data } = await queryFulfilled;
-          if (data.resultCode === 0) {
+          const { data: res } = await queryFulfilled;
+          if (res.resultCode === 0) {
             dispatch(isAuthenticated({ isAuthenticated: false }));
           } else {
-            console.log(data.messages);
+            console.log(res.messages);
           }
         } catch (e) {
-          console.error(e);
+          const messageError = e as { error: { data: { message: string } } };
+          console.error(messageError.error.data.message);
         }
       },
     }),

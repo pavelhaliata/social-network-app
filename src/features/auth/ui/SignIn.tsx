@@ -5,9 +5,7 @@ import { useAppSelector } from "../../../app/store";
 import { Navigate } from "react-router-dom";
 import { UseFormSetError } from "react-hook-form";
 
-type Props = {};
-
-export const SignIn = ({}: Props) => {
+export const SignIn = () => {
   const isLoggedIn = useAppSelector<boolean>(
     (state) => state.auth.isAuthenticated,
   );
@@ -24,7 +22,9 @@ export const SignIn = ({}: Props) => {
           message: response.messages[0],
         });
       }
-    } catch (e) {}
+    } catch (e) {
+      console.error(e);
+    }
   };
 
   if (isLoggedIn) {

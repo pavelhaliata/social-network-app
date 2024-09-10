@@ -11,6 +11,7 @@ import { Link, matchPath, Outlet, useLocation } from "react-router-dom";
 import { useAppSelector } from "../../app/store";
 import { TopProfileLink } from "../../shared/components/LogOutButton/TopProfileLink.tsx";
 import { useLogoutMutation } from "../../features/auth/model/api/authApi.ts";
+import { useUserProfileData } from "../../entities/selfProfile/lib/hooks/useUserProfileData.ts";
 
 const { Header, Sider, Content, Footer } = Layout;
 
@@ -42,6 +43,8 @@ export const AppLayout = () => {
   );
   const [logOut] = useLogoutMutation();
 
+  useUserProfileData();
+
   const logOutHandler = async () => {
     try {
       await logOut().unwrap();
@@ -51,7 +54,7 @@ export const AppLayout = () => {
   };
 
   return (
-    <Layout className="max-w-[1380px] m-auto ">
+    <Layout className="max-w-[1380px] m-auto">
       <Sider trigger={null} collapsible collapsed={collapsed}>
         {!collapsed && (
           <h2 className="text-center text-base font-semibold text-light-700 my-4">

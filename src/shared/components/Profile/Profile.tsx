@@ -18,9 +18,7 @@ export const Profile = ({ userProfile, userStatus }: Props) => {
           <Image
             src={userProfile?.photos.large}
             alt="user logo"
-            width={200}
-            height={200}
-            className="max-w-52 w-full object-cover rounded-lg"
+            className="max-w-[200px] w-full object-cover rounded-lg"
           />
         ) : (
           <Avatar shape="square" size={164} icon={<UserOutlined />} />

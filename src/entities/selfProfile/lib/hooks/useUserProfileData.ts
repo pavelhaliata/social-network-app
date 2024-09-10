@@ -4,9 +4,7 @@ import { useGetSelfProfileQuery } from "../../service/selfProfileApi.tsx";
 import { useGetUserStatusQuery } from "../../../users/model/api/userProfileApi.ts";
 
 export const useUserProfileData = () => {
-  const userId = useAppSelector<number | null>(
-    (store) => store.auth.authUserData.id,
-  );
+  const userId = useAppSelector<number>((store) => store.auth.authUserData.id);
 
   const {
     data: userProfile,

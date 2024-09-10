@@ -5,7 +5,7 @@ export type LoginData = {
   captcha?: null | string;
 };
 export type AuthUserData = {
-  id: number | null;
+  id: number;
   email: string;
   login: string;
 };

@@ -12,21 +12,21 @@ export const getUserProfileApi = baseApi.injectEndpoints({
     }),
     getFollowUser: builder.query<boolean, number>({
       query: (userId) => `/follow/${userId}`,
-      providesTags: ["Follow"],
+      providesTags: ["follow"],
     }),
     followUser: builder.mutation<ResponseSchema, number>({
       query: (userId) => ({
         method: "POST",
         url: `/follow/${userId}`,
       }),
-      invalidatesTags: ["Follow", "Users"],
+      invalidatesTags: ["follow", "users"],
     }),
     unFollowUser: builder.mutation<ResponseSchema, number>({
       query: (userId) => ({
         method: "DELETE",
         url: `/follow/${userId}`,
       }),
-      invalidatesTags: ["Follow", "Users"],
+      invalidatesTags: ["follow", "users"],
     }),
   }),
 });

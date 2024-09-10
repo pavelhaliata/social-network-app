@@ -3,7 +3,7 @@ import { AuthUserData } from "../types/authType.ts";
 
 const initialState: { authUserData: AuthUserData; isAuthenticated: boolean } = {
   authUserData: {
-    id: null,
+    id: 0,
     login: "",
     email: "",
   },

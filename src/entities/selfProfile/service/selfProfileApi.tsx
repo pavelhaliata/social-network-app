@@ -8,6 +8,7 @@ export const selfProfileApi = baseApi.injectEndpoints({
       query: (userId) => ({
         url: `/profile/${userId}`,
       }),
+      providesTags: ["selfProfile"],
       async onQueryStarted(_args, { dispatch, queryFulfilled }) {
         try {
           const { data: res } = await queryFulfilled;
