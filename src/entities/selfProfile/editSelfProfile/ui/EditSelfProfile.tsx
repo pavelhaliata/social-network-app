@@ -1,13 +1,19 @@
 import { Controller, useForm } from "react-hook-form";
-import { Avatar, Button, Form, Input, Tooltip } from "antd";
+import { Avatar, Button, Dropdown, Form, Input, MenuProps, Modal } from "antd";
 import { useUserProfileData } from "../../lib/hooks/useUserProfileData.ts";
-import { ChangeEvent, useEffect } from "react";
-import { useEditProfileMutation } from "../../service/editSelfProfileApi.ts";
-import { UserOutlined } from "@ant-design/icons";
+import { ChangeEvent, useEffect, useRef, useState } from "react";
+import {
+  useEditPhotoProfileMutation,
+  useEditProfileMutation,
+} from "../../service/editSelfProfileApi.ts";
+import { DeleteTwoTone, EditTwoTone, UserOutlined } from "@ant-design/icons";
 
 export const EditSelfProfile = () => {
   const { userProfile, userStatus, isLoading } = useUserProfileData();
+  const inputFileRef = useRef<HTMLInputElement | null>(null);
+  const [profilePhotoUrl, setProfilePhotoUrl] = useState("");
   const [editUserProfile] = useEditProfileMutation();
+  const [editPhotoProfile] = useEditPhotoProfileMutation();
 
   const {
     control,
@@ -44,9 +50,53 @@ export const EditSelfProfile = () => {
 
   const uploadPhotoProfileHandler = (event: ChangeEvent<HTMLInputElement>) => {
     if (event.target.files?.length) {
-      console.log(event.target.files[0]);
+      // editPhotoProfile(event.target.files[0]).unwrap();
+      setProfilePhotoUrl(URL.createObjectURL(event.target.files[0]));
     }
   };
+
+  const handleImageClick = () => {
+    inputFileRef.current?.click();
+  };
+
+  const [open, setOpen] = useState(false);
+  const [confirmLoading, setConfirmLoading] = useState(false);
+
+  const showModal = () => {
+    setProfilePhotoUrl("");
+    setOpen(true);
+  };
+
+  const handleOk = () => {
+    handleImageClick();
+    // setConfirmLoading(true);
+  };
+
+  const handleCancel = () => {
+    console.log("Clicked cancel button");
+    setOpen(false);
+  };
+
+  const items: MenuProps["items"] = [
+    {
+      key: "1",
+      label: (
+        <>
+          <div onClick={showModal}>
+            <EditTwoTone /> <span>Change profile photo</span>
+          </div>
+        </>
+      ),
+    },
+    {
+      key: "2",
+      label: (
+        <div onClick={() => {}}>
+          <DeleteTwoTone /> <span>Delete profile photo</span>
+        </div>
+      ),
+    },
+  ];
 
   useEffect(() => {
     if (userProfile) {
@@ -69,9 +119,9 @@ export const EditSelfProfile = () => {
   }, [userProfile, reset]);
 
   return (
-    <div className="flex gap-x-4 ">
-      <div className="text-center cursor-pointer border">
-        <Tooltip title="Click to change profile photo" placement="bottom">
+    <div className="flex gap-x-4 items-start">
+      <div className="cursor-pointer">
+        <Dropdown trigger={["hover"]} menu={{ items }} placement="bottom">
           {userProfile?.photos.large ? (
             <img
               src={userProfile.photos.large}
@@ -83,9 +133,34 @@ export const EditSelfProfile = () => {
           ) : (
             <Avatar shape="square" size={164} icon={<UserOutlined />} />
           )}
-        </Tooltip>
+        </Dropdown>
+        <Modal
+          title="Uploading a new photo"
+          open={open}
+          onOk={handleOk}
+          okText="Select file"
+          confirmLoading={confirmLoading}
+          onCancel={handleCancel}
+        >
+          {profilePhotoUrl ? (
+            <div className="flex flex-col justify-center items-center gap-y-4">
+              <img
+                src={profilePhotoUrl}
+                alt="photo profile"
+                className="w-60 h-60 object-cover block"
+              />
+              <Button type="primary">Save changes</Button>
+            </div>
+          ) : (
+            <p>
+              It will be easier for your friends to recognize you if you upload
+              your real photo. You can upload the image in JPG, PNG format
+            </p>
+          )}
+        </Modal>
         <input
-          className=" "
+          ref={inputFileRef}
+          className="hidden"
           type="file"
           accept="image*/,.png,.jpeg"
           onChange={uploadPhotoProfileHandler}

@@ -23,8 +23,16 @@ export const editSelfProfileApi = baseApi.injectEndpoints({
         }
       },
     }),
+    editPhotoProfile: builder.mutation<ResponseSchema, File>({
+      query: (data) => ({
+        url: "photo",
+        method: "PUT",
+        body: data,
+      }),
+    }),
   }),
   overrideExisting: true,
 });
 
-export const { useEditProfileMutation } = editSelfProfileApi;
+export const { useEditProfileMutation, useEditPhotoProfileMutation } =
+  editSelfProfileApi;

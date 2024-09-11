@@ -36,7 +36,7 @@ export const TopProfileLink = ({
   return (
     <div>
       <p className="text-light-900 inline mr-2 cursor-default">{userLogin}</p>
-      <Dropdown menu={{ items }} trigger={["click"]} placement="bottom">
+      <Dropdown menu={{ items }} trigger={["hover"]} placement="bottom">
         <Avatar
           size="large"
           src={userPhoto}
