@@ -13,12 +13,13 @@ export const selfProfileApi = baseApi.injectEndpoints({
         try {
           const { data: res } = await queryFulfilled;
           dispatch(selfProfile(res));
-        } catch (e) {
-          const messageError = e as { error: { data: { message: string } } };
+        } catch (err) {
+          const messageError = err as { error: { data: { message: string } } };
           console.error(messageError.error.data.message);
         }
       },
     }),
   }),
+  overrideExisting: true,
 });
 export const { useGetSelfProfileQuery } = selfProfileApi;

@@ -17,13 +17,14 @@ export const editSelfProfileApi = baseApi.injectEndpoints({
           if (res.resultCode !== 0) {
             console.error(res.messages);
           }
-        } catch (e) {
-          const messageError = e as { error: { data: { message: string } } };
+        } catch (err) {
+          const messageError = err as { error: { data: { message: string } } };
           console.error(messageError.error.data.message);
         }
       },
     }),
   }),
+  overrideExisting: true,
 });
 
 export const { useEditProfileMutation } = editSelfProfileApi;

@@ -1,7 +1,7 @@
 import { Controller, useForm } from "react-hook-form";
-import { Avatar, Button, Form, Input } from "antd";
+import { Avatar, Button, Form, Input, Tooltip } from "antd";
 import { useUserProfileData } from "../../lib/hooks/useUserProfileData.ts";
-import { useEffect } from "react";
+import { ChangeEvent, useEffect } from "react";
 import { useEditProfileMutation } from "../../service/editSelfProfileApi.ts";
 import { UserOutlined } from "@ant-design/icons";
 
@@ -42,6 +42,12 @@ export const EditSelfProfile = () => {
     }
   };
 
+  const uploadPhotoProfileHandler = (event: ChangeEvent<HTMLInputElement>) => {
+    if (event.target.files?.length) {
+      console.log(event.target.files[0]);
+    }
+  };
+
   useEffect(() => {
     if (userProfile) {
       reset({
@@ -64,18 +70,26 @@ export const EditSelfProfile = () => {
 
   return (
     <div className="flex gap-x-4 ">
-      <div className=" text-center">
-        {userProfile?.photos.large ? (
-          <img
-            src={userProfile.photos.large}
-            alt="user logo"
-            width={190}
-            height={190}
-            className="max-w-[200px] w-full object-cover rounded-lg inline"
-          />
-        ) : (
-          <Avatar shape="square" size={164} icon={<UserOutlined />} />
-        )}
+      <div className="text-center cursor-pointer border">
+        <Tooltip title="Click to change profile photo" placement="bottom">
+          {userProfile?.photos.large ? (
+            <img
+              src={userProfile.photos.large}
+              alt="user logo"
+              width={190}
+              height={190}
+              className="max-w-[200px] w-full object-cover rounded-lg inline"
+            />
+          ) : (
+            <Avatar shape="square" size={164} icon={<UserOutlined />} />
+          )}
+        </Tooltip>
+        <input
+          className=" "
+          type="file"
+          accept="image*/,.png,.jpeg"
+          onChange={uploadPhotoProfileHandler}
+        />
       </div>
       <div className="w-3/4 ml-auto">
         <Form onSubmitCapture={handleSubmit(onSubmit)}>
@@ -84,16 +98,25 @@ export const EditSelfProfile = () => {
           <Controller
             name="fullName"
             control={control}
+            rules={{
+              required: {
+                value: true,
+                message: "Required field",
+              },
+            }}
             render={({ field }) => (
               <Input
                 id="fullName"
                 type="text"
                 placeholder="Enter your Full Name"
                 {...field}
-                className="mb-4"
+                className=""
               />
             )}
           />
+          <span className="text-danger-500 text-sm font-medium mb-4">
+            {errors.fullName && <p>{errors.fullName.message}</p>}
+          </span>
           <label>About me:</label>
           <Controller
             name="aboutMe"
@@ -107,7 +130,7 @@ export const EditSelfProfile = () => {
               />
             )}
           />
-          <label>My Skills:</label>
+          <label>My skills:</label>
           <Controller
             name="lookingForAJobDescription"
             control={control}
@@ -173,14 +196,14 @@ export const EditSelfProfile = () => {
               />
             )}
           />
-          <label>VKontakte link profile:</label>
+          <label>VK link profile:</label>
           <Controller
             name="contacts.vk"
             control={control}
             render={({ field }) => (
               <Input
                 type="text"
-                placeholder="Enter your VKontakte link profile"
+                placeholder="Enter your VK link profile"
                 {...field}
                 className="mb-4"
               />

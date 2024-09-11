@@ -20,8 +20,8 @@ export const authApi = baseApi.injectEndpoints({
           } else {
             dispatch(isAuthenticated({ isAuthenticated: false }));
           }
-        } catch (e) {
-          const messageError = e as { error: { data: { message: string } } };
+        } catch (err) {
+          const messageError = err as { error: { data: { message: string } } };
           console.error(messageError.error.data.message);
         } finally {
           dispatch(initializeApp());
@@ -46,8 +46,8 @@ export const authApi = baseApi.injectEndpoints({
           } else {
             console.log(res.messages);
           }
-        } catch (e) {
-          const messageError = e as { error: { data: { message: string } } };
+        } catch (err) {
+          const messageError = err as { error: { data: { message: string } } };
           console.error(messageError.error.data.message);
         }
       },
@@ -65,8 +65,8 @@ export const authApi = baseApi.injectEndpoints({
           } else {
             console.log(res.messages);
           }
-        } catch (e) {
-          const messageError = e as { error: { data: { message: string } } };
+        } catch (err) {
+          const messageError = err as { error: { data: { message: string } } };
           console.error(messageError.error.data.message);
         }
       },
