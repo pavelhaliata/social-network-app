@@ -23,12 +23,16 @@ export const editSelfProfileApi = baseApi.injectEndpoints({
         }
       },
     }),
-    editPhotoProfile: builder.mutation<ResponseSchema, FormData>({
+    editPhotoProfile: builder.mutation<
+      ResponseSchema<{ photos: { small: string; large: string } }>,
+      FormData
+    >({
       query: (data) => ({
         url: "profile/photo",
         method: "PUT",
         body: data,
       }),
+      invalidatesTags: ["selfProfile"],
     }),
   }),
   overrideExisting: true,

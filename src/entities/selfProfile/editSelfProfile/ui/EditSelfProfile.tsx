@@ -14,7 +14,7 @@ export const EditSelfProfile = () => {
   const [profilePhotoUrl, setProfilePhotoUrl] = useState("");
   const [open, setOpen] = useState(false);
   const [confirmLoading, setConfirmLoading] = useState(false);
-  const [file, setFile] = useState<File | Blob>("");
+  const [file, setFile] = useState<File | Blob | string>("");
   const [editUserProfile] = useEditProfileMutation();
   const [editPhotoProfile, { isLoading: isLoadingPhoto }] =
     useEditPhotoProfileMutation();
@@ -56,9 +56,13 @@ export const EditSelfProfile = () => {
     try {
       const formData = new FormData();
       formData.append("image", file);
-      const { data: res } = await editPhotoProfile(formData).unwrap();
-      console.log(res);
-    } catch (err) {}
+      const response = await editPhotoProfile(formData).unwrap();
+      if (response.resultCode === 0) {
+        setOpen(false);
+      }
+    } catch (err) {
+      console.error(err);
+    }
   };
 
   const uploadPhotoProfileHandler = (event: ChangeEvent<HTMLInputElement>) => {
