@@ -12,8 +12,12 @@ export const EditSelfProfile = () => {
   const { userProfile, userStatus, isLoading } = useUserProfileData();
   const inputFileRef = useRef<HTMLInputElement | null>(null);
   const [profilePhotoUrl, setProfilePhotoUrl] = useState("");
+  const [open, setOpen] = useState(false);
+  const [confirmLoading, setConfirmLoading] = useState(false);
+  const [file, setFile] = useState<File | Blob>("");
   const [editUserProfile] = useEditProfileMutation();
-  const [editPhotoProfile] = useEditPhotoProfileMutation();
+  const [editPhotoProfile, { isLoading: isLoadingPhoto }] =
+    useEditPhotoProfileMutation();
 
   const {
     control,
@@ -48,9 +52,18 @@ export const EditSelfProfile = () => {
     }
   };
 
+  const onSubmitPhotoFile = async () => {
+    try {
+      const formData = new FormData();
+      formData.append("image", file);
+      const { data: res } = await editPhotoProfile(formData).unwrap();
+      console.log(res);
+    } catch (err) {}
+  };
+
   const uploadPhotoProfileHandler = (event: ChangeEvent<HTMLInputElement>) => {
     if (event.target.files?.length) {
-      // editPhotoProfile(event.target.files[0]).unwrap();
+      setFile(event.target.files[0]);
       setProfilePhotoUrl(URL.createObjectURL(event.target.files[0]));
     }
   };
@@ -58,9 +71,6 @@ export const EditSelfProfile = () => {
   const handleImageClick = () => {
     inputFileRef.current?.click();
   };
-
-  const [open, setOpen] = useState(false);
-  const [confirmLoading, setConfirmLoading] = useState(false);
 
   const showModal = () => {
     setProfilePhotoUrl("");
@@ -73,7 +83,6 @@ export const EditSelfProfile = () => {
   };
 
   const handleCancel = () => {
-    console.log("Clicked cancel button");
     setOpen(false);
   };
 
@@ -139,7 +148,7 @@ export const EditSelfProfile = () => {
           open={open}
           onOk={handleOk}
           okText="Select file"
-          confirmLoading={confirmLoading}
+          confirmLoading={isLoadingPhoto}
           onCancel={handleCancel}
         >
           {profilePhotoUrl ? (
@@ -149,7 +158,9 @@ export const EditSelfProfile = () => {
                 alt="photo profile"
                 className="w-60 h-60 object-cover block"
               />
-              <Button type="primary">Save changes</Button>
+              <Button type="primary" onClick={onSubmitPhotoFile}>
+                Save changes
+              </Button>
             </div>
           ) : (
             <p>

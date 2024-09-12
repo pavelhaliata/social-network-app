@@ -23,9 +23,9 @@ export const editSelfProfileApi = baseApi.injectEndpoints({
         }
       },
     }),
-    editPhotoProfile: builder.mutation<ResponseSchema, File>({
+    editPhotoProfile: builder.mutation<ResponseSchema, FormData>({
       query: (data) => ({
-        url: "photo",
+        url: "profile/photo",
         method: "PUT",
         body: data,
       }),
