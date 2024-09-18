@@ -1,6 +1,6 @@
 import { baseApi } from "../../../shared/api";
 import { UserProfile } from "../../users/model/types/userProfileType.ts";
-import { ResponseSchema } from "../../../shared/api/types";
+import { ResponseSchema, ResponseStatus } from "../../../shared/types/api.ts";
 
 export const editSelfProfileApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
@@ -14,7 +14,7 @@ export const editSelfProfileApi = baseApi.injectEndpoints({
       async onQueryStarted(_args, { queryFulfilled }) {
         try {
           const { data: res } = await queryFulfilled;
-          if (res.resultCode !== 0) {
+          if (res.resultCode !== ResponseStatus.Success) {
             console.error(res.messages);
           }
         } catch (err) {

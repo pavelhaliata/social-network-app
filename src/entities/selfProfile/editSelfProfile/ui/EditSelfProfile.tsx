@@ -1,19 +1,33 @@
 import { Controller, useForm } from "react-hook-form";
-import { Avatar, Button, Dropdown, Form, Input, MenuProps, Modal } from "antd";
+import {
+  Avatar,
+  Button,
+  Dropdown,
+  Form,
+  Input,
+  MenuProps,
+  Modal,
+  Spin,
+} from "antd";
 import { useUserProfileData } from "../../lib/hooks/useUserProfileData.ts";
 import { ChangeEvent, useEffect, useRef, useState } from "react";
 import {
   useEditPhotoProfileMutation,
   useEditProfileMutation,
 } from "../../service/editSelfProfileApi.ts";
-import { DeleteTwoTone, EditTwoTone, UserOutlined } from "@ant-design/icons";
+import {
+  DeleteTwoTone,
+  EditTwoTone,
+  LoadingOutlined,
+  UserOutlined,
+} from "@ant-design/icons";
+import { ResponseStatus } from "../../../../shared/types/api.ts";
 
 export const EditSelfProfile = () => {
   const { userProfile, userStatus, isLoading } = useUserProfileData();
   const inputFileRef = useRef<HTMLInputElement | null>(null);
-  const [profilePhotoUrl, setProfilePhotoUrl] = useState("");
+  const [profilePhotoUrl, setProfilePhotoUrl] = useState<string | null>(null);
   const [open, setOpen] = useState(false);
-  const [confirmLoading, setConfirmLoading] = useState(false);
   const [file, setFile] = useState<File | Blob | string>("");
   const [editUserProfile] = useEditProfileMutation();
   const [editPhotoProfile, { isLoading: isLoadingPhoto }] =
@@ -57,7 +71,7 @@ export const EditSelfProfile = () => {
       const formData = new FormData();
       formData.append("image", file);
       const response = await editPhotoProfile(formData).unwrap();
-      if (response.resultCode === 0) {
+      if (response.resultCode === ResponseStatus.Success) {
         setOpen(false);
       }
     } catch (err) {
@@ -79,11 +93,6 @@ export const EditSelfProfile = () => {
   const showModal = () => {
     setProfilePhotoUrl("");
     setOpen(true);
-  };
-
-  const handleOk = () => {
-    handleImageClick();
-    // setConfirmLoading(true);
   };
 
   const handleCancel = () => {
@@ -150,28 +159,50 @@ export const EditSelfProfile = () => {
         <Modal
           title="Uploading a new photo"
           open={open}
-          onOk={handleOk}
-          okText="Select file"
           confirmLoading={isLoadingPhoto}
           onCancel={handleCancel}
+          footer={null}
+          centered
         >
-          {profilePhotoUrl ? (
-            <div className="flex flex-col justify-center items-center gap-y-4">
-              <img
-                src={profilePhotoUrl}
-                alt="photo profile"
-                className="w-60 h-60 object-cover block"
-              />
-              <Button type="primary" onClick={onSubmitPhotoFile}>
-                Save changes
-              </Button>
+          {isLoadingPhoto && (
+            <div className="absolute inset-0 bg-black bg-opacity-50 z-10 rounded-lg flex items-center justify-center">
+              <Spin indicator={<LoadingOutlined spin />} size="large" />
             </div>
-          ) : (
-            <p>
-              It will be easier for your friends to recognize you if you upload
-              your real photo. You can upload the image in JPG, PNG format
-            </p>
           )}
+          <div className="flex flex-col justify-center items-center gap-y-4 relative z-0">
+            {profilePhotoUrl ? (
+              <>
+                <img
+                  src={profilePhotoUrl}
+                  alt="photo profile"
+                  className="w-60 h-60 object-cover block"
+                />
+                <div className="flex gap-x-10">
+                  <Button type="primary" onClick={onSubmitPhotoFile}>
+                    Save changes
+                  </Button>
+                  <Button
+                    onClick={() => {
+                      setProfilePhotoUrl(null);
+                    }}
+                  >
+                    Go Back
+                  </Button>
+                </div>
+              </>
+            ) : (
+              <>
+                <p>
+                  It will be easier for your friends to recognize you if you
+                  upload your real photo. You can upload the image in JPG, PNG
+                  format
+                </p>
+                <Button type="primary" onClick={handleImageClick}>
+                  Select file
+                </Button>
+              </>
+            )}
+          </div>
         </Modal>
         <input
           ref={inputFileRef}
