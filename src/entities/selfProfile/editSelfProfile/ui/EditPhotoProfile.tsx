@@ -1,12 +1,7 @@
-import { Avatar, Button, Dropdown, MenuProps, Modal, Spin } from "antd";
-import {
-  DeleteTwoTone,
-  EditTwoTone,
-  LoadingOutlined,
-  UserOutlined,
-} from "@ant-design/icons";
-import { UserProfile } from "../../../users/model/types/userProfileType.ts";
 import { ChangeEvent, useRef, useState } from "react";
+import { Avatar, Button, Dropdown, MenuProps, Modal, Spin } from "antd";
+import { EditTwoTone, LoadingOutlined, UserOutlined } from "@ant-design/icons";
+import { UserProfile } from "../../../users/model/types/userProfileType.ts";
 
 type Props = {
   userProfile?: UserProfile;
@@ -20,16 +15,13 @@ export const EditPhotoProfile = ({
   onSubmitPhotoProfile,
 }: Props) => {
   const inputFileRef = useRef<HTMLInputElement | null>(null);
-  const [open, setOpen] = useState(false);
+  const [isOpenModal, setIsOpenModal] = useState(false);
   const [profilePhotoUrl, setProfilePhotoUrl] = useState<string | null>(null);
   const [file, setFile] = useState<File | Blob | string>("");
 
   const onSubmitPhotoProfileHandler = async () => {
     try {
       onSubmitPhotoProfile(file);
-      // if (response.resultCode === ResponseStatus.Success) {
-      //   setOpen(false);
-      // }
     } catch (err) {
       console.error(err);
     }
@@ -39,19 +31,26 @@ export const EditPhotoProfile = ({
     if (event.target.files?.length) {
       setFile(event.target.files[0]);
       setProfilePhotoUrl(URL.createObjectURL(event.target.files[0]));
+      if (inputFileRef.current) {
+        inputFileRef.current.value = "";
+      }
     }
   };
 
   const showModal = () => {
+    setIsOpenModal(true);
+  };
+
+  const closeModal = () => {
+    setIsOpenModal(false);
     setProfilePhotoUrl(null);
-    setOpen(true);
   };
 
-  const handleCancel = () => {
-    setOpen(false);
+  const goBackHandler = () => {
+    setProfilePhotoUrl(null);
   };
 
-  const handleImageClick = () => {
+  const selectImageHandle = () => {
     inputFileRef.current?.click();
   };
 
@@ -64,14 +63,6 @@ export const EditPhotoProfile = ({
             <EditTwoTone /> <span>Change profile photo</span>
           </div>
         </>
-      ),
-    },
-    {
-      key: "2",
-      label: (
-        <div onClick={() => {}}>
-          <DeleteTwoTone /> <span>Delete profile photo</span>
-        </div>
       ),
     },
   ];
@@ -93,9 +84,8 @@ export const EditPhotoProfile = ({
       </Dropdown>
       <Modal
         title="Uploading a new photo"
-        open={open}
-        confirmLoading={isLoadingPhoto}
-        onCancel={handleCancel}
+        open={isOpenModal}
+        onCancel={closeModal}
         footer={null}
         centered
       >
@@ -116,13 +106,7 @@ export const EditPhotoProfile = ({
                 <Button type="primary" onClick={onSubmitPhotoProfileHandler}>
                   Save changes
                 </Button>
-                <Button
-                  onClick={() => {
-                    setProfilePhotoUrl(null);
-                  }}
-                >
-                  Go Back
-                </Button>
+                <Button onClick={goBackHandler}>Go Back</Button>
               </div>
             </>
           ) : (
@@ -132,7 +116,7 @@ export const EditPhotoProfile = ({
                 upload your real photo. You can upload the image in JPG, PNG
                 format
               </p>
-              <Button type="primary" onClick={handleImageClick}>
+              <Button type="primary" onClick={selectImageHandle}>
                 Select file
               </Button>
             </>
