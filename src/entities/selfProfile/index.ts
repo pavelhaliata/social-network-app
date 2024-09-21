@@ -1,3 +1,3 @@
-import { EditSelfProfile } from "./editSelfProfile/ui/EditSelfProfile.tsx";
+import { EditSelfProfile } from "../../features/selfProfile/ui/EditSelfProfile.tsx";
 
 export { EditSelfProfile };

@@ -6,7 +6,10 @@ import { UserProfile } from "../../../users/model/types/userProfileType.ts";
 type Props = {
   userProfile?: UserProfile;
   isLoadingPhoto: boolean;
-  onSubmitPhotoProfile: (file: File | Blob | string) => Promise<void>;
+  onSubmitPhotoProfile: (
+    file: File | Blob | string,
+    closeModalCallback: () => void,
+  ) => void;
 };
 
 export const EditPhotoProfile = ({
@@ -19,12 +22,10 @@ export const EditPhotoProfile = ({
   const [profilePhotoUrl, setProfilePhotoUrl] = useState<string | null>(null);
   const [file, setFile] = useState<File | Blob | string>("");
 
-  const onSubmitPhotoProfileHandler = async () => {
-    try {
-      onSubmitPhotoProfile(file);
-    } catch (err) {
-      console.error(err);
-    }
+  const onSubmitPhotoProfileHandler = () => {
+    onSubmitPhotoProfile(file, () => {
+      setIsOpenModal(false);
+    });
   };
 
   const uploadPhotoProfileHandler = (event: ChangeEvent<HTMLInputElement>) => {
