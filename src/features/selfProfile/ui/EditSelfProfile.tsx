@@ -35,7 +35,7 @@ export const EditSelfProfile = () => {
 
   return (
     <div className="flex gap-x-4 items-start">
-      <div className="cursor-pointer">
+      <div>
         <EditPhotoProfile
           userProfile={userProfile}
           isLoadingPhoto={isLoadingPhoto}
