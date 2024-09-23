@@ -1,6 +1,9 @@
 import { baseApi } from "../../../../shared/api";
 import { AuthUserData, LoginData } from "../types/authType.ts";
-import { ResponseSchema, ResponseStatus } from "../../../../shared/types/api.ts";
+import {
+  ResponseSchema,
+  ResponseStatus,
+} from "../../../../shared/types/api.ts";
 import { isAuthenticated, setAuthUserData } from "../slices/authSlice.ts";
 import { initializeApp } from "../../../../app/model/appSlice.ts";
 import { toast } from "react-toastify";
@@ -18,9 +21,10 @@ export const authApi = baseApi.injectEndpoints({
           if (res.resultCode === ResponseStatus.Success) {
             dispatch(isAuthenticated({ isAuthenticated: true }));
             dispatch(setAuthUserData(res.data));
-          } 
+          } else {
             dispatch(isAuthenticated({ isAuthenticated: false }));
-            toast.error(res.messages[0])
+            toast.error(res.messages[0]);
+          }
         } catch (err) {
           const messageError = err as { error: { data: { message: string } } };
           console.error(messageError.error.data.message);
@@ -44,10 +48,10 @@ export const authApi = baseApi.injectEndpoints({
           const { data: res } = await queryFulfilled;
           if (res.resultCode === ResponseStatus.Success) {
             dispatch(isAuthenticated({ isAuthenticated: true }));
-            toast.success('You are authorized')
+            toast.success("You are authorized");
+          } else {
+            toast.error(res.messages[0]);
           }
-            // console.log(res.messages);
-            toast.error(res.messages[0])
         } catch (err) {
           const messageError = err as { error: { data: { message: string } } };
           console.error(messageError.error.data.message);
@@ -64,10 +68,10 @@ export const authApi = baseApi.injectEndpoints({
           const { data: res } = await queryFulfilled;
           if (res.resultCode === ResponseStatus.Success) {
             dispatch(isAuthenticated({ isAuthenticated: false }));
-            toast.success('Logout in successfully')
+            toast.success("Logout in successfully");
+          } else {
+            toast.error(res.messages[0]);
           }
-            console.log(res.messages);
-            toast.error(res.messages[0])
         } catch (err) {
           const messageError = err as { error: { data: { message: string } } };
           console.error(messageError.error.data.message);

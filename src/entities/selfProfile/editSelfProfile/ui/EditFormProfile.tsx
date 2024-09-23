@@ -16,16 +16,7 @@ type Props = {
 export const EditFormProfile = ({ userProfile, onSubmitProfile }: Props) => {
   const contacts: any = userProfile ? userProfile.contacts : {};
 
-  const {
-    control,
-    errors,
-    getValues,
-    handleSubmit,
-    isValid,
-    reset,
-    setError,
-    setValue,
-  } = useEditProfileForm(userProfile);
+  const { control, errors, handleSubmit } = useEditProfileForm(userProfile);
 
   return (
     <div>
@@ -35,12 +26,6 @@ export const EditFormProfile = ({ userProfile, onSubmitProfile }: Props) => {
         <Controller
           name="fullName"
           control={control}
-          rules={{
-            required: {
-              value: true,
-              message: "Required field",
-            },
-          }}
           render={({ field }) => (
             <Input
               id="fullName"
@@ -62,11 +47,14 @@ export const EditFormProfile = ({ userProfile, onSubmitProfile }: Props) => {
               type="text"
               placeholder="Enter your Full Name"
               {...field}
-              className="mb-4"
+              className=""
             />
           )}
         />
-        <label>My skills:</label>
+        <span className="text-danger-500 text-sm font-medium mb-4">
+          {errors.aboutMe && <p>{errors.aboutMe.message}</p>}
+        </span>
+        <label>Job descriptions:</label>
         <Controller
           name="lookingForAJobDescription"
           control={control}
@@ -75,10 +63,15 @@ export const EditFormProfile = ({ userProfile, onSubmitProfile }: Props) => {
               type="text"
               placeholder="Enter your Full Name"
               {...field}
-              className="mb-4"
+              className=""
             />
           )}
         />
+        <span className="text-danger-500 text-sm font-medium">
+          {errors.lookingForAJobDescription && (
+            <p>{errors.lookingForAJobDescription.message}</p>
+          )}
+        </span>
         <span className="block text-end text-xl">Social Contacts</span>
         {/*<label>GitHub link profile:</label>*/}
         {/*<Controller*/}
