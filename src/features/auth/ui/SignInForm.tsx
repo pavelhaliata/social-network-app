@@ -30,7 +30,6 @@ export const SignInForm = ({ onSubmit }: Props) => {
   });
 
   const onSubmitHandler: SubmitHandler<LoginData> = (data) => {
-    console.log(data);
     onSubmit(data, setError);
   };
 

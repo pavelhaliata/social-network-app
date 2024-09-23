@@ -4,6 +4,7 @@ import { LoginData } from "../model/types/authType.ts";
 import { useAppSelector } from "../../../app/store";
 import { Navigate } from "react-router-dom";
 import { UseFormSetError } from "react-hook-form";
+import { ResponseStatus } from "../../../shared/types/api.ts";
 
 export const SignIn = () => {
   const isLoggedIn = useAppSelector<boolean>(
@@ -11,20 +12,18 @@ export const SignIn = () => {
   );
   const [signIn] = useLoginMutation();
 
-  const onSubmitHandler = async (
+  const onSubmitHandler = (
     data: LoginData,
     setError: UseFormSetError<LoginData>,
   ) => {
-    try {
-      const response = await signIn(data).unwrap();
-      if (response.resultCode !== 0) {
+     signIn(data).unwrap().then(res => {
+      if (res.resultCode !== ResponseStatus.Success) {
         setError("root.serverError", {
-          message: response.messages[0],
+          message: res.messages[0],
         });
       }
-    } catch (e) {
-      console.error(e);
-    }
+    })
+   
   };
 
   if (isLoggedIn) {
