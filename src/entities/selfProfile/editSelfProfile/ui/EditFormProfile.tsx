@@ -22,56 +22,64 @@ export const EditFormProfile = ({ userProfile, onSubmitProfile }: Props) => {
     <div>
       <Form onSubmitCapture={handleSubmit(onSubmitProfile)}>
         <span className="block text-end text-xl">Profile</span>
-        <label htmlFor="fullName">My name:</label>
-        <Controller
-          name="fullName"
-          control={control}
-          render={({ field }) => (
-            <Input
-              id="fullName"
-              type="text"
-              placeholder="Enter your Full Name"
-              {...field}
-            />
-          )}
-        />
-        <span className="text-danger-500 text-sm font-medium mb-4">
-          {errors.fullName && <p>{errors.fullName.message}</p>}
-        </span>
-        <label>About me:</label>
-        <Controller
-          name="aboutMe"
-          control={control}
-          render={({ field }) => (
-            <Input
-              type="text"
-              placeholder="Enter your Full Name"
-              {...field}
-              className=""
-            />
-          )}
-        />
-        <span className="text-danger-500 text-sm font-medium mb-4">
-          {errors.aboutMe && <p>{errors.aboutMe.message}</p>}
-        </span>
-        <label>Job descriptions:</label>
-        <Controller
-          name="lookingForAJobDescription"
-          control={control}
-          render={({ field }) => (
-            <Input
-              type="text"
-              placeholder="Enter your Full Name"
-              {...field}
-              className=""
-            />
-          )}
-        />
-        <span className="text-danger-500 text-sm font-medium">
-          {errors.lookingForAJobDescription && (
-            <p>{errors.lookingForAJobDescription.message}</p>
-          )}
-        </span>
+        <div className="relative">
+          <label htmlFor="fullName">My name:</label>
+          <Controller
+            name="fullName"
+            control={control}
+            render={({ field }) => (
+              <Input
+                id="fullName"
+                type="text"
+                placeholder="Enter your Full Name"
+                {...field}
+                className="mb-5"
+              />
+            )}
+          />
+          <span className="absolute top-14 left-0 text-danger-500 text-sm font-medium mb-4">
+            {errors.fullName && <p>{errors.fullName.message}</p>}
+          </span>
+        </div>
+        <div className="relative">
+          <label>About me:</label>
+          <Controller
+            name="aboutMe"
+            control={control}
+            render={({ field }) => (
+              <Input.TextArea
+                autoSize={{ minRows: 3, maxRows: 6 }}
+                placeholder="Enter your Full Name"
+                {...field}
+                className="mb-4"
+              />
+            )}
+          />
+          <span className="absolute top-14 left-0 text-danger-500 text-sm font-medium">
+            {errors.aboutMe && <p>{errors.aboutMe.message}</p>}
+          </span>
+        </div>
+        <div className="relative">
+          <label htmlFor="lookingForAJobDescription">Job descriptions:</label>
+          <Controller
+            name="lookingForAJobDescription"
+            control={control}
+            render={({ field }) => (
+              <Input
+                type="text"
+                placeholder="Enter your Full Name"
+                {...field}
+                className="mb-3.5"
+              />
+            )}
+          />
+          <span className="absolute top-14 left-0 text-danger-500 text-sm font-medium">
+            {errors.lookingForAJobDescription && (
+              <p>{errors.lookingForAJobDescription.message}</p>
+            )}
+          </span>
+        </div>
+
         <span className="block text-end text-xl">Social Contacts</span>
         {/*<label>GitHub link profile:</label>*/}
         {/*<Controller*/}

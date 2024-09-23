@@ -1,6 +1,6 @@
-import { baseApi } from "../../../shared/api";
-import { UserProfile } from "../../users/model/types/userProfileType.ts";
-import { selfProfile } from "../../users/model/slices/selfProfileSlice.ts";
+import { baseApi } from "../../../../shared/api";
+import { UserProfile } from "../../../users/model/types/userProfileType.ts";
+import { selfProfile } from "../../../users/model/slices/selfProfileSlice.ts";
 
 export const selfProfileApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({

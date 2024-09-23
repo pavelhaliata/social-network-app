@@ -1,6 +1,9 @@
-import { baseApi } from "../../../shared/api";
-import { UserProfile } from "../../users/model/types/userProfileType.ts";
-import { ResponseSchema, ResponseStatus } from "../../../shared/types/api.ts";
+import { baseApi } from "../../../../shared/api";
+import { UserProfile } from "../../../users/model/types/userProfileType.ts";
+import {
+  ResponseSchema,
+  ResponseStatus,
+} from "../../../../shared/types/api.ts";
 import { toast } from "react-toastify";
 
 export const editSelfProfileApi = baseApi.injectEndpoints({

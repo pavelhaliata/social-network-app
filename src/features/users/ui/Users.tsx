@@ -112,7 +112,7 @@ export const Users = React.memo(() => {
 });
 
 // import React, { ChangeEvent, useState } from "react";
-// import { useGetUsersQuery } from "../service/usersApi.ts";
+// import { useGetUsersQuery } from "../model/usersApi.ts";
 // import { Button, Flex, Input, Pagination, Select } from "antd";
 // import { UserCard } from "../../../entities/users";
 //

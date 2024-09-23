@@ -2,7 +2,7 @@ import { useUserProfileData } from "../../../entities/selfProfile/lib/hooks/useU
 import {
   useEditPhotoProfileMutation,
   useEditProfileMutation,
-} from "../../../entities/selfProfile/service/editSelfProfileApi.ts";
+} from "../../../entities/selfProfile/model/api/editSelfProfileApi.ts";
 import { EditPhotoProfile } from "../../../entities/selfProfile/editSelfProfile/ui/EditPhotoProfile.tsx";
 import { EditFormProfile } from "../../../entities/selfProfile/editSelfProfile/ui/EditFormProfile.tsx";
 import { UserProfile } from "../../../entities/users/model/types/userProfileType.ts";
