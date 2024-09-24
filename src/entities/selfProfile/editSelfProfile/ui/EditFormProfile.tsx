@@ -16,13 +16,14 @@ type Props = {
 export const EditFormProfile = ({ userProfile, onSubmitProfile }: Props) => {
   const contacts: any = userProfile ? userProfile.contacts : {};
 
-  const { control, errors, handleSubmit } = useEditProfileForm(userProfile);
+  const { control, errors, clearErrors, handleSubmit } =
+    useEditProfileForm(userProfile);
 
   return (
     <div>
       <Form onSubmitCapture={handleSubmit(onSubmitProfile)}>
         <span className="block text-end text-xl">Profile</span>
-        <div className="relative">
+        <div className="relative mb-4">
           <label htmlFor="fullName">My name:</label>
           <Controller
             name="fullName"
@@ -31,17 +32,21 @@ export const EditFormProfile = ({ userProfile, onSubmitProfile }: Props) => {
               <Input
                 id="fullName"
                 type="text"
-                placeholder="Enter your Full Name"
                 {...field}
-                className="mb-5"
+                onChange={(e) => {
+                  field.onChange(e); // Обновляем значение
+                  clearErrors("fullName"); // Очищаем ошибку при вводе текста
+                }}
+                placeholder="Enter your Full Name"
+                className={errors.fullName && "border border-danger-500 "}
               />
             )}
           />
-          <span className="absolute top-14 left-0 text-danger-500 text-sm font-medium mb-4">
+          <span className="absolute left-0 top-full text-danger-500 text-sm font-medium mb-4">
             {errors.fullName && <p>{errors.fullName.message}</p>}
           </span>
         </div>
-        <div className="relative">
+        <div className="relative mb-4">
           <label>About me:</label>
           <Controller
             name="aboutMe"
@@ -49,17 +54,21 @@ export const EditFormProfile = ({ userProfile, onSubmitProfile }: Props) => {
             render={({ field }) => (
               <Input.TextArea
                 autoSize={{ minRows: 3, maxRows: 6 }}
-                placeholder="Enter your Full Name"
                 {...field}
-                className="mb-4"
+                onChange={(e) => {
+                  field.onChange(e); // Обновляем значение
+                  clearErrors("aboutMe"); // Очищаем ошибку при вводе текста
+                }}
+                placeholder="Enter about yourself"
+                className={errors.aboutMe && "border border-danger-500 "}
               />
             )}
           />
-          <span className="absolute top-14 left-0 text-danger-500 text-sm font-medium">
+          <span className="absolute left-0 top-full text-danger-500 text-sm font-medium">
             {errors.aboutMe && <p>{errors.aboutMe.message}</p>}
           </span>
         </div>
-        <div className="relative">
+        <div className="relative mb-4">
           <label htmlFor="lookingForAJobDescription">Job descriptions:</label>
           <Controller
             name="lookingForAJobDescription"
@@ -67,13 +76,20 @@ export const EditFormProfile = ({ userProfile, onSubmitProfile }: Props) => {
             render={({ field }) => (
               <Input
                 type="text"
-                placeholder="Enter your Full Name"
                 {...field}
-                className="mb-3.5"
+                onChange={(e) => {
+                  field.onChange(e); // Обновляем значение
+                  clearErrors("lookingForAJobDescription"); // Очищаем ошибку при вводе текста
+                }}
+                placeholder="Enter Job Description"
+                className={
+                  errors.lookingForAJobDescription &&
+                  "border border-danger-500 "
+                }
               />
             )}
           />
-          <span className="absolute top-14 left-0 text-danger-500 text-sm font-medium">
+          <span className="absolute left-0 top-full text-danger-500 text-sm font-medium">
             {errors.lookingForAJobDescription && (
               <p>{errors.lookingForAJobDescription.message}</p>
             )}

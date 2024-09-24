@@ -12,6 +12,7 @@ export const useEditProfileForm = (userProfile?: UserProfile) => {
     handleSubmit,
     reset,
     setError,
+    clearErrors,
     setValue,
   } = useForm({
     defaultValues: {
@@ -29,7 +30,8 @@ export const useEditProfileForm = (userProfile?: UserProfile) => {
         website: "",
       },
     },
-    mode: "onBlur",
+    mode: "onBlur", // Валидация при потере фокуса
+    reValidateMode: "onChange", // Повторная валидация при изменении значения
     resolver: yupResolver(editProfileValidationSchema),
   });
 
@@ -61,6 +63,7 @@ export const useEditProfileForm = (userProfile?: UserProfile) => {
     isValid,
     reset,
     setError,
+    clearErrors,
     setValue,
   };
 };
