@@ -11,9 +11,10 @@ import { LoginData } from "../model/types/authType.ts";
 
 type Props = {
   onSubmit: (data: LoginData, setError: UseFormSetError<LoginData>) => void;
+  isLoading: boolean
 };
 
-export const SignInForm = ({ onSubmit }: Props) => {
+export const SignInForm = ({ onSubmit, isLoading }: Props) => {
   const {
     control,
     handleSubmit,
@@ -137,7 +138,8 @@ export const SignInForm = ({ onSubmit }: Props) => {
                       size="large"
                       className="w-full text-light-100"
                       htmlType="submit"
-                      // disabled={""} TODO: добавить дизэйбл
+                      loading={isLoading}
+                      disabled={isLoading}
                     >
                       Sign In
                     </Button>

@@ -10,7 +10,7 @@ export const SignIn = () => {
   const isLoggedIn = useAppSelector<boolean>(
     (state) => state.auth.isAuthenticated,
   );
-  const [signIn] = useLoginMutation();
+  const [signIn, {isLoading}] = useLoginMutation();
 
   const onSubmitHandler = (
     data: LoginData,
@@ -30,5 +30,5 @@ export const SignIn = () => {
     return <Navigate to={"/"} replace />;
   }
 
-  return <SignInForm onSubmit={onSubmitHandler} />;
+  return <SignInForm onSubmit={onSubmitHandler} isLoading={isLoading}/>;
 };
