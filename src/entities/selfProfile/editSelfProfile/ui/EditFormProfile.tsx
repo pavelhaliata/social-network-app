@@ -1,23 +1,32 @@
 import { Button, Form, Input } from "antd";
+import { Controller, FieldValues, UseControllerProps } from "react-hook-form";
 import {
-  Controller,
-  FieldValues,
-  useController,
-  UseControllerProps,
-} from "react-hook-form";
-import { UserProfile } from "../../../users/model/types/userProfileType.ts";
+  UserProfile,
+  UserSocialContacts,
+} from "../../../users/model/types/userProfileType.ts";
 import { useEditProfileForm } from "../../lib/hooks/useEditProfileForm.ts";
 
 type Props = {
   userProfile?: UserProfile;
   onSubmitProfile: (data: any) => void;
 };
+type SocialMedia =
+  | "facebook"
+  | "website"
+  | "vk"
+  | "twitter"
+  | "instagram"
+  | "youtube"
+  | "github";
 
 export const EditFormProfile = ({ userProfile, onSubmitProfile }: Props) => {
-  const contacts: any = userProfile ? userProfile.contacts : {};
+  const socialMedia: UserSocialContacts | {} = userProfile
+    ? userProfile.contacts
+    : {};
 
   const { control, errors, clearErrors, handleSubmit } =
     useEditProfileForm(userProfile);
+  console.log(errors.contacts);
 
   return (
     <div>
@@ -95,116 +104,10 @@ export const EditFormProfile = ({ userProfile, onSubmitProfile }: Props) => {
             )}
           </span>
         </div>
-
         <span className="block text-end text-xl">Social Contacts</span>
-        {/*<label>GitHub link profile:</label>*/}
-        {/*<Controller*/}
-        {/*  name="contacts.github"*/}
-        {/*  control={control}*/}
-        {/*  render={({ field }) => (*/}
-        {/*    <Input*/}
-        {/*      type="text"*/}
-        {/*      placeholder="Enter your github link profile"*/}
-        {/*      {...field}*/}
-        {/*      className="mb-4"*/}
-        {/*    />*/}
-        {/*  )}*/}
-        {/*/>*/}
-        {/*<label>Facebook link profile:</label>*/}
-        {/*<Controller*/}
-        {/*  name="contacts.facebook"*/}
-        {/*  control={control}*/}
-        {/*  render={({ field }) => (*/}
-        {/*    <Input*/}
-        {/*      type="text"*/}
-        {/*      placeholder="Enter your facebook link profile"*/}
-        {/*      {...field}*/}
-        {/*      className="mb-4"*/}
-        {/*    />*/}
-        {/*  )}*/}
-        {/*/>*/}
-        {/*<label>Instagram link profile:</label>*/}
-        {/*<Controller*/}
-        {/*  name="contacts.instagram"*/}
-        {/*  control={control}*/}
-        {/*  render={({ field }) => (*/}
-        {/*    <Input*/}
-        {/*      type="text"*/}
-        {/*      placeholder="Enter your instagram link profile"*/}
-        {/*      {...field}*/}
-        {/*      className="mb-4"*/}
-        {/*    />*/}
-        {/*  )}*/}
-        {/*/>*/}
-        {/*<label>Twitter link profile:</label>*/}
-        {/*<Controller*/}
-        {/*  name="contacts.twitter"*/}
-        {/*  control={control}*/}
-        {/*  render={({ field }) => (*/}
-        {/*    <Input*/}
-        {/*      type="text"*/}
-        {/*      placeholder="Enter your twitter linl profile"*/}
-        {/*      {...field}*/}
-        {/*      className="mb-4"*/}
-        {/*    />*/}
-        {/*  )}*/}
-        {/*/>*/}
-        {/*<label>VK link profile:</label>*/}
-        {/*<Controller*/}
-        {/*  name="contacts.vk"*/}
-        {/*  control={control}*/}
-        {/*  render={({ field }) => (*/}
-        {/*    <Input*/}
-        {/*      type="text"*/}
-        {/*      placeholder="Enter your VK link profile"*/}
-        {/*      {...field}*/}
-        {/*      className="mb-4"*/}
-        {/*    />*/}
-        {/*  )}*/}
-        {/*/>*/}
-        {/*<label>Youtube link profile:</label>*/}
-        {/*<Controller*/}
-        {/*  name="contacts.youtube"*/}
-        {/*  control={control}*/}
-        {/*  render={({ field }) => (*/}
-        {/*    <Input*/}
-        {/*      type="text"*/}
-        {/*      placeholder="Enter your Youtube link profile"*/}
-        {/*      {...field}*/}
-        {/*      className="mb-4"*/}
-        {/*    />*/}
-        {/*  )}*/}
-        {/*/>*/}
-        {/*<label>WEB Site link:</label>*/}
-        {/*<Controller*/}
-        {/*  name="contacts.website"*/}
-        {/*  control={control}*/}
-        {/*  render={({ field }) => (*/}
-        {/*    <Input*/}
-        {/*      type="text"*/}
-        {/*      placeholder="Enter your website link"*/}
-        {/*      {...field}*/}
-        {/*      className="mb-4"*/}
-        {/*    />*/}
-        {/*  )}*/}
-        {/*/>*/}
-        {/*<label>Main link:</label>*/}
-        {/*<Controller*/}
-        {/*  name="contacts.mainLink"*/}
-        {/*  control={control}*/}
-        {/*  render={({ field }) => (*/}
-        {/*    <Input*/}
-        {/*      type="text"*/}
-        {/*      placeholder="Enter your Main link"*/}
-        {/*      {...field}*/}
-        {/*      className="mb-4"*/}
-        {/*    />*/}
-        {/*  )}*/}
-        {/*/>*/}
-        {Object.keys(contacts).map((item, index) => (
-          <p key={index}>{item}</p>
+        {Object.keys(socialMedia).map((item: any, index) => (
+          <EditContact key={index} name={item} control={control} />
         ))}
-        {/*<EditContact name={"contacts.facebook"} />*/}
         <Button
           type="primary"
           size="large"
@@ -220,16 +123,24 @@ export const EditFormProfile = ({ userProfile, onSubmitProfile }: Props) => {
 
 type IProps<T extends FieldValues> = UseControllerProps<T>;
 
-const EditContact = <T extends FieldValues>({ name, ...rest }: IProps<T>) => {
-  const {
-    field: { onChange, value, ...field },
-  } = useController({
-    name,
-  });
+const EditContact = <T extends FieldValues>({
+  name,
+  control,
+  ...rest
+}: IProps<T>) => {
   return (
-    <div>
-      <label>fff:</label>
-      <Input id={name} onChange={onChange} {...rest} {...field} />
+    <div className="relative mb-4">
+      <label htmlFor={name}>{name}:</label>
+      <Controller
+        control={control}
+        name={`contacts.${name}`}
+        render={({ field, fieldState: { error } }) => (
+          <Input id={name} {...rest} {...field} />
+        )}
+      />
+      {/*<span className="absolute left-0 top-full text-danger-500 text-sm font-medium">*/}
+      {/*    {error && <p>{error}</p>}*/}
+      {/*  </span>*/}
     </div>
   );
 };
