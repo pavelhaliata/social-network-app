@@ -160,7 +160,7 @@ export const SignInForm = ({ onSubmit, isLoading }: Props) => {
                   <div className="text-center text-light-900 font-medium mt-5">
                     <p className="inline">Don't have an account? </p>
                     <a
-                      href="https://social-network.samuraijs.com/signUp"
+                      href={import.meta.env.VITE_SIGN_UP_LINK}
                       target="_blank"
                       className="text-primary-500 hover:underline hover:underline-offset-2"
                     >
