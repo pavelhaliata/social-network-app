@@ -1,33 +1,25 @@
 import { Button, Form, Input } from "antd";
-import {
-  Control,
-  Controller,
-  FieldValues,
-  UseControllerProps,
-} from "react-hook-form";
+import { Controller } from "react-hook-form";
 import {
   UserProfile,
   UserSocialContacts,
 } from "../../../users/model/types/userProfileType.ts";
 import { useEditProfileForm } from "../../lib/hooks/useEditProfileForm.ts";
+import { EditContact } from "./EditContact.tsx";
 
 type Props = {
   userProfile?: UserProfile;
-  onSubmitProfile: (data: any) => void;
+  onSubmitProfile: (data: any) => void; // TODO: type any!!!
 };
-type SocialMedia =
-  | "fullName"
-  | "aboutMe"
-  | "lookingForAJobDescription"
-  | "contacts"
-  | "contacts.facebook"
-  | "contacts.website"
-  | "contacts.vk"
-  | "contacts.twitter"
-  | "contacts.instagram"
-  | "contacts.youtube"
-  | "contacts.github"
-  | "contacts.mainLink";
+// type SocialMedia =
+//   | "facebook"
+//   | "website"
+//   | "vk"
+//   | "twitter"
+//   | "instagram"
+//   | "youtube"
+//   | "github"
+//   | "mainLink";
 
 export const EditFormProfile = ({ userProfile, onSubmitProfile }: Props) => {
   const socialMedia: UserSocialContacts | {} = userProfile
@@ -50,12 +42,12 @@ export const EditFormProfile = ({ userProfile, onSubmitProfile }: Props) => {
               <Input
                 id="fullName"
                 type="text"
+                placeholder="Enter your Full Name"
                 {...field}
                 onChange={(e) => {
                   field.onChange(e); // Обновляем значение
                   clearErrors("fullName"); // Очищаем ошибку при вводе текста
                 }}
-                placeholder="Enter your Full Name"
                 className={errors.fullName && "border border-danger-500 "}
               />
             )}
@@ -72,12 +64,12 @@ export const EditFormProfile = ({ userProfile, onSubmitProfile }: Props) => {
             render={({ field }) => (
               <Input.TextArea
                 autoSize={{ minRows: 3, maxRows: 6 }}
+                placeholder="Enter about yourself"
                 {...field}
                 onChange={(e) => {
                   field.onChange(e); // Обновляем значение
                   clearErrors("aboutMe"); // Очищаем ошибку при вводе текста
                 }}
-                placeholder="Enter about yourself"
                 className={errors.aboutMe && "border border-danger-500 "}
               />
             )}
@@ -94,12 +86,12 @@ export const EditFormProfile = ({ userProfile, onSubmitProfile }: Props) => {
             render={({ field }) => (
               <Input
                 type="text"
+                placeholder="Enter Job Description"
                 {...field}
                 onChange={(e) => {
                   field.onChange(e); // Обновляем значение
                   clearErrors("lookingForAJobDescription"); // Очищаем ошибку при вводе текста
                 }}
-                placeholder="Enter Job Description"
                 className={
                   errors.lookingForAJobDescription &&
                   "border border-danger-500 "
@@ -114,9 +106,14 @@ export const EditFormProfile = ({ userProfile, onSubmitProfile }: Props) => {
           </span>
         </div>
         <span className="block text-end text-xl">Social Media Contacts</span>
-        {Object.keys(socialMedia).map((item, index) => (
-          <EditContact key={index} name={item} control={control} />
-        ))}
+        {Object.keys(socialMedia).map(
+          (
+            item: any,
+            index, // TODO: type any!!!
+          ) => (
+            <EditContact key={index} name={item} control={control} />
+          ),
+        )}
         <Button
           type="primary"
           size="large"
@@ -129,40 +126,3 @@ export const EditFormProfile = ({ userProfile, onSubmitProfile }: Props) => {
     </div>
   );
 };
-
-type IProps<T extends FieldValues> = UseControllerProps<T>;
-
-type IIProps = {
-  name: string;
-  control: any;
-};
-
-const EditContact = ({ name, control }: IIProps) => {
-  return (
-    <div className="relative mb-4">
-      <label htmlFor={name}>{name}:</label>
-      <Controller
-        control={control}
-        name={`contacts.${name}`}
-        render={({ field, fieldState: { error } }) => (
-          <>
-            <Input
-              id={name}
-              {...field}
-              placeholder={`Enter your ${name} link`}
-            />
-            <span className="absolute left-0 top-full text-danger-500 text-sm font-medium">
-              {error && <p>{error.message}</p>}
-            </span>
-          </>
-        )}
-      />
-    </div>
-  );
-};
-
-// <T extends FieldValues>({
-//                             name,
-//                             control,
-//                             ...rest
-//                         }: IProps<T>)

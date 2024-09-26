@@ -14,7 +14,7 @@ export const useEditProfileForm = (userProfile?: UserProfile) => {
     setError,
     clearErrors,
     setValue,
-  } = useForm({
+  } = useForm<Omit<UserProfile, "userId" | "lookingForAJob" | "photos">>({
     defaultValues: {
       fullName: "",
       aboutMe: "",

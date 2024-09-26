@@ -1,37 +1,34 @@
 import { Button, Checkbox, Form, Input } from "antd";
 import frontImg from "../../../shared/assets/img/frontImg.jpg";
 import { LockTwoTone, MailTwoTone } from "@ant-design/icons";
-import {
-  Controller,
-  SubmitHandler,
-  useForm,
-  UseFormSetError,
-} from "react-hook-form";
+import { Controller, SubmitHandler, UseFormSetError } from "react-hook-form";
 import { LoginData } from "../model/types/authType.ts";
+import { useSignInForm } from "../lib/hooks/useSignInForm.tsx";
 
 type Props = {
   onSubmit: (data: LoginData, setError: UseFormSetError<LoginData>) => void;
-  isLoading: boolean
+  isLoading: boolean;
 };
 
 export const SignInForm = ({ onSubmit, isLoading }: Props) => {
   const {
     control,
-    handleSubmit,
-    formState: { errors, isDirty },
+    errors,
     setError,
-  } = useForm({
-    mode: "onBlur",
-    defaultValues: {
-      email: "",
-      password: "",
-      rememberMe: false,
-      captcha: "",
-    },
-  });
+    clearErrors,
+    handleSubmit,
+    isDirty,
+    isValid,
+  } = useSignInForm();
 
   const onSubmitHandler: SubmitHandler<LoginData> = (data) => {
     onSubmit(data, setError);
+  };
+  const signInDemoAccountHandler = () => {
+    onSubmitHandler({
+      email: import.meta.env.VITE_TEST_ACC_EMAIL,
+      password: import.meta.env.VITE_TEST_ACC_PASSWORD,
+    });
   };
 
   return (
@@ -70,24 +67,23 @@ export const SignInForm = ({ onSubmit, isLoading }: Props) => {
                     <Controller
                       name="email"
                       control={control}
-                      rules={{
-                        pattern: {
-                          value:
-                            /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/,
-                          message: "Email incorrect",
-                        },
-                        required: {
-                          value: true,
-                          message: "Required field",
-                        },
-                      }}
                       render={({ field }) => (
                         <Input
-                          size={"large"}
-                          prefix={<MailTwoTone />}
                           type="text"
+                          size="large"
+                          prefix={<MailTwoTone />}
                           placeholder="Enter your email"
                           {...field}
+                          onChange={(e) => {
+                            field.onChange(e); // Обновляем значение
+                            clearErrors("email"); // Очищаем ошибку при вводе текста
+                            setError("root.serverError", {
+                              message: "",
+                            });
+                          }}
+                          className={
+                            errors.email && "border border-danger-500 "
+                          }
                         />
                       )}
                     />
@@ -99,19 +95,21 @@ export const SignInForm = ({ onSubmit, isLoading }: Props) => {
                     <Controller
                       name="password"
                       control={control}
-                      rules={{
-                        required: {
-                          value: true,
-                          message: "Required field",
-                        },
-                      }}
                       render={({ field }) => (
                         <Input
-                          size={"large"}
-                          prefix={<LockTwoTone />}
                           type="password"
+                          size="large"
+                          prefix={<LockTwoTone />}
                           placeholder="Enter your password"
                           {...field}
+                          onChange={(e) => {
+                            field.onChange(e); // Обновляем значение
+                            clearErrors("password"); // Очищаем ошибку при вводе текста
+                            clearErrors;
+                          }}
+                          className={
+                            errors.password && "border border-danger-500 "
+                          }
                         />
                       )}
                     />
@@ -139,7 +137,7 @@ export const SignInForm = ({ onSubmit, isLoading }: Props) => {
                       className="w-full text-light-100"
                       htmlType="submit"
                       loading={isLoading}
-                      disabled={isLoading}
+                      disabled={isLoading || !isDirty || !isValid}
                     >
                       Sign In
                     </Button>
@@ -173,12 +171,7 @@ export const SignInForm = ({ onSubmit, isLoading }: Props) => {
                       or use{" "}
                       <span
                         className="text-primary-500 hover:underline hover:underline-offset-2 cursor-pointer"
-                        onClick={() => {
-                          onSubmitHandler({
-                            email: import.meta.env.VITE_TEST_ACC_EMAIL,
-                            password: import.meta.env.VITE_TEST_ACC_PASSWORD,
-                          });
-                        }}
+                        onClick={signInDemoAccountHandler}
                       >
                         a demo account
                       </span>
