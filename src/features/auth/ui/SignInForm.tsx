@@ -123,7 +123,7 @@ export const SignInForm = ({ onSubmit, isLoading }: Props) => {
                   </div>
                   <div className="text-primary-500 font-medium">
                     <a
-                      href="https://social-network.samuraijs.com/login"
+                      href={import.meta.env.VITE_FORGOT_PASS_LINK}
                       target="_blank"
                       className="hover:underline hover:underline-offset-2"
                     >
