@@ -1,5 +1,10 @@
 import { Button, Form, Input } from "antd";
-import { Controller, FieldValues, UseControllerProps } from "react-hook-form";
+import {
+  Control,
+  Controller,
+  FieldValues,
+  UseControllerProps,
+} from "react-hook-form";
 import {
   UserProfile,
   UserSocialContacts,
@@ -11,13 +16,18 @@ type Props = {
   onSubmitProfile: (data: any) => void;
 };
 type SocialMedia =
-  | "facebook"
-  | "website"
-  | "vk"
-  | "twitter"
-  | "instagram"
-  | "youtube"
-  | "github";
+  | "fullName"
+  | "aboutMe"
+  | "lookingForAJobDescription"
+  | "contacts"
+  | "contacts.facebook"
+  | "contacts.website"
+  | "contacts.vk"
+  | "contacts.twitter"
+  | "contacts.instagram"
+  | "contacts.youtube"
+  | "contacts.github"
+  | "contacts.mainLink";
 
 export const EditFormProfile = ({ userProfile, onSubmitProfile }: Props) => {
   const socialMedia: UserSocialContacts | {} = userProfile
@@ -26,7 +36,6 @@ export const EditFormProfile = ({ userProfile, onSubmitProfile }: Props) => {
 
   const { control, errors, clearErrors, handleSubmit } =
     useEditProfileForm(userProfile);
-  console.log(errors.contacts);
 
   return (
     <div>
@@ -104,8 +113,8 @@ export const EditFormProfile = ({ userProfile, onSubmitProfile }: Props) => {
             )}
           </span>
         </div>
-        <span className="block text-end text-xl">Social Contacts</span>
-        {Object.keys(socialMedia).map((item: any, index) => (
+        <span className="block text-end text-xl">Social Media Contacts</span>
+        {Object.keys(socialMedia).map((item, index) => (
           <EditContact key={index} name={item} control={control} />
         ))}
         <Button
@@ -123,11 +132,12 @@ export const EditFormProfile = ({ userProfile, onSubmitProfile }: Props) => {
 
 type IProps<T extends FieldValues> = UseControllerProps<T>;
 
-const EditContact = <T extends FieldValues>({
-  name,
-  control,
-  ...rest
-}: IProps<T>) => {
+type IIProps = {
+  name: string;
+  control: any;
+};
+
+const EditContact = ({ name, control }: IIProps) => {
   return (
     <div className="relative mb-4">
       <label htmlFor={name}>{name}:</label>
@@ -135,12 +145,24 @@ const EditContact = <T extends FieldValues>({
         control={control}
         name={`contacts.${name}`}
         render={({ field, fieldState: { error } }) => (
-          <Input id={name} {...rest} {...field} />
+          <>
+            <Input
+              id={name}
+              {...field}
+              placeholder={`Enter your ${name} link`}
+            />
+            <span className="absolute left-0 top-full text-danger-500 text-sm font-medium">
+              {error && <p>{error.message}</p>}
+            </span>
+          </>
         )}
       />
-      {/*<span className="absolute left-0 top-full text-danger-500 text-sm font-medium">*/}
-      {/*    {error && <p>{error}</p>}*/}
-      {/*  </span>*/}
     </div>
   );
 };
+
+// <T extends FieldValues>({
+//                             name,
+//                             control,
+//                             ...rest
+//                         }: IProps<T>)
