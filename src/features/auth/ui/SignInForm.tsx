@@ -4,6 +4,7 @@ import { LockTwoTone, MailTwoTone } from "@ant-design/icons";
 import { Controller, SubmitHandler, UseFormSetError } from "react-hook-form";
 import { LoginData } from "../model/types/authType.ts";
 import { useSignInForm } from "../lib/hooks/useSignInForm.tsx";
+import { ControlledTextField } from "../../../shared/components/ControlledTextField/ControlledTextField.tsx";
 
 type Props = {
   onSubmit: (data: LoginData, setError: UseFormSetError<LoginData>) => void;
@@ -62,6 +63,7 @@ export const SignInForm = ({ onSubmit, isLoading }: Props) => {
                 Login
               </div>
               <Form onSubmitCapture={handleSubmit(onSubmitHandler)}>
+                <ControlledTextField control={control} name={"email"} />
                 <div className="mt-8">
                   <div className="h-12 w-full my-4">
                     <Controller
@@ -105,7 +107,9 @@ export const SignInForm = ({ onSubmit, isLoading }: Props) => {
                           onChange={(e) => {
                             field.onChange(e); // Обновляем значение
                             clearErrors("password"); // Очищаем ошибку при вводе текста
-                            clearErrors;
+                            setError("root.serverError", {
+                              message: "",
+                            });
                           }}
                           className={
                             errors.password && "border border-danger-500 "

@@ -20,7 +20,7 @@ export const useSignInForm = () => {
       rememberMe: false,
       captcha: null,
     },
-    mode: "onBlur",
+    mode: "onChange",
     resolver: yupResolver(signInValidationSchema),
   });
 
