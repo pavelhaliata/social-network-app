@@ -1,4 +1,4 @@
-import { useController, UseControllerProps } from "react-hook-form";
+import { Controller, UseControllerProps } from "react-hook-form";
 import { Input } from "antd";
 
 type FormValues = {
@@ -6,12 +6,21 @@ type FormValues = {
   password: string;
 };
 
-export const ControlledTextField = (props: UseControllerProps<FormValues>) => {
-  const { field } = useController(props);
-
+export const ControlledTextField = (props: UseControllerProps<FormValues> & {errors?: string, icon?: React.ReactNode}) => {
   return (
     <div>
-      <Input {...field} placeholder={props.name} />
+      <Controller
+      name={props.name}
+      control={props.control}
+      render={({field, formState:{}})=>(
+        <>
+          <Input {...field} placeholder={props.name} prefix={props.icon}/>
+        </>
+      )}
+      />
+      <div className="text-danger-500 text-sm font-medium">
+            {props.errors && <p>{props.errors}</p>}
+          </div>
     </div>
   );
 };

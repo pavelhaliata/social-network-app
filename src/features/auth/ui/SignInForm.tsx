@@ -63,10 +63,11 @@ export const SignInForm = ({ onSubmit, isLoading }: Props) => {
                 Login
               </div>
               <Form onSubmitCapture={handleSubmit(onSubmitHandler)}>
-                <ControlledTextField control={control} name={"email"} />
                 <div className="mt-8">
                   <div className="h-12 w-full my-4">
-                    <Controller
+                  <ControlledTextField icon={<MailTwoTone />} control={control} name={"email"} errors={errors['email']?.message} ple/>
+
+                    {/* <Controller
                       name="email"
                       control={control}
                       render={({ field }) => (
@@ -88,10 +89,10 @@ export const SignInForm = ({ onSubmit, isLoading }: Props) => {
                           }
                         />
                       )}
-                    />
-                    <div className="text-danger-500 text-sm font-medium">
+                    /> */}
+                    {/* <div className="text-danger-500 text-sm font-medium">
                       {errors.email && <p>{errors.email.message}</p>}
-                    </div>
+                    </div> */}
                   </div>
                   <div className="h-12 w-full my-4">
                     <Controller
