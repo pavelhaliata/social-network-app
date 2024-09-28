@@ -65,7 +65,13 @@ export const SignInForm = ({ onSubmit, isLoading }: Props) => {
               <Form onSubmitCapture={handleSubmit(onSubmitHandler)}>
                 <div className="mt-8">
                   <div className="h-12 w-full my-4">
-                  <ControlledTextField icon={<MailTwoTone />} control={control} name={"email"} errors={errors['email']?.message} ple/>
+                    <ControlledTextField
+                      icon={<MailTwoTone />}
+                      control={control}
+                      name="email"
+                      errors={errors.email?.message}
+                      placeholder="Enter your email"
+                    />
 
                     {/* <Controller
                       name="email"
@@ -95,36 +101,44 @@ export const SignInForm = ({ onSubmit, isLoading }: Props) => {
                     </div> */}
                   </div>
                   <div className="h-12 w-full my-4">
-                    <Controller
-                      name="password"
+                    <ControlledTextField
+                      icon={<LockTwoTone />}
                       control={control}
-                      render={({ field }) => (
-                        <Input
-                          type="password"
-                          size="large"
-                          prefix={<LockTwoTone />}
-                          placeholder="Enter your password"
-                          {...field}
-                          onChange={(e) => {
-                            field.onChange(e); // Обновляем значение
-                            clearErrors("password"); // Очищаем ошибку при вводе текста
-                            setError("root.serverError", {
-                              message: "",
-                            });
-                          }}
-                          className={
-                            errors.password && "border border-danger-500 "
-                          }
-                        />
-                      )}
+                      name="password"
+                      type="password"
+                      errors={errors.password?.message}
+                      placeholder="Enter your password"
                     />
-                    <div className="text-danger-500 text-sm font-medium">
-                      {errors.password ? (
-                        <p>{errors.password.message}</p>
-                      ) : errors.root?.serverError ? (
-                        <p>{errors.root.serverError.message}</p>
-                      ) : null}
-                    </div>
+                    {/*<Controller*/}
+                    {/*  name="password"*/}
+                    {/*  control={control}*/}
+                    {/*  render={({ field }) => (*/}
+                    {/*    <Input*/}
+                    {/*      type="password"*/}
+                    {/*      size="large"*/}
+                    {/*      prefix={<LockTwoTone />}*/}
+                    {/*      placeholder="Enter your password"*/}
+                    {/*      {...field}*/}
+                    {/*      onChange={(e) => {*/}
+                    {/*        field.onChange(e); // Обновляем значение*/}
+                    {/*        clearErrors("password"); // Очищаем ошибку при вводе текста*/}
+                    {/*        setError("root.serverError", {*/}
+                    {/*          message: "",*/}
+                    {/*        });*/}
+                    {/*      }}*/}
+                    {/*      className={*/}
+                    {/*        errors.password && "border border-danger-500 "*/}
+                    {/*      }*/}
+                    {/*    />*/}
+                    {/*  )}*/}
+                    {/*/>*/}
+                    {/*<div className="text-danger-500 text-sm font-medium">*/}
+                    {/*  {errors.password ? (*/}
+                    {/*    <p>{errors.password.message}</p>*/}
+                    {/*  ) : errors.root?.serverError ? (*/}
+                    {/*    <p>{errors.root.serverError.message}</p>*/}
+                    {/*  ) : null}*/}
+                    {/*</div>*/}
                   </div>
                   <div className="text-primary-500 font-medium">
                     <a

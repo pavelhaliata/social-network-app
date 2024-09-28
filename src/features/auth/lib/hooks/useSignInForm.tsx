@@ -20,7 +20,7 @@ export const useSignInForm = () => {
       rememberMe: false,
       captcha: null,
     },
-    mode: "onChange",
+    mode: "onTouched", // Валидация при потере фокуса
     resolver: yupResolver(signInValidationSchema),
   });
 
