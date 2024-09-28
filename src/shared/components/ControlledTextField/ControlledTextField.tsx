@@ -1,39 +1,31 @@
-import { Controller, UseControllerProps } from "react-hook-form";
+import { Controller, FieldValues, UseControllerProps } from "react-hook-form";
 import { Input } from "antd";
-import { ReactNode } from "react";
+import { ComponentPropsWithoutRef, ReactNode } from "react";
 
-type FormValues = {
-  email: string;
-  password: string;
-};
-
-export const ControlledTextField = (
-  props: UseControllerProps<FormValues> & {
-    type?: "text" | "password";
+type Props<T extends FieldValues> = UseControllerProps<T> &
+  Omit<ComponentPropsWithoutRef<"input">, "type"> & {
     errors?: string;
     icon?: ReactNode;
-    placeholder?: string;
-  },
-) => {
+  };
+
+export const ControlledTextField = <T extends FieldValues>({
+  name,
+  control,
+  icon,
+  errors,
+  ...rest
+}: Props<T>) => {
   return (
     <div>
       <Controller
-        name={props.name}
-        control={props.control}
-        render={({ field, formState: {} }) => (
-          <>
-            <Input
-              type={props.type}
-              size="large"
-              {...field}
-              placeholder={props.placeholder}
-              prefix={props.icon}
-            />
-          </>
+        name={name}
+        control={control}
+        render={({ field }) => (
+          <Input {...rest} prefix={icon} type={name} size="large" {...field} />
         )}
       />
       <div className="text-danger-500 text-sm font-medium">
-        {props.errors && <p>{props.errors}</p>}
+        {errors && <p>{errors}</p>}
       </div>
     </div>
   );

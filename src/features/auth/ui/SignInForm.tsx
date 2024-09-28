@@ -1,29 +1,21 @@
-import { Button, Checkbox, Form, Input } from "antd";
+import { Button, Checkbox, Form } from "antd";
 import frontImg from "../../../shared/assets/img/frontImg.jpg";
 import { LockTwoTone, MailTwoTone } from "@ant-design/icons";
-import { Controller, SubmitHandler, UseFormSetError } from "react-hook-form";
+import { Controller, SubmitHandler } from "react-hook-form";
 import { LoginData } from "../model/types/authType.ts";
 import { useSignInForm } from "../lib/hooks/useSignInForm.tsx";
 import { ControlledTextField } from "../../../shared/components/ControlledTextField/ControlledTextField.tsx";
 
 type Props = {
-  onSubmit: (data: LoginData, setError: UseFormSetError<LoginData>) => void;
+  onSubmit: (data: LoginData) => void;
   isLoading: boolean;
 };
 
 export const SignInForm = ({ onSubmit, isLoading }: Props) => {
-  const {
-    control,
-    errors,
-    setError,
-    clearErrors,
-    handleSubmit,
-    isDirty,
-    isValid,
-  } = useSignInForm();
+  const { control, errors, handleSubmit, isDirty, isValid } = useSignInForm();
 
   const onSubmitHandler: SubmitHandler<LoginData> = (data) => {
-    onSubmit(data, setError);
+    onSubmit(data);
   };
   const signInDemoAccountHandler = () => {
     onSubmitHandler({
@@ -72,73 +64,15 @@ export const SignInForm = ({ onSubmit, isLoading }: Props) => {
                       errors={errors.email?.message}
                       placeholder="Enter your email"
                     />
-
-                    {/* <Controller
-                      name="email"
-                      control={control}
-                      render={({ field }) => (
-                        <Input
-                          type="text"
-                          size="large"
-                          prefix={<MailTwoTone />}
-                          placeholder="Enter your email"
-                          {...field}
-                          onChange={(e) => {
-                            field.onChange(e); // Обновляем значение
-                            clearErrors("email"); // Очищаем ошибку при вводе текста
-                            setError("root.serverError", {
-                              message: "",
-                            });
-                          }}
-                          className={
-                            errors.email && "border border-danger-500 "
-                          }
-                        />
-                      )}
-                    /> */}
-                    {/* <div className="text-danger-500 text-sm font-medium">
-                      {errors.email && <p>{errors.email.message}</p>}
-                    </div> */}
                   </div>
                   <div className="h-12 w-full my-4">
                     <ControlledTextField
                       icon={<LockTwoTone />}
                       control={control}
                       name="password"
-                      type="password"
                       errors={errors.password?.message}
                       placeholder="Enter your password"
                     />
-                    {/*<Controller*/}
-                    {/*  name="password"*/}
-                    {/*  control={control}*/}
-                    {/*  render={({ field }) => (*/}
-                    {/*    <Input*/}
-                    {/*      type="password"*/}
-                    {/*      size="large"*/}
-                    {/*      prefix={<LockTwoTone />}*/}
-                    {/*      placeholder="Enter your password"*/}
-                    {/*      {...field}*/}
-                    {/*      onChange={(e) => {*/}
-                    {/*        field.onChange(e); // Обновляем значение*/}
-                    {/*        clearErrors("password"); // Очищаем ошибку при вводе текста*/}
-                    {/*        setError("root.serverError", {*/}
-                    {/*          message: "",*/}
-                    {/*        });*/}
-                    {/*      }}*/}
-                    {/*      className={*/}
-                    {/*        errors.password && "border border-danger-500 "*/}
-                    {/*      }*/}
-                    {/*    />*/}
-                    {/*  )}*/}
-                    {/*/>*/}
-                    {/*<div className="text-danger-500 text-sm font-medium">*/}
-                    {/*  {errors.password ? (*/}
-                    {/*    <p>{errors.password.message}</p>*/}
-                    {/*  ) : errors.root?.serverError ? (*/}
-                    {/*    <p>{errors.root.serverError.message}</p>*/}
-                    {/*  ) : null}*/}
-                    {/*</div>*/}
                   </div>
                   <div className="text-primary-500 font-medium">
                     <a

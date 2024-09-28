@@ -30,7 +30,7 @@ export const useEditProfileForm = (userProfile?: UserProfile) => {
         website: "",
       },
     },
-    mode: "onBlur", // Валидация при потере фокуса
+    mode: "onBlur",
     reValidateMode: "onChange", // Повторная валидация при изменении значения
     resolver: yupResolver(editProfileValidationSchema),
   });
