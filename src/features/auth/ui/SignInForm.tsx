@@ -114,7 +114,7 @@ export const SignInForm = ({ onSubmit, isLoading, captchaUrl }: Props) => {
               </span>
             </p>
           </div>
-          <Captcha captchaUrl={captchaUrl} />
+          <Captcha name="captcha" control={control} captchaUrl={captchaUrl} />
         </div>
       </Form>
     </>
