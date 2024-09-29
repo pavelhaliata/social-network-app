@@ -3,7 +3,7 @@ import { Input } from "antd";
 import { ComponentPropsWithoutRef, ReactNode } from "react";
 
 type Props<T extends FieldValues> = UseControllerProps<T> &
-  Omit<ComponentPropsWithoutRef<"input">, "type"> & {
+  Omit<ComponentPropsWithoutRef<"input">, "name"> & {
     errors?: string;
     icon?: ReactNode;
   };
@@ -20,8 +20,8 @@ export const ControlledTextField = <T extends FieldValues>({
       <Controller
         name={name}
         control={control}
-        render={({ field }) => (
-          <Input {...rest} prefix={icon} type={name} size="large" {...field} />
+        render={({ field: { ref, ...field } }) => (
+          <Input {...rest} prefix={icon} size="large" ref={ref} {...field} />
         )}
       />
       <div className="text-danger-500 text-sm font-medium">

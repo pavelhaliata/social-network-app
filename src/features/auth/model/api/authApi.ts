@@ -4,7 +4,11 @@ import {
   ResponseSchema,
   ResponseStatus,
 } from "../../../../shared/types/api.ts";
-import { isAuthenticated, setAuthUserData } from "../slices/authSlice.ts";
+import {
+  isAuthenticated,
+  setAuthUserData,
+  setCaptchaUrl,
+} from "../slices/authSlice.ts";
 import { initializeApp } from "../../../../app/model/appSlice.ts";
 import { toast } from "react-toastify";
 
@@ -50,7 +54,10 @@ export const authApi = baseApi.injectEndpoints({
             dispatch(isAuthenticated({ isAuthenticated: true }));
             toast.success("You are authorized");
           } else {
-            toast.error(res.messages[0]);
+            if (res.resultCode === ResponseStatus.TooManyAttempts) {
+              toast.error(res.messages[0]);
+              dispatch(authApi.endpoints.captchaUrl.initiate());
+            }
           }
         } catch (err) {
           const messageError = err as { error: { data: { message: string } } };
@@ -78,8 +85,28 @@ export const authApi = baseApi.injectEndpoints({
         }
       },
     }),
+    captchaUrl: builder.query<{ url: string }, void>({
+      query: () => ({
+        url: "security/get-captcha-url",
+      }),
+      async onQueryStarted(_args, { dispatch, queryFulfilled }) {
+        try {
+          const { data: res } = await queryFulfilled;
+          console.log("captchaUrl", res);
+          dispatch(setCaptchaUrl(res.url));
+        } catch (err) {
+          const messageError = err as { error: { data: { message: string } } };
+          console.error(messageError.error.data.message);
+        }
+      },
+    }),
   }),
   overrideExisting: true,
 });
 
-export const { useAuthMeQuery, useLoginMutation, useLogoutMutation } = authApi;
+export const {
+  useAuthMeQuery,
+  useLoginMutation,
+  useLogoutMutation,
+  useCaptchaUrlQuery,
+} = authApi;

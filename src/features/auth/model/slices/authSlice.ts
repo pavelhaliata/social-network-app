@@ -1,13 +1,18 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { AuthUserData } from "../types/authType.ts";
 
-const initialState: { authUserData: AuthUserData; isAuthenticated: boolean } = {
+const initialState: {
+  authUserData: AuthUserData;
+  isAuthenticated: boolean;
+  captchaUrl?: string;
+} = {
   authUserData: {
     id: 0,
     login: "",
     email: "",
   },
   isAuthenticated: false,
+  captchaUrl: undefined,
 };
 
 export const authSlice = createSlice({
@@ -23,8 +28,12 @@ export const authSlice = createSlice({
     setAuthUserData: (state, action: PayloadAction<AuthUserData>) => {
       state.authUserData = { ...action.payload };
     },
+    setCaptchaUrl: (state, action: PayloadAction<string>) => {
+      state.captchaUrl = action.payload;
+    },
   },
 });
 
-export const { isAuthenticated, setAuthUserData } = authSlice.actions;
+export const { isAuthenticated, setAuthUserData, setCaptchaUrl } =
+  authSlice.actions;
 export const authReducer = authSlice.reducer;

@@ -1,7 +1,7 @@
 import { useForm } from "react-hook-form";
 import { LoginData } from "../../model/types/authType.ts";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { signInValidationSchema } from "../../model/schemas/signInValidationSchema.ts";
+import { authValidationSchema } from "../../model/schemas/authValidationSchema.ts";
 
 export const useSignInForm = () => {
   const {
@@ -18,10 +18,10 @@ export const useSignInForm = () => {
       email: "",
       password: "",
       rememberMe: false,
-      captcha: null,
+      captcha: undefined,
     },
     mode: "onTouched",
-    resolver: yupResolver(signInValidationSchema),
+    resolver: yupResolver(authValidationSchema),
   });
 
   return {

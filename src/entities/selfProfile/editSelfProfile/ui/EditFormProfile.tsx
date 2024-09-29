@@ -106,14 +106,13 @@ export const EditFormProfile = ({ userProfile, onSubmitProfile }: Props) => {
           </span>
         </div>
         <span className="block text-end text-xl">Social Media Contacts</span>
-        {Object.keys(socialMedia).map(
-          (
-            item: any,
-            index, // TODO: type any!!!
-          ) => (
-            <EditContact key={index} name={item} control={control} />
-          ),
-        )}
+        {Object.keys(socialMedia).map((item: any, index) => (
+          <EditContact
+            key={index}
+            name={`contacts.${item}`}
+            control={control}
+          />
+        ))}
         <Button
           type="primary"
           size="large"
