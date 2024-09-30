@@ -4,7 +4,7 @@ import { UserProfile } from "../../../users/model/types/userProfileType.ts";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { editProfileValidationSchema } from "../../model/schemas/editProfileValidationSchema.ts";
 
-export const useEditProfileForm = (userProfile?: UserProfile) => {
+export const useEditProfileForm = (userProfile: UserProfile | null) => {
   const {
     control,
     formState: { errors, isValid },
@@ -20,18 +20,18 @@ export const useEditProfileForm = (userProfile?: UserProfile) => {
       aboutMe: "",
       lookingForAJobDescription: "",
       contacts: {
-        facebook: "",
-        instagram: "",
-        twitter: "",
-        vk: "",
-        youtube: "",
-        github: "",
-        mainLink: "",
-        website: "",
+        facebook: null,
+        instagram: null,
+        twitter: null,
+        vk: null,
+        youtube: null,
+        github: null,
+        mainLink: null,
+        website: null,
       },
     },
     mode: "onBlur",
-    reValidateMode: "onChange", // Повторная валидация при изменении значения
+    reValidateMode: "onChange",
     resolver: yupResolver(editProfileValidationSchema),
   });
 

@@ -5,19 +5,24 @@ import { LoginData } from "../model/types/authType.ts";
 import { useSignInForm } from "../lib/hooks/useSignInForm.tsx";
 import { ControlledTextField } from "../../../shared/components/ControlledTextField/ControlledTextField.tsx";
 import { Captcha } from "./Captcha.tsx";
+import { useAppSelector } from "../../../app/store";
 
 type Props = {
   onSubmit: (data: LoginData) => void;
   isLoading: boolean;
-  captchaUrl?: string;
 };
 
-export const SignInForm = ({ onSubmit, isLoading, captchaUrl }: Props) => {
+export const SignInForm = ({ onSubmit, isLoading }: Props) => {
+  const captchaUrl = useAppSelector<string | null>(
+    (state) => state.auth.captchaUrl,
+  );
+
   const { control, errors, handleSubmit, isDirty, isValid } = useSignInForm();
 
   const onSubmitHandler: SubmitHandler<LoginData> = (data) => {
     onSubmit(data);
   };
+
   const signInDemoAccountHandler = () => {
     onSubmitHandler({
       email: import.meta.env.VITE_TEST_ACC_EMAIL,
@@ -54,6 +59,9 @@ export const SignInForm = ({ onSubmit, isLoading, captchaUrl }: Props) => {
               errors={errors.password?.message}
               placeholder="Enter your password"
             />
+          </div>
+          <div className="mb-4">
+            <Captcha name="captcha" control={control} captchaUrl={captchaUrl} />
           </div>
           <div className="text-primary-500 font-medium">
             <a
@@ -114,7 +122,6 @@ export const SignInForm = ({ onSubmit, isLoading, captchaUrl }: Props) => {
               </span>
             </p>
           </div>
-          <Captcha name="captcha" control={control} captchaUrl={captchaUrl} />
         </div>
       </Form>
     </>

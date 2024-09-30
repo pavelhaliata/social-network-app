@@ -10,10 +10,6 @@ export const SignIn = () => {
     (state) => state.auth.isAuthenticated,
   );
 
-  const captchaUrl = useAppSelector<string | undefined>(
-    (state) => state.auth.captchaUrl,
-  );
-
   const [signIn, { isLoading }] = useLoginMutation();
 
   const onSubmitHandler = (data: LoginData) => {
@@ -46,11 +42,7 @@ export const SignIn = () => {
           </div>
         </div>
         <div className="w-full h-full md:w-[calc(100%/2-25px)]">
-          <SignInForm
-            onSubmit={onSubmitHandler}
-            isLoading={isLoading}
-            captchaUrl={captchaUrl}
-          />
+          <SignInForm onSubmit={onSubmitHandler} isLoading={isLoading} />
         </div>
       </div>
     </div>

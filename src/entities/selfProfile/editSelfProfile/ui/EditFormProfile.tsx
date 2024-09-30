@@ -8,7 +8,7 @@ import { useEditProfileForm } from "../../lib/hooks/useEditProfileForm.ts";
 import { EditContact } from "./EditContact.tsx";
 
 type Props = {
-  userProfile?: UserProfile;
+  userProfile: UserProfile | null;
   onSubmitProfile: (data: any) => void; // TODO: type any!!!
 };
 // type SocialMedia =
@@ -106,7 +106,7 @@ export const EditFormProfile = ({ userProfile, onSubmitProfile }: Props) => {
           </span>
         </div>
         <span className="block text-end text-xl">Social Media Contacts</span>
-        {Object.keys(socialMedia).map((item: any, index) => (
+        {Object.keys(socialMedia).map((item, index) => (
           <EditContact
             key={index}
             name={`contacts.${item}`}

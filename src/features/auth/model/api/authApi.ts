@@ -75,6 +75,8 @@ export const authApi = baseApi.injectEndpoints({
           const { data: res } = await queryFulfilled;
           if (res.resultCode === ResponseStatus.Success) {
             dispatch(isAuthenticated({ isAuthenticated: false }));
+            dispatch(setAuthUserData({ id: 0, login: "", email: "" }));
+            dispatch(setCaptchaUrl(null));
             toast.success("Logout in successfully");
           } else {
             toast.error(res.messages[0]);
@@ -92,7 +94,6 @@ export const authApi = baseApi.injectEndpoints({
       async onQueryStarted(_args, { dispatch, queryFulfilled }) {
         try {
           const { data: res } = await queryFulfilled;
-          console.log("captchaUrl", res);
           dispatch(setCaptchaUrl(res.url));
         } catch (err) {
           const messageError = err as { error: { data: { message: string } } };

@@ -45,12 +45,8 @@ export const AppLayout = () => {
 
   useUserProfileData();
 
-  const logOutHandler = async () => {
-    try {
-      await logOut().unwrap();
-    } catch (e) {
-      console.error(e);
-    }
+  const logOutHandler = () => {
+    logOut().unwrap();
   };
 
   return (

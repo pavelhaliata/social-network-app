@@ -4,7 +4,7 @@ import { AuthUserData } from "../types/authType.ts";
 const initialState: {
   authUserData: AuthUserData;
   isAuthenticated: boolean;
-  captchaUrl?: string;
+  captchaUrl: string | null;
 } = {
   authUserData: {
     id: 0,
@@ -12,7 +12,7 @@ const initialState: {
     email: "",
   },
   isAuthenticated: false,
-  captchaUrl: undefined,
+  captchaUrl: null,
 };
 
 export const authSlice = createSlice({
@@ -28,7 +28,7 @@ export const authSlice = createSlice({
     setAuthUserData: (state, action: PayloadAction<AuthUserData>) => {
       state.authUserData = { ...action.payload };
     },
-    setCaptchaUrl: (state, action: PayloadAction<string>) => {
+    setCaptchaUrl: (state, action: PayloadAction<string | null>) => {
       state.captchaUrl = action.payload;
     },
   },

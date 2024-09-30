@@ -16,13 +16,13 @@ export const editProfileValidationSchema = yup.object().shape({
 
   // Вложенный объект contacts
   contacts: yup.object().shape({
-    facebook: yup.string().required("Facebook is required"),
-    instagram: yup.string().required("Instagram is required"),
-    twitter: yup.string().required("Twitter is required"),
-    vk: yup.string().required("VK is required"),
-    youtube: yup.string().required("YouTube is required"),
-    github: yup.string().required("GitHub is required"),
-    mainLink: yup.string().required("Main Link is required"),
-    website: yup.string().required("Website is required"),
+    facebook: yup.string().nullable(),
+    instagram: yup.string().nullable(),
+    twitter: yup.string().nullable(),
+    vk: yup.string().nullable(),
+    youtube: yup.string().nullable(),
+    github: yup.string().nullable(),
+    mainLink: yup.string().nullable(),
+    website: yup.string().nullable(),
   }),
 });

@@ -2,7 +2,7 @@ import { ControlledTextField } from "../../../shared/components/ControlledTextFi
 import { FieldValues, UseControllerProps } from "react-hook-form";
 
 type Props<T extends FieldValues> = UseControllerProps<T> & {
-  captchaUrl: string | undefined;
+  captchaUrl: string | null;
 };
 
 export const Captcha = <T extends FieldValues>({

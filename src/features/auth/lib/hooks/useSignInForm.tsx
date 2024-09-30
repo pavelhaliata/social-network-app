@@ -18,7 +18,7 @@ export const useSignInForm = () => {
       email: "",
       password: "",
       rememberMe: false,
-      captcha: undefined,
+      captcha: null,
     },
     mode: "onTouched",
     resolver: yupResolver(authValidationSchema),

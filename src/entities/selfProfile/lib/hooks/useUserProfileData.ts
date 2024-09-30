@@ -18,22 +18,24 @@ export const useUserProfileData = () => {
     error: statusError,
   } = useGetUserStatusQuery(userId);
 
-  return useMemo(
-    () => ({
+  return useMemo(() => {
+    const profileData = userProfile ? userProfile : null;
+    const statusData = userStatus ? userStatus : null;
+
+    return {
       userId,
-      userProfile,
-      userStatus,
+      userProfile: profileData,
+      userStatus: statusData,
       isLoading: isProfileLoading || isStatusLoading,
       error: profileError || statusError,
-    }),
-    [
-      userId,
-      userProfile,
-      userStatus,
-      isProfileLoading,
-      isStatusLoading,
-      profileError,
-      statusError,
-    ],
-  );
+    };
+  }, [
+    userId,
+    userProfile,
+    userStatus,
+    isProfileLoading,
+    isStatusLoading,
+    profileError,
+    statusError,
+  ]);
 };
