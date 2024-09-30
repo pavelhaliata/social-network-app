@@ -2,7 +2,7 @@ export type LoginData = {
   email: string;
   password: string;
   rememberMe?: boolean;
-  captcha?: string;
+  captcha?: string | null;
 };
 export type AuthUserData = {
   id: number;
