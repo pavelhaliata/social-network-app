@@ -31,7 +31,7 @@ const useRouteMatch = (patterns: readonly string[]) => {
 export const AppLayout = () => {
   const [collapsed, setCollapsed] = useState<boolean>(false);
 
-  const routeMatch = useRouteMatch(["self-profile", "users", "chat"]);
+  const routeMatch = useRouteMatch(["self-profile", "users", "messenger"]);
 
   const currentTab = routeMatch?.pattern?.path || "";
 
@@ -74,9 +74,9 @@ export const AppLayout = () => {
               label: <Link to="users">Users</Link>,
             },
             {
-              key: "chat",
+              key: "messenger",
               icon: <WechatOutlined />,
-              label: <Link to="chat">Chat</Link>,
+              label: <Link to="messenger">Messenger</Link>,
             },
           ]}
         />

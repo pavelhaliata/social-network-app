@@ -6,8 +6,8 @@ import { SocialContacts } from "../SocialContacts/SocialContacts.tsx";
 const { Text } = Typography;
 
 type Props = {
-  userProfile?: UserProfile;
-  userStatus?: string;
+  userProfile: UserProfile | null;
+  userStatus: string | null;
 };
 
 export const Profile = ({ userProfile, userStatus }: Props) => {

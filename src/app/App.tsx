@@ -13,7 +13,7 @@ import { UsersPage } from "../pages/users";
 import { SightInPage } from "../pages/auth";
 import { UserProfilePage } from "../pages/userProfile";
 import { EditSelfProfilePage } from "../pages/editSelfProfile";
-import { ChatPage } from "../pages/chat";
+import { MessengerPage } from "../pages/messenger";
 
 export const App = () => {
   const isInitialized = useAppSelector((state) => state.app.initialized);
@@ -66,8 +66,8 @@ export const App = () => {
           ),
         },
         {
-          path: "chat",
-          element: <ChatPage />,
+          path: "messenger",
+          element: <MessengerPage />,
         },
       ],
     },
