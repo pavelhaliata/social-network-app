@@ -1,6 +1,6 @@
 import { SignInForm } from "./SignInForm.tsx";
-import { useLoginMutation } from "../model/api/authApi.ts";
-import { LoginData } from "../model/types/authType.ts";
+import { useLoginMutation } from "../api/authApi.ts";
+import { LoginData } from "../types/authType.ts";
 import { useAppSelector } from "../../../app/store";
 import { Navigate } from "react-router-dom";
 import frontImg from "../../../shared/assets/img/frontImg.jpg";

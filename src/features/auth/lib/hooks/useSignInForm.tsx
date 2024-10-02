@@ -1,7 +1,7 @@
 import { useForm } from "react-hook-form";
-import { LoginData } from "../../model/types/authType.ts";
+import { LoginData } from "../../types/authType.ts";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { authValidationSchema } from "../../model/schemas/authValidationSchema.ts";
+import { authValidationSchema } from "../../types/schemas/authValidationSchema.ts";
 
 export const useSignInForm = () => {
   const {

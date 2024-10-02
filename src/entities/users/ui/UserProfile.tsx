@@ -5,7 +5,7 @@ import {
   useGetUserProfileQuery,
   useGetUserStatusQuery,
   useUnFollowUserMutation,
-} from "../model/api/userProfileApi.ts";
+} from "../api/userProfileApi.ts";
 import { Profile } from "../../../shared/components";
 import { Subscription } from "./Subscription.tsx";
 

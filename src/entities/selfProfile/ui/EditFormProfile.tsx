@@ -3,8 +3,8 @@ import { Controller } from "react-hook-form";
 import {
   UserProfile,
   UserSocialContacts,
-} from "../../../users/model/types/userProfileType.ts";
-import { useEditProfileForm } from "../../lib/hooks/useEditProfileForm.ts";
+} from "../../users/types/userProfileType.ts";
+import { useEditProfileForm } from "../lib/hooks/useEditProfileForm.ts";
 import { EditContact } from "./EditContact.tsx";
 
 type Props = {

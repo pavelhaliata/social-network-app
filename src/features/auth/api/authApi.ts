@@ -1,15 +1,12 @@
-import { baseApi } from "../../../../shared/api";
+import { baseApi } from "../../../shared/api";
 import { AuthUserData, LoginData } from "../types/authType.ts";
-import {
-  ResponseSchema,
-  ResponseStatus,
-} from "../../../../shared/types/api.ts";
+import { ResponseSchema, ResponseStatus } from "../../../shared/types/api.ts";
 import {
   isAuthenticated,
   setAuthUserData,
   setCaptchaUrl,
-} from "../slices/authSlice.ts";
-import { initializeApp } from "../../../../app/model/appSlice.ts";
+} from "../model/slices/authSlice.ts";
+import { initializeApp } from "../../../app/model/slices/appSlice.ts";
 import { toast } from "react-toastify";
 
 export const authApi = baseApi.injectEndpoints({

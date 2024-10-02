@@ -1,5 +1,5 @@
 import React, { ChangeEvent, useState } from "react";
-import { useGetUsersQuery } from "../service/usersApi.ts";
+import { useGetUsersQuery } from "../api/usersApi.ts";
 import { Button, Flex, Input, Pagination, Select } from "antd";
 import { UserCard } from "../../../entities/users";
 import { useSearchParams } from "react-router-dom";

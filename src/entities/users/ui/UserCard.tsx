@@ -1,6 +1,6 @@
 import { Avatar, Card } from "antd";
 import { Link } from "react-router-dom";
-import { UserInfo } from "../../../features/users/service/usersApiTypes.ts";
+import { UserInfo } from "../../../features/users/types/usersApiTypes.ts";
 import { UserOutlined } from "@ant-design/icons";
 
 type Props = {

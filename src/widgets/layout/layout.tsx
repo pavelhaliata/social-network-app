@@ -10,7 +10,7 @@ import { Button, Layout, Menu } from "antd";
 import { Link, matchPath, Outlet, useLocation } from "react-router-dom";
 import { useAppSelector } from "../../app/store";
 import { TopProfileLink } from "../../shared/components/LogOutButton/TopProfileLink.tsx";
-import { useLogoutMutation } from "../../features/auth/model/api/authApi.ts";
+import { useLogoutMutation } from "../../features/auth/api/authApi.ts";
 import { useUserProfileData } from "../../entities/selfProfile/lib/hooks/useUserProfileData.ts";
 
 const { Header, Sider, Content, Footer } = Layout;

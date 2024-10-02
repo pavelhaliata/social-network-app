@@ -1,5 +1,5 @@
 import { useAppSelector } from "./store";
-import { useAuthMeQuery } from "../features/auth/model/api/authApi.ts";
+import { useAuthMeQuery } from "../features/auth/api/authApi.ts";
 import {
   createBrowserRouter,
   Navigate,

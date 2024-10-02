@@ -1,8 +1,8 @@
 import { useEffect } from "react";
 import { useForm } from "react-hook-form";
-import { UserProfile } from "../../../users/model/types/userProfileType.ts";
+import { UserProfile } from "../../../users/types/userProfileType.ts";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { editProfileValidationSchema } from "../../model/schemas/editProfileValidationSchema.ts";
+import { editProfileValidationSchema } from "../../types/schemas/editProfileValidationSchema.ts";
 
 export const useEditProfileForm = (userProfile: UserProfile | null) => {
   const {

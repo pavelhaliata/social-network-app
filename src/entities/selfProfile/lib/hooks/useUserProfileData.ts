@@ -1,7 +1,7 @@
 import { useMemo } from "react";
 import { useAppSelector } from "../../../../app/store";
-import { useGetSelfProfileQuery } from "../../model/api/selfProfileApi.tsx";
-import { useGetUserStatusQuery } from "../../../users/model/api/userProfileApi.ts";
+import { useGetSelfProfileQuery } from "../../api/selfProfileApi.tsx";
+import { useGetUserStatusQuery } from "../../../users/api/userProfileApi.ts";
 
 export const useUserProfileData = () => {
   const userId = useAppSelector<number>((store) => store.auth.authUserData.id);

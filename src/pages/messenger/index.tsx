@@ -1,3 +1,3 @@
-import Messenger from "../../entities/Messenger/ui/Messenger.tsx";
+import Messenger from "../../entities/messenger/ui/Messenger.tsx";
 
 export const MessengerPage = () => <Messenger />;

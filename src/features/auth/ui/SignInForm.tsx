@@ -1,7 +1,7 @@
 import { Button, Checkbox, Form } from "antd";
 import { LockTwoTone, MailTwoTone } from "@ant-design/icons";
 import { Controller, SubmitHandler } from "react-hook-form";
-import { LoginData } from "../model/types/authType.ts";
+import { LoginData } from "../types/authType.ts";
 import { useSignInForm } from "../lib/hooks/useSignInForm.tsx";
 import { ControlledTextField } from "../../../shared/components/ControlledTextField/ControlledTextField.tsx";
 import { Captcha } from "./Captcha.tsx";

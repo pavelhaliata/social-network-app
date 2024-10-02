@@ -2,10 +2,10 @@ import { useUserProfileData } from "../../../entities/selfProfile/lib/hooks/useU
 import {
   useEditPhotoProfileMutation,
   useEditProfileMutation,
-} from "../../../entities/selfProfile/model/api/editSelfProfileApi.ts";
-import { EditPhotoProfile } from "../../../entities/selfProfile/editSelfProfile/ui/EditPhotoProfile.tsx";
-import { EditFormProfile } from "../../../entities/selfProfile/editSelfProfile/ui/EditFormProfile.tsx";
-import { UserProfile } from "../../../entities/users/model/types/userProfileType.ts";
+} from "../../../entities/selfProfile/api/editSelfProfileApi.ts";
+import { EditPhotoProfile } from "../../../entities/selfProfile/ui/EditPhotoProfile.tsx";
+import { EditFormProfile } from "../../../entities/selfProfile/ui/EditFormProfile.tsx";
+import { UserProfile } from "../../../entities/users/types/userProfileType.ts";
 import { ResponseStatus } from "../../../shared/types/api.ts";
 
 export const EditSelfProfile = () => {
