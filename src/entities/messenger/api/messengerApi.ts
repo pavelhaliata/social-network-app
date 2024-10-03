@@ -85,9 +85,7 @@ export const messengerAPI = {
     return () => {
       // Отписка от событий
       // @ts-ignore
-      subscribers[eventName] = subscribers[eventName].filter(
-        (s) => s !== callback,
-      );
+      subscribers[eventName].filter((s) => s !== callback);
     };
   },
   // Прямая отписка от события
@@ -96,9 +94,7 @@ export const messengerAPI = {
     callback: MessagesReceivedSubscriberType | StatusChangedSubscriberType,
   ) {
     // @ts-ignore
-    subscribers[eventName] = subscribers[eventName].filter(
-      (s) => s !== callback,
-    );
+    subscribers[eventName].filter((s) => s !== callback);
   },
 };
 
