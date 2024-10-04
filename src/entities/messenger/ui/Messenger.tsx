@@ -8,15 +8,14 @@ import {
   useAppSelector,
 } from "../../../app/store";
 import { Message } from "../types/messengerType.ts";
-import {
-  sendMessage,
-  startWebSocketConnection,
-  stopWebSocketConnection,
-} from "../model/slices/messengerSlice.ts";
+import { useConnectSocket } from "../lib/hooks/useConnectSocket.ts";
 
 const { TextArea } = Input;
 
 export const Messenger = () => {
+  const { startWebSocketConnection, stopWebSocketConnection, sendMessage } =
+    useConnectSocket();
+
   const messages = useAppSelector<Message[]>(
     (state: AppRootState) => state.messenger.messages,
   );
