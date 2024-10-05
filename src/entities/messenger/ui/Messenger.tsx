@@ -1,6 +1,6 @@
-import { Avatar, Button, Input, List, Spin } from "antd";
+import { Avatar, Button, Form, Input, List, Spin } from "antd";
 import { SendOutlined } from "@ant-design/icons";
-import { ChangeEvent, useEffect, useRef, useState } from "react";
+import { ChangeEvent, KeyboardEvent, useEffect, useRef, useState } from "react";
 import {
   AppDispatch,
   AppRootState,
@@ -31,6 +31,14 @@ export const Messenger = () => {
   const sendMessageHandler = () => {
     sendMessage(message);
     setMessage("");
+  };
+
+  const onKeyDownSendMessageHandler = (
+    event: KeyboardEvent<HTMLTextAreaElement>,
+  ) => {
+    if (event.key === "Enter" && event.ctrlKey && message) {
+      sendMessageHandler();
+    }
   };
 
   const scrollToBottom = () => {
@@ -79,23 +87,26 @@ export const Messenger = () => {
         )}
         <div ref={messagesEndRef} />
       </div>
-
-      <div className="flex items-center p-4 border-t">
-        <TextArea
-          value={message}
-          onChange={setMessageHandler}
-          className="flex-grow mr-4"
-          placeholder="Type a message..."
-          rows={2}
-        />
-        <Button
-          type="primary"
-          shape="circle"
-          icon={<SendOutlined />}
-          className="bg-blue-500 hover:bg-blue-600"
-          onClick={sendMessageHandler}
-        />
-      </div>
+      <Form onSubmitCapture={sendMessageHandler}>
+        <div className="flex items-center p-4 border-t">
+          <TextArea
+            value={message}
+            onChange={setMessageHandler}
+            onKeyDown={onKeyDownSendMessageHandler}
+            variant="borderless"
+            className="flex-grow mr-4"
+            placeholder="Type a message..."
+            autoSize={{ minRows: 3, maxRows: 6 }}
+          />
+          <Button
+            type="primary"
+            shape="circle"
+            icon={<SendOutlined />}
+            className={`${!message && "hidden"}`}
+            htmlType="submit"
+          />
+        </div>
+      </Form>
     </div>
   );
 };

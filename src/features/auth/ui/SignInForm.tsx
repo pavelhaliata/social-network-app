@@ -31,7 +31,7 @@ export const SignInForm = ({ onSubmit, isLoading }: Props) => {
   };
 
   return (
-    <>
+    <div>
       <h1
         className="relative text-2xl font-medium text-dark-300
             before:content-[''] before:absolute before:left-0 before:-bottom-1
@@ -124,6 +124,6 @@ export const SignInForm = ({ onSubmit, isLoading }: Props) => {
           </div>
         </div>
       </Form>
-    </>
+    </div>
   );
 };

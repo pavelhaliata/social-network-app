@@ -84,7 +84,7 @@ export const messengerAPI = {
     subscribers[eventName].push(callback);
     return () => {
       // Отписка от событий
-      // @ts-ignore
+
       subscribers[eventName].filter((s) => s !== callback);
     };
   },
