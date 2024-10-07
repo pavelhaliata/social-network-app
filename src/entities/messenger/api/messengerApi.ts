@@ -1,10 +1,17 @@
-import { Message } from "../types/messengerType.ts";
+import {
+  EventsNames,
+  EventSubscribers,
+  Message,
+  MessagesReceivedSubscriber,
+  MessengerStatus,
+  StatusChangedSubscriber,
+} from "../types/messengerType.ts";
 
 let ws: WebSocket | null = null;
 
 const subscribers = {
-  "messages-received": [] as MessagesReceivedSubscriberType[],
-  "status-changed": [] as StatusChangedSubscriberType[],
+  "messages-received": [] as MessagesReceivedSubscriber[],
+  "status-changed": [] as StatusChangedSubscriber[],
 };
 
 // Функция для переподключения
@@ -76,32 +83,21 @@ export const messengerAPI = {
     ws?.send(message);
   },
   // Подписка на события (сообщения или изменение статуса)
-  subscribe(
-    eventName: EventsNamesType,
-    callback: MessagesReceivedSubscriberType | StatusChangedSubscriberType,
+  subscribe<K extends keyof EventSubscribers>(
+    eventName: K,
+    callback: EventSubscribers[K],
   ) {
-    // @ts-ignore
-    subscribers[eventName].push(callback);
+    subscribers[eventName].push(callback as any);
     return () => {
       // Отписка от событий
-
       subscribers[eventName].filter((s) => s !== callback);
     };
   },
   // Прямая отписка от события
   unsubscribe(
-    eventName: EventsNamesType,
-    callback: MessagesReceivedSubscriberType | StatusChangedSubscriberType,
+    eventName: EventsNames,
+    callback: MessagesReceivedSubscriber | StatusChangedSubscriber,
   ) {
-    // @ts-ignore
     subscribers[eventName].filter((s) => s !== callback);
   },
 };
-
-// Типы
-type EventsNamesType = "messages-received" | "status-changed";
-
-type MessagesReceivedSubscriberType = (messages: Message[]) => void;
-type StatusChangedSubscriberType = (status: MessengerStatus) => void;
-
-export type MessengerStatus = "pending" | "ready" | "error";

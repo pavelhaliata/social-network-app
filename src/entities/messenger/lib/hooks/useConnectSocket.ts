@@ -1,6 +1,6 @@
 import { AppDispatch } from "../../../../app/store";
-import { messengerAPI, MessengerStatus } from "../../api/messengerApi.ts";
-import { Message } from "../../types/messengerType.ts";
+import { messengerAPI } from "../../api/messengerApi.ts";
+import { Message, MessengerStatus } from "../../types/messengerType.ts";
 import {
   addMessage,
   clearMessages,

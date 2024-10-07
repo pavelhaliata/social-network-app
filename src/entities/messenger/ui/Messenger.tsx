@@ -15,7 +15,6 @@ const { TextArea } = Input;
 export const Messenger = () => {
   const { startWebSocketConnection, stopWebSocketConnection, sendMessage } =
     useConnectSocket();
-
   const messages = useAppSelector<Message[]>(
     (state: AppRootState) => state.messenger.messages,
   );
@@ -24,13 +23,27 @@ export const Messenger = () => {
   const [message, setMessage] = useState("");
   const messagesEndRef = useRef<HTMLDivElement | null>(null);
 
+  useEffect(() => {
+    scrollToBottom();
+  }, [messages]);
+
+  useEffect(() => {
+    dispatch(startWebSocketConnection);
+    return () => {
+      dispatch(stopWebSocketConnection);
+    };
+  }, [dispatch]);
+
   const setMessageHandler = (e: ChangeEvent<HTMLTextAreaElement>) => {
     setMessage(e.target.value);
   };
 
   const sendMessageHandler = () => {
-    sendMessage(message);
-    setMessage("");
+    if (message) {
+      sendMessage(message);
+      setMessage("");
+    }
+    return;
   };
 
   const onKeyDownSendMessageHandler = (
@@ -44,17 +57,6 @@ export const Messenger = () => {
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   };
-
-  useEffect(() => {
-    scrollToBottom();
-  }, [messages]);
-
-  useEffect(() => {
-    dispatch(startWebSocketConnection);
-    return () => {
-      dispatch(stopWebSocketConnection);
-    };
-  }, [dispatch]);
 
   return (
     <div className="flex flex-col h-[75vh] max-w-full mx-auto border rounded-lg shadow-lg bg-white">
@@ -96,7 +98,7 @@ export const Messenger = () => {
             variant="borderless"
             className="flex-grow mr-4"
             placeholder="Type a message..."
-            autoSize={{ minRows: 3, maxRows: 6 }}
+            autoSize={{ minRows: 3, maxRows: 4 }}
           />
           <Button
             type="primary"
