@@ -6,6 +6,7 @@ import {
 } from "../../users/types/userProfileType.ts";
 import { useEditProfileForm } from "../lib/hooks/useEditProfileForm.ts";
 import { EditContact } from "./EditContact.tsx";
+import { SocialMedia } from "../types/selfProfileType.ts";
 
 type Props = {
   userProfile: UserProfile | null;
@@ -13,15 +14,6 @@ type Props = {
     data: Omit<UserProfile, "userId" | "lookingForAJob" | "photos">,
   ) => void;
 };
-type SocialMedia =
-  | "facebook"
-  | "website"
-  | "vk"
-  | "twitter"
-  | "instagram"
-  | "youtube"
-  | "github"
-  | "mainLink";
 
 export const EditFormProfile = ({ userProfile, onSubmitProfile }: Props) => {
   const socialMedia: UserSocialContacts | {} = userProfile
