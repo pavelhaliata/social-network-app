@@ -2,16 +2,6 @@ import { Controller, FieldValues, UseControllerProps } from "react-hook-form";
 import { Input } from "antd";
 import { ComponentPropsWithoutRef } from "react";
 
-export type ContactFields =
-  | "contacts.facebook"
-  | "contacts.instagram"
-  | "contacts.twitter"
-  | "contacts.vk"
-  | "contacts.youtube"
-  | "contacts.github"
-  | "contacts.mainLink"
-  | "contacts.website";
-
 type IProps<T extends FieldValues> = UseControllerProps<T> &
   Omit<ComponentPropsWithoutRef<"input">, "name">;
 

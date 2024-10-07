@@ -1,6 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { Message } from "../../types/messengerType.ts";
-import { MessengerStatus } from "../../api/messengerApi.ts";
+import { Message, MessengerStatus } from "../../types/messengerType.ts";
 
 const initialState: { messages: Message[]; status: MessengerStatus } = {
   messages: [],

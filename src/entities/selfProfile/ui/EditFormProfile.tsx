@@ -9,17 +9,19 @@ import { EditContact } from "./EditContact.tsx";
 
 type Props = {
   userProfile: UserProfile | null;
-  onSubmitProfile: (data: any) => void; // TODO: type any!!!
+  onSubmitProfile: (
+    data: Omit<UserProfile, "userId" | "lookingForAJob" | "photos">,
+  ) => void;
 };
-// type SocialMedia =
-//   | "facebook"
-//   | "website"
-//   | "vk"
-//   | "twitter"
-//   | "instagram"
-//   | "youtube"
-//   | "github"
-//   | "mainLink";
+type SocialMedia =
+  | "facebook"
+  | "website"
+  | "vk"
+  | "twitter"
+  | "instagram"
+  | "youtube"
+  | "github"
+  | "mainLink";
 
 export const EditFormProfile = ({ userProfile, onSubmitProfile }: Props) => {
   const socialMedia: UserSocialContacts | {} = userProfile
@@ -109,7 +111,7 @@ export const EditFormProfile = ({ userProfile, onSubmitProfile }: Props) => {
         {Object.keys(socialMedia).map((item, index) => (
           <EditContact
             key={index}
-            name={`contacts.${item}`}
+            name={`contacts.${item as SocialMedia}`}
             control={control}
           />
         ))}

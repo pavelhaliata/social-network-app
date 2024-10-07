@@ -1,6 +1,5 @@
 import { Profile } from "../../../shared/components";
 import { Link } from "react-router-dom";
-import { Button } from "antd";
 import { useUserProfileData } from "../../../entities/selfProfile/lib/hooks/useUserProfileData.ts";
 
 export const SelfProfile = () => {
