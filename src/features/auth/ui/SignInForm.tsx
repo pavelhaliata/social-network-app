@@ -6,6 +6,10 @@ import { useSignInForm } from "../lib/hooks/useSignInForm.tsx";
 import { ControlledTextField } from "../../../shared/components/ControlledTextField/ControlledTextField.tsx";
 import { Captcha } from "./Captcha.tsx";
 import { useAppSelector } from "../../../app/store";
+import {
+  AUTH_FORGOT_PASS_URL,
+  AUTH_SIGNUP_URL,
+} from "../constants/authConstants.ts";
 
 type Props = {
   onSubmit: (data: LoginData) => void;
@@ -65,7 +69,7 @@ export const SignInForm = ({ onSubmit, isLoading }: Props) => {
           </div>
           <div className="text-primary-500 font-medium">
             <a
-              href={import.meta.env.VITE_FORGOT_PASS_LINK}
+              href={AUTH_FORGOT_PASS_URL}
               target="_blank"
               className="hover:underline hover:underline-offset-2"
             >
@@ -105,7 +109,7 @@ export const SignInForm = ({ onSubmit, isLoading }: Props) => {
             <p>
               Don't have an account?{" "}
               <a
-                href={import.meta.env.VITE_SIGN_UP_LINK}
+                href={AUTH_SIGNUP_URL}
                 target="_blank"
                 className="text-primary-500 hover:underline hover:underline-offset-2"
               >
