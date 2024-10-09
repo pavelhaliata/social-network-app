@@ -1,6 +1,6 @@
 import { baseApi } from "../../../shared/api";
-import { UserProfile } from "../../users/types/userProfileType.ts";
-import { selfProfile } from "../../users/model/slices/selfProfileSlice.ts";
+import { UserProfile } from "../../userProfile/types/userProfileType.ts";
+import { selfProfile } from "../model/slices/selfProfileSlice.ts";
 
 export const selfProfileApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
@@ -19,7 +19,15 @@ export const selfProfileApi = baseApi.injectEndpoints({
         }
       },
     }),
+    changeStatus: builder.mutation({
+      query: (userId) => ({
+        url: `/profile/status/${userId}`,
+        method: "PUT",
+      }),
+      invalidatesTags: ["selfProfile"],
+    }),
   }),
   overrideExisting: true,
 });
-export const { useGetSelfProfileQuery } = selfProfileApi;
+export const { useGetSelfProfileQuery, useChangeStatusMutation } =
+  selfProfileApi;
