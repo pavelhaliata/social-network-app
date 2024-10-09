@@ -12,7 +12,7 @@ export const getUsersApi = baseApi.injectEndpoints({
       }) =>
         `users?page=${currentPage}&count=${pageSize}&term=${search}` +
         (followed === null ? "" : `&friend=${followed}`),
-      providesTags: ["Users"],
+      providesTags: ["users"],
     }),
   }),
 });

@@ -4,7 +4,7 @@ import { EditTwoTone, LoadingOutlined, UserOutlined } from "@ant-design/icons";
 import { UserProfile } from "../../users/types/userProfileType.ts";
 
 type Props = {
-  userProfile: UserProfile | null;
+  userProfile?: UserProfile;
   isLoadingPhoto: boolean;
   onSubmitPhotoProfile: (
     file: File | Blob | string,

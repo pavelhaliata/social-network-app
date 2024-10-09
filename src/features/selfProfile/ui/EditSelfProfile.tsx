@@ -14,8 +14,17 @@ export const EditSelfProfile = () => {
   const [editPhotoProfile, { isLoading: isLoadingPhoto }] =
     useEditPhotoProfileMutation();
 
-  const onSubmitProfile = (data: UserProfile) => {
-    editUserProfile({ ...data }).unwrap();
+  const onSubmitProfile = (
+    data: Omit<UserProfile, "userId" | "photos" | "lookingForAJob">,
+  ) => {
+    if (!userProfile) return;
+    const dataProfile: UserProfile = {
+      userId: userProfile.userId,
+      lookingForAJob: userProfile.lookingForAJob,
+      photos: userProfile.photos,
+      ...data,
+    };
+    editUserProfile({ ...dataProfile }).unwrap();
   };
 
   const onSubmitPhotoProfile = (

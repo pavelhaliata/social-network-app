@@ -3,8 +3,9 @@ import { useForm } from "react-hook-form";
 import { UserProfile } from "../../../users/types/userProfileType.ts";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { editProfileValidationSchema } from "../../types/schemas/editProfileValidationSchema.ts";
+import { EditUserProfile } from "../../types/selfProfileType.ts";
 
-export const useEditProfileForm = (userProfile: UserProfile | null) => {
+export const useEditProfileForm = (userProfile: UserProfile | undefined) => {
   const {
     control,
     formState: { errors, isValid },
@@ -14,7 +15,7 @@ export const useEditProfileForm = (userProfile: UserProfile | null) => {
     setError,
     clearErrors,
     setValue,
-  } = useForm<Omit<UserProfile, "userId" | "lookingForAJob" | "photos">>({
+  } = useForm<EditUserProfile>({
     defaultValues: {
       fullName: "",
       aboutMe: "",

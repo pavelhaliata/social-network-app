@@ -9,9 +9,9 @@ import { EditContact } from "./EditContact.tsx";
 import { SocialMedia } from "../types/selfProfileType.ts";
 
 type Props = {
-  userProfile: UserProfile | null;
+  userProfile?: UserProfile;
   onSubmitProfile: (
-    data: Omit<UserProfile, "userId" | "lookingForAJob" | "photos">,
+    data: Omit<UserProfile, "userId" | "photos" | "lookingForAJob">,
   ) => void;
 };
 

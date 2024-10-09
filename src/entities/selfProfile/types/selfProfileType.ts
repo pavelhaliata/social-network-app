@@ -1,3 +1,5 @@
+import { UserSocialContacts } from "../../users/types/userProfileType.ts";
+
 export type SocialMedia =
   | "facebook"
   | "website"
@@ -7,3 +9,10 @@ export type SocialMedia =
   | "youtube"
   | "github"
   | "mainLink";
+
+export type EditUserProfile = {
+  fullName: string;
+  aboutMe: string;
+  lookingForAJobDescription: string;
+  contacts: UserSocialContacts;
+};

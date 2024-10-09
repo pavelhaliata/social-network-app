@@ -1,23 +1,23 @@
 export type UserProfile = {
+  userId: number;
+  fullName: string;
   aboutMe: string;
-  contacts: UserSocialContacts;
   lookingForAJob: boolean;
   lookingForAJobDescription: string;
-  fullName: string;
-  userId: number;
   photos: {
     small: string;
     large: string;
   };
+  contacts: UserSocialContacts;
 };
 
 export type UserSocialContacts = {
-  facebook: string | null;
-  website: string | null;
-  vk: string | null;
-  twitter: string | null;
-  instagram: string | null;
-  youtube: string | null;
-  github: string | null;
-  mainLink: string | null;
+  facebook?: string | null;
+  website?: string | null;
+  vk?: string | null;
+  twitter?: string | null;
+  instagram?: string | null;
+  youtube?: string | null;
+  github?: string | null;
+  mainLink?: string | null;
 };
