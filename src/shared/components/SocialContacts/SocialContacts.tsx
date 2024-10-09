@@ -6,7 +6,7 @@ import {
   TwitterOutlined,
   YoutubeOutlined,
 } from "@ant-design/icons";
-import { UserSocialContacts } from "../../../entities/users/types/userProfileType.ts";
+import { UserSocialContacts } from "../../../entities/userProfile/types/userProfileType.ts";
 
 type Props = {
   contacts?: UserSocialContacts;

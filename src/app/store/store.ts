@@ -6,7 +6,7 @@ import { appReducer } from "../model/slices/appSlice.ts";
 import { TypedUseSelectorHook, useDispatch, useSelector } from "react-redux";
 import { AppDispatch, AppRootState } from "./types.ts";
 import { authReducer } from "../../features/auth/model/slices/authSlice.ts";
-import { selfProfileReducer } from "../../entities/users/model/slices/selfProfileSlice.ts";
+import { selfProfileReducer } from "../../entities/selfProfile/model/slices/selfProfileSlice.ts";
 import { messengerReducer } from "../../entities/messenger/model/slices/messengerSlice.ts";
 
 export const store = configureStore({

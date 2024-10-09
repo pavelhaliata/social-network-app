@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useForm } from "react-hook-form";
-import { UserProfile } from "../../../users/types/userProfileType.ts";
+import { UserProfile } from "../../../userProfile/types/userProfileType.ts";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { editProfileValidationSchema } from "../../types/schemas/editProfileValidationSchema.ts";
 import { EditUserProfile } from "../../types/selfProfileType.ts";

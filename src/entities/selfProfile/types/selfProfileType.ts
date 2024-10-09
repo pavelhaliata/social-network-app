@@ -1,4 +1,4 @@
-import { UserSocialContacts } from "../../users/types/userProfileType.ts";
+import { UserSocialContacts } from "../../userProfile/types/userProfileType.ts";
 
 export type SocialMedia =
   | "facebook"

@@ -1,3 +1,3 @@
-import { UserProfile } from "../../entities/users";
+import { UserProfile } from "../../entities/userProfile";
 
 export const UserProfilePage = () => <UserProfile />;

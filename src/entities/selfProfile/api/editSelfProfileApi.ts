@@ -1,5 +1,5 @@
 import { baseApi } from "../../../shared/api";
-import { UserProfile } from "../../users/types/userProfileType.ts";
+import { UserProfile } from "../../userProfile/types/userProfileType.ts";
 import { ResponseSchema, ResponseStatus } from "../../../shared/types/api.ts";
 import { toast } from "react-toastify";
 

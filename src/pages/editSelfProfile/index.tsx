@@ -1,3 +1,3 @@
-import { EditSelfProfile } from "../../entities/selfProfile";
+import { EditSelfProfile } from "../../features/selfProfile";
 
 export const EditSelfProfilePage = () => <EditSelfProfile />;

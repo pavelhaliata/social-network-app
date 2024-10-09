@@ -3,10 +3,13 @@ import {
   useEditPhotoProfileMutation,
   useEditProfileMutation,
 } from "../../../entities/selfProfile/api/editSelfProfileApi.ts";
-import { EditPhotoProfile } from "../../../entities/selfProfile/ui/EditPhotoProfile.tsx";
-import { EditFormProfile } from "../../../entities/selfProfile/ui/EditFormProfile.tsx";
-import { UserProfile } from "../../../entities/users/types/userProfileType.ts";
+
+import { UserProfile } from "../../../entities/userProfile/types/userProfileType.ts";
 import { ResponseStatus } from "../../../shared/types/api.ts";
+import {
+  EditFormProfile,
+  EditPhotoProfile,
+} from "../../../entities/selfProfile";
 
 export const EditSelfProfile = () => {
   const { userProfile } = useUserProfileData();

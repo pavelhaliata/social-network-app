@@ -3,7 +3,7 @@ import { Controller } from "react-hook-form";
 import {
   UserProfile,
   UserSocialContacts,
-} from "../../users/types/userProfileType.ts";
+} from "../../userProfile/types/userProfileType.ts";
 import { useEditProfileForm } from "../lib/hooks/useEditProfileForm.ts";
 import { EditContact } from "./EditContact.tsx";
 import { SocialMedia } from "../types/selfProfileType.ts";

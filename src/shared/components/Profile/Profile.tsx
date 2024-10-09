@@ -1,6 +1,6 @@
 import { Avatar, Flex, Image, Typography } from "antd";
 import { UserOutlined } from "@ant-design/icons";
-import { UserProfile } from "../../../entities/users/types/userProfileType.ts";
+import { UserProfile } from "../../../entities/userProfile/types/userProfileType.ts";
 import { SocialContacts } from "../SocialContacts/SocialContacts.tsx";
 
 const { Text } = Typography;

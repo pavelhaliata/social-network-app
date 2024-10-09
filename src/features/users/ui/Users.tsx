@@ -1,7 +1,7 @@
 import React, { ChangeEvent, useState } from "react";
 import { useGetUsersQuery } from "../api/usersApi.ts";
 import { Button, Flex, Input, Pagination, Select } from "antd";
-import { UserCard } from "../../../entities/users";
+import { UserCard } from "../../../entities/userProfile";
 import { useSearchParams } from "react-router-dom";
 
 export const Users = React.memo(() => {
@@ -71,7 +71,6 @@ export const Users = React.memo(() => {
             onChange={onChangeHandler}
           />
           <Button
-            // style={{ maxWidth: 200, width: "100%" }}
             type="primary"
             onClick={searchUsersHandler}
             className="max-w-[200px] w-full"

@@ -1,7 +1,7 @@
 import { ChangeEvent, useRef, useState } from "react";
 import { Avatar, Button, Dropdown, MenuProps, Modal, Spin } from "antd";
 import { EditTwoTone, LoadingOutlined, UserOutlined } from "@ant-design/icons";
-import { UserProfile } from "../../users/types/userProfileType.ts";
+import { UserProfile } from "../../userProfile/types/userProfileType.ts";
 
 type Props = {
   userProfile?: UserProfile;
