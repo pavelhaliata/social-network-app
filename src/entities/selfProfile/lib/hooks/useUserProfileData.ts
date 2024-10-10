@@ -5,7 +5,6 @@ import { useGetUserStatusQuery } from "../../../userProfile/api/userProfileApi.t
 
 export const useUserProfileData = () => {
   const userId = useAppSelector<number>((store) => store.auth.authUserData.id);
-
   const {
     data: userProfile,
     isLoading: isProfileLoading,
@@ -18,6 +17,7 @@ export const useUserProfileData = () => {
     error: statusError,
   } = useGetUserStatusQuery(userId);
 
+  console.log("userStatus: ", userStatus);
   return useMemo(() => {
     const profileData = userProfile ? userProfile : undefined;
     const statusData = userStatus ? userStatus : undefined;

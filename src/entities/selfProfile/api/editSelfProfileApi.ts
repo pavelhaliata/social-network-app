@@ -48,9 +48,35 @@ export const editSelfProfileApi = baseApi.injectEndpoints({
         }
       },
     }),
+    changeStatus: builder.mutation<ResponseSchema, string>({
+      query: (status) => ({
+        url: `/profile/status`,
+        method: "PUT",
+        body: {
+          status,
+        },
+      }),
+      async onQueryStarted(_args, { queryFulfilled }) {
+        try {
+          const { data: res } = await queryFulfilled;
+          if (res.resultCode === ResponseStatus.Success) {
+            console.log("response: ", res);
+            toast.success("Status successfully updated!");
+          }
+          toast.error(res.messages[0]);
+        } catch (err) {
+          const messageError = err as { error: { data: { message: string } } };
+          console.error(messageError.error.data.message);
+        }
+      },
+      invalidatesTags: ["userStatus"],
+    }),
   }),
   overrideExisting: true,
 });
 
-export const { useEditProfileMutation, useEditPhotoProfileMutation } =
-  editSelfProfileApi;
+export const {
+  useEditProfileMutation,
+  useEditPhotoProfileMutation,
+  useChangeStatusMutation,
+} = editSelfProfileApi;

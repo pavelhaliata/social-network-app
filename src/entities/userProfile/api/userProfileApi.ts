@@ -9,6 +9,7 @@ export const getUserProfileApi = baseApi.injectEndpoints({
     }),
     getUserStatus: builder.query<string, number>({
       query: (userId: number) => `/profile/status/${userId}`,
+      providesTags: ["userStatus"],
     }),
     getFollowUser: builder.query<boolean, number>({
       query: (userId) => `/follow/${userId}`,

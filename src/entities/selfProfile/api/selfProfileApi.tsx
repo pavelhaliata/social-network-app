@@ -19,15 +19,7 @@ export const selfProfileApi = baseApi.injectEndpoints({
         }
       },
     }),
-    changeStatus: builder.mutation({
-      query: (userId) => ({
-        url: `/profile/status/${userId}`,
-        method: "PUT",
-      }),
-      invalidatesTags: ["selfProfile"],
-    }),
   }),
   overrideExisting: true,
 });
-export const { useGetSelfProfileQuery, useChangeStatusMutation } =
-  selfProfileApi;
+export const { useGetSelfProfileQuery } = selfProfileApi;
