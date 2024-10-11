@@ -37,12 +37,13 @@ export const EditFormProfile = ({ userProfile, onSubmitProfile }: Props) => {
                 id="fullName"
                 type="text"
                 placeholder="Enter your Full Name"
+                status={errors.fullName && "error"}
                 {...field}
                 onChange={(e) => {
                   field.onChange(e); // Обновляем значение
                   clearErrors("fullName"); // Очищаем ошибку при вводе текста
                 }}
-                className={errors.fullName && "border border-danger-500 "}
+                // className={errors.fullName && "border border-danger-500 "}
               />
             )}
           />
@@ -59,12 +60,12 @@ export const EditFormProfile = ({ userProfile, onSubmitProfile }: Props) => {
               <Input.TextArea
                 autoSize={{ minRows: 3, maxRows: 6 }}
                 placeholder="Enter about yourself"
+                status={errors.aboutMe && "error"}
                 {...field}
                 onChange={(e) => {
                   field.onChange(e); // Обновляем значение
                   clearErrors("aboutMe"); // Очищаем ошибку при вводе текста
                 }}
-                className={errors.aboutMe && "border border-danger-500 "}
               />
             )}
           />
@@ -82,14 +83,11 @@ export const EditFormProfile = ({ userProfile, onSubmitProfile }: Props) => {
                 type="text"
                 placeholder="Enter Job Description"
                 {...field}
+                status={errors.lookingForAJobDescription && "error"}
                 onChange={(e) => {
                   field.onChange(e); // Обновляем значение
                   clearErrors("lookingForAJobDescription"); // Очищаем ошибку при вводе текста
                 }}
-                className={
-                  errors.lookingForAJobDescription &&
-                  "border border-danger-500 "
-                }
               />
             )}
           />

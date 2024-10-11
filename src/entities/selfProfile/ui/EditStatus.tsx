@@ -1,16 +1,21 @@
 import { ChangeEvent, KeyboardEvent, useEffect, useState } from "react";
-import { Input, Popover } from "antd";
+import { Popover } from "antd";
+
+const textEmptyStatus = "Enter your status...";
 
 type Props = {
   status?: string;
   setStatus: (status: string) => void;
 };
 export const EditStatus = ({ status, setStatus }: Props) => {
-  const [statusValue, setStatusValue] = useState<string>(status || "");
+  const [statusValue, setStatusValue] = useState<string>(
+    status || textEmptyStatus,
+  );
   const [isEditing, setIsEditing] = useState<boolean>(false);
 
   useEffect(() => {
     if (status) setStatusValue(status);
+    else setStatusValue(textEmptyStatus);
   }, [status]);
 
   const changeHandler = (e: ChangeEvent<HTMLInputElement>) => {
@@ -28,8 +33,12 @@ export const EditStatus = ({ status, setStatus }: Props) => {
   };
 
   const setStatusHandler = () => {
-    setStatus(statusValue);
+    if (statusValue !== status && statusValue) {
+      // TODO: Переписать валидацию
+      setStatus(statusValue);
+    }
     setIsEditing(!isEditing);
+    if (!statusValue) setStatusValue(textEmptyStatus);
   };
 
   return (
@@ -45,14 +54,14 @@ export const EditStatus = ({ status, setStatus }: Props) => {
           </span>
         </Popover>
       ) : (
-        <Input
-          variant="filled"
+        <input
           value={statusValue}
           onChange={changeHandler}
           onBlur={setStatusHandler}
           onKeyDown={keyDownHandler}
           type="text"
           autoFocus
+          className="focus:outline-none border-b border-primary-700 w-full"
         />
       )}
     </div>
