@@ -33,7 +33,6 @@ export const SelfProfile = () => {
         <Flex gap={10} className="flex-col">
           <div>
             <Text className="font-bold">Status: </Text>
-            {/*<Text>{userStatus}</Text>*/}
             <EditStatus status={userStatus} setStatus={changeUserStatus} />
           </div>
           <div>
