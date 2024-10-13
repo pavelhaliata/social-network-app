@@ -36,6 +36,7 @@ export const UserProfile = () => {
         isUnFollowingUser={isUnFollowUser}
         followUserCallback={followUserHandler}
         unFollowUserCallback={unFollowUserHandler}
+        className="mt-4"
       />
     </div>
   );

@@ -1,7 +1,6 @@
-import { Button, Popover, Typography } from "antd";
-import { HeartFilled, HeartOutlined } from "@ant-design/icons";
-
-const Text = Typography;
+import { Button, Popover } from "antd";
+import { UserAddOutlined, UserDeleteOutlined } from "@ant-design/icons";
+import { HTMLAttributes } from "react";
 
 type Props = {
   isFollow?: boolean;
@@ -9,44 +8,40 @@ type Props = {
   isUnFollowingUser: boolean;
   unFollowUserCallback: () => void;
   followUserCallback: () => void;
-};
-
+} & HTMLAttributes<HTMLDivElement>;
 export const Subscription = ({
   isFollow,
   isFollowingUser,
   isUnFollowingUser,
   followUserCallback,
   unFollowUserCallback,
+  ...divProps
 }: Props) => {
   return (
-    <div>
+    <div {...divProps}>
       {isFollow ? (
         <Popover placement="bottom" content="Unfollow">
           <Button
             onClick={unFollowUserCallback}
             type="text"
-            shape="circle"
             loading={isUnFollowingUser}
             disabled={isUnFollowingUser}
-            icon={<HeartFilled className="text-2xl" />}
-          />
-          <Text className="font-bold inline-block cursor-pointer">
-            My Friend
-          </Text>
+            icon={<UserDeleteOutlined />}
+          >
+            Remove from friends
+          </Button>
         </Popover>
       ) : (
         <Popover placement="bottom" content="Follow">
           <Button
             onClick={followUserCallback}
             type="text"
-            shape="circle"
             loading={isFollowingUser}
             disabled={isFollowingUser}
-            icon={<HeartOutlined className="text-2xl" />}
-          />
-          <Text className="font-bold inline-block cursor-pointer">
+            icon={<UserAddOutlined />}
+          >
             Add to friends
-          </Text>
+          </Button>
         </Popover>
       )}
     </div>
