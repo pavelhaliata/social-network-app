@@ -17,47 +17,46 @@ export const SelfProfile = () => {
   };
 
   return (
-    <div className="flex items-start">
-      <Flex gap={50}>
-        <div className="overflow-hidden">
-          {userProfile?.photos.large ? (
-            <Image
-              src={userProfile?.photos.large}
-              alt="user logo"
-              className="max-w-[200px] w-full object-cover rounded-lg"
-            />
-          ) : (
-            <Avatar shape="square" size={164} icon={<UserOutlined />} />
-          )}
+    <div className="flex items-start gap-x-14 gap-y-6 max-md:flex-col">
+      <div className="max-sm:w-full max-sm:text-center">
+        {userProfile?.photos.large ? (
+          <Image
+            src={userProfile?.photos.large}
+            alt="user logo"
+            className="max-w-[200px] w-full object-cover rounded-lg"
+          />
+        ) : (
+          <Avatar shape="square" size={164} icon={<UserOutlined />} />
+        )}
+      </div>
+      <Flex gap={10} className="flex-col">
+        <div className="break-all">
+          <Text className="font-bold">Status: </Text>
+          <EditStatus status={userStatus} setStatus={changeUserStatus} />
         </div>
-        <Flex gap={10} className="flex-col">
-          <div>
-            <Text className="font-bold">Status: </Text>
-            <EditStatus status={userStatus} setStatus={changeUserStatus} />
-          </div>
-          <div>
-            <Text className="font-bold">Full Name: </Text>
-            <Text>{userProfile?.fullName}</Text>
-          </div>
-          <div>
-            <Text className="font-bold">About Me: </Text>
-            <Text>{userProfile?.aboutMe}</Text>
-          </div>
-          <div>
-            <Text className="font-bold">Job Description: </Text>
-            <Text>{userProfile?.lookingForAJobDescription}</Text>
-          </div>
-          <div>
-            <Text className="font-bold">Social: </Text>
-            <Flex className="gap-x-2">
-              <SocialContacts contacts={userProfile?.contacts} />
-            </Flex>
-          </div>
-        </Flex>
+        <div>
+          <Text className="font-bold">Full Name: </Text>
+          <Text>{userProfile?.fullName}</Text>
+        </div>
+        <div>
+          <Text className="font-bold">About Me: </Text>
+          <Text>{userProfile?.aboutMe}</Text>
+        </div>
+        <div>
+          <Text className="font-bold">Job Description: </Text>
+          <Text>{userProfile?.lookingForAJobDescription}</Text>
+        </div>
+        <div>
+          <Text className="font-bold">Social: </Text>
+          <Flex className="gap-x-2">
+            <SocialContacts contacts={userProfile?.contacts} />
+          </Flex>
+        </div>
       </Flex>
       <Link
         to="/edit-profile"
-        className="ml-auto border rounded-lg inline py-2 px-6 bg-primary-500 text-white hover:bg-primary-300 hover:text-white"
+        className="ml-auto border rounded-lg inline py-2 px-6 text-center text-nowrap bg-primary-500
+        text-white hover:bg-primary-300 hover:text-white max-sm:w-full"
       >
         Edit profile
       </Link>

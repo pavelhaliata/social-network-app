@@ -12,8 +12,8 @@ type Props = {
 
 export const Profile = ({ userProfile, userStatus }: Props) => {
   return (
-    <Flex gap={50}>
-      <div className="overflow-hidden">
+    <Flex gap={50} align="center">
+      <div className="">
         {userProfile?.photos.large ? (
           <Image
             src={userProfile?.photos.large}

@@ -17,7 +17,6 @@ export const useUserProfileData = () => {
     error: statusError,
   } = useGetUserStatusQuery(userId);
 
-  console.log("userStatus: ", userStatus);
   return useMemo(() => {
     const profileData = userProfile ? userProfile : undefined;
     const statusData = userStatus ? userStatus : undefined;

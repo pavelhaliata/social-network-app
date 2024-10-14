@@ -61,7 +61,7 @@ export const EditStatus = ({ status, setStatus }: Props) => {
           onKeyDown={keyDownHandler}
           type="text"
           autoFocus
-          className="focus:outline-none border-b border-primary-700 w-full"
+          className="focus:outline-none border-b border-primary-700 w-auto bg-light-500 "
         />
       )}
     </div>
