@@ -12,84 +12,53 @@ type Props = {
   contacts?: UserSocialContacts;
 };
 
+// Соответствие между именами контактов и их иконками
+const contactDetails = {
+  github: { icon: <GithubOutlined className="text-2xl" />, title: "GitHub" },
+  facebook: {
+    icon: <FacebookOutlined className="text-2xl" />,
+    title: "Facebook",
+  },
+  twitter: { icon: <TwitterOutlined className="text-2xl" />, title: "Twitter" },
+  instagram: {
+    icon: <InstagramOutlined className="text-2xl" />,
+    title: "Instagram",
+  },
+  youtube: { icon: <YoutubeOutlined className="text-2xl" />, title: "YouTube" },
+};
+
 export const SocialContacts = ({ contacts }: Props) => {
+  const availableContacts = Object.keys(contactDetails).filter(
+    (key) => contacts && contacts[key as keyof UserSocialContacts],
+  );
+
   return (
-    <>
-      {contacts?.github && (
-        <Popover
-          placement="bottomLeft"
-          title={"Git Hub"}
-          content={contacts?.github}
-        >
-          <a
-            href={contacts?.github}
-            target="_blank"
-            className="p-1 rounded-md transition ease-in-out delay-150 hover:text-light-100 hover:bg-primary-500"
-          >
-            <GithubOutlined className="text-2xl" />
-          </a>
-        </Popover>
-      )}
-      {contacts?.facebook && (
-        <Popover
-          placement="bottomLeft"
-          title={"Facebook"}
-          content={contacts?.facebook}
-        >
-          <a
-            href={contacts?.facebook}
-            target="_blank"
-            className="p-1 rounded-md transition ease-in-out delay-150 hover:text-light-100 hover:bg-primary-500"
-          >
-            <FacebookOutlined className="text-2xl" />
-          </a>
-        </Popover>
-      )}
-      {contacts?.twitter && (
-        <Popover
-          placement="bottomLeft"
-          title={"Twitter"}
-          content={contacts?.twitter}
-        >
-          <a
-            href={contacts?.twitter}
-            target="_blank"
-            className="p-1 rounded-md transition ease-in-out delay-150 hover:text-light-100 hover:bg-primary-500"
-          >
-            <TwitterOutlined className="text-2xl" />
-          </a>
-        </Popover>
-      )}
-      {contacts?.instagram && (
-        <Popover
-          placement="bottomLeft"
-          title={"Instagram"}
-          content={contacts?.instagram}
-        >
-          <a
-            href={contacts?.instagram}
-            target="_blank"
-            className="p-1 rounded-md transition ease-in-out delay-100 hover:text-light-100 hover:bg-primary-500"
-          >
-            <InstagramOutlined className="text-2xl" />
-          </a>
-        </Popover>
-      )}
-      {contacts?.youtube && (
-        <Popover
-          placement="bottomLeft"
-          title={"YouTube"}
-          content={contacts?.youtube}
-        >
-          <a
-            href={contacts?.youtube}
-            target="_blank"
-            className="p-1 rounded-md transition ease-in-out delay-150 hover:text-light-100 hover:bg-primary-500"
-          >
-            <YoutubeOutlined className="text-2xl" />
-          </a>
-        </Popover>
-      )}
-    </>
+    <div className="flex flex-wrap gap-4">
+      {availableContacts.map((key) => {
+        const contactLink = contacts?.[key as keyof UserSocialContacts];
+        const { icon, title } =
+          contactDetails[key as keyof typeof contactDetails];
+
+        return (
+          contactLink && (
+            <Popover
+              key={key}
+              placement="bottomLeft"
+              title={title}
+              content={contactLink}
+            >
+              <a
+                href={contactLink || "#"}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="p-1 rounded-md transition ease-in-out delay-150 hover:text-light-100 hover:bg-primary-500"
+              >
+                {icon}
+              </a>
+            </Popover>
+          )
+        );
+      })}
+    </div>
   );
 };

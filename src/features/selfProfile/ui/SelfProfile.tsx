@@ -1,7 +1,7 @@
 import { SocialContacts } from "../../../shared/components";
 import { Link } from "react-router-dom";
 import { useUserProfileData } from "../../../entities/selfProfile/lib/hooks/useUserProfileData.ts";
-import { Avatar, Flex, Image, Typography } from "antd";
+import { Avatar, Image, Typography } from "antd";
 import { UserOutlined } from "@ant-design/icons";
 import { EditStatus } from "../../../entities/selfProfile/ui/EditStatus.tsx";
 import { useChangeStatusMutation } from "../../../entities/selfProfile/api/editSelfProfileApi.ts";
@@ -29,33 +29,31 @@ export const SelfProfile = () => {
           <Avatar shape="square" size={164} icon={<UserOutlined />} />
         )}
       </div>
-      <Flex gap={10} className="flex-col">
-        <div className="break-all">
+      <div>
+        <div className="break-all mb-2">
           <Text className="font-bold">Status: </Text>
           <EditStatus status={userStatus} setStatus={changeUserStatus} />
         </div>
-        <div>
+        <div className="mb-2">
           <Text className="font-bold">Full Name: </Text>
           <Text>{userProfile?.fullName}</Text>
         </div>
-        <div>
+        <div className="mb-2">
           <Text className="font-bold">About Me: </Text>
           <Text>{userProfile?.aboutMe}</Text>
         </div>
-        <div>
+        <div className="mb-2">
           <Text className="font-bold">Job Description: </Text>
           <Text>{userProfile?.lookingForAJobDescription}</Text>
         </div>
-        <div>
+        <div className="mb-2">
           <Text className="font-bold">Social: </Text>
-          <Flex className="gap-x-2">
-            <SocialContacts contacts={userProfile?.contacts} />
-          </Flex>
+          <SocialContacts contacts={userProfile?.contacts} />
         </div>
-      </Flex>
+      </div>
       <Link
         to="/edit-profile"
-        className="ml-auto border rounded-lg inline py-2 px-6 text-center text-nowrap bg-primary-500
+        className="ml-auto border rounded-lg py-2 px-6 text-center text-nowrap bg-primary-500
         text-white hover:bg-primary-300 hover:text-white max-sm:w-full"
       >
         Edit profile
