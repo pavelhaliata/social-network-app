@@ -49,9 +49,9 @@ export const EditStatus = ({ status, setStatus }: Props) => {
           placement="top"
           content={statusValue}
         >
-          <span onClick={editHandler} className="cursor-pointer">
+          <p onClick={editHandler} className="break-all cursor-pointer">
             {statusValue}
-          </span>
+          </p>
         </Popover>
       ) : (
         <input

@@ -1,8 +1,7 @@
-import { SocialContacts } from "../../../shared/components";
+import { ProfilePhoto, SocialContacts } from "../../../shared/components";
 import { Link } from "react-router-dom";
 import { useUserProfileData } from "../../../entities/selfProfile/lib/hooks/useUserProfileData.ts";
-import { Avatar, Image, Typography } from "antd";
-import { UserOutlined } from "@ant-design/icons";
+import { Typography } from "antd";
 import { EditStatus } from "../../../entities/selfProfile/ui/EditStatus.tsx";
 import { useChangeStatusMutation } from "../../../entities/selfProfile/api/editSelfProfileApi.ts";
 
@@ -19,18 +18,10 @@ export const SelfProfile = () => {
   return (
     <div className="flex items-start gap-x-14 gap-y-6 max-md:flex-col">
       <div className="max-sm:w-full max-sm:text-center">
-        {userProfile?.photos.large ? (
-          <Image
-            src={userProfile?.photos.large}
-            alt="user logo"
-            className="max-w-[200px] w-full object-cover rounded-lg"
-          />
-        ) : (
-          <Avatar shape="square" size={164} icon={<UserOutlined />} />
-        )}
+        <ProfilePhoto userPhoto={userProfile?.photos.large} />
       </div>
       <div>
-        <div className="break-all mb-2">
+        <div className="mb-2">
           <Text className="font-bold">Status: </Text>
           <EditStatus status={userStatus} setStatus={changeUserStatus} />
         </div>

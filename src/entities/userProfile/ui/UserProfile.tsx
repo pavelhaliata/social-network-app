@@ -6,7 +6,7 @@ import {
   useGetUserStatusQuery,
   useUnFollowUserMutation,
 } from "../api/userProfileApi.ts";
-import { Profile } from "../../../shared/components";
+import { Profile, ProfilePhoto } from "../../../shared/components";
 import { Subscription } from "./Subscription.tsx";
 
 export const UserProfile = () => {
@@ -29,6 +29,9 @@ export const UserProfile = () => {
 
   return (
     <div>
+      <div>
+        <ProfilePhoto userPhoto={userProfile?.photos.large} />
+      </div>
       <Profile userProfile={userProfile} userStatus={userStatus} />
       <Subscription
         isFollow={isFollow}
