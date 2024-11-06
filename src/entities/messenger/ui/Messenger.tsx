@@ -59,13 +59,12 @@ export const Messenger = () => {
   };
 
   return (
-    <div className="flex flex-col h-[75vh] max-w-full mx-auto border rounded-lg shadow-lg bg-white">
-      <div className="flex-1 p-4 overflow-auto bg-gray-100">
+    <div className="flex flex-col h-[75vh] max-w-full mx-auto border rounded-lg shadow-lg bg-white overflow-hidden">
+      <div className="flex-1 p-4 bg-gray-100 overflow-y-auto">
         {status === "pending" ? (
           <div className="flex flex-col items-center justify-center gap-y-1 h-full text-primary-700">
             <Spin size="large" />
-            <span>reconnecting...</span>
-            <span>please, wait</span>
+            <p>reconnecting... please, wait</p>
           </div>
         ) : (
           <List

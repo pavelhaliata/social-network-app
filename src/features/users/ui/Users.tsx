@@ -42,7 +42,7 @@ export const Users = React.memo(() => {
     });
   };
 
-  const handlePageChange = (page: number, pageSize: number) => {
+  const pageChangeHandler = (page: number, pageSize: number) => {
     setSearchParams({
       page: String(page),
       count: String(pageSize),
@@ -51,7 +51,7 @@ export const Users = React.memo(() => {
     });
   };
 
-  const handleFollowChange = (value: boolean | null) => {
+  const followChangeHandler = (value: boolean | null) => {
     setSearchParams({
       page: String(currentPage),
       count: String(pageSize),
@@ -82,7 +82,7 @@ export const Users = React.memo(() => {
           defaultValue={followed}
           className="max-w-[120px] w-full"
           loading={isLoading}
-          onChange={handleFollowChange}
+          onChange={followChangeHandler}
           options={[
             { value: "", label: "All" },
             { value: true, label: "Follow" },
@@ -98,7 +98,7 @@ export const Users = React.memo(() => {
           pageSize={pageSize}
           current={currentPage}
           showTotal={(total) => `Total ${total} users`}
-          onChange={handlePageChange}
+          onChange={pageChangeHandler}
         />
       </div>
 
