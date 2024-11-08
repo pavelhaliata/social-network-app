@@ -23,10 +23,11 @@ export const Subscription = ({
         <Popover placement="bottom" content="Unfollow">
           <Button
             onClick={unFollowUserCallback}
-            type="text"
+            type="default"
             loading={isUnFollowingUser}
             disabled={isUnFollowingUser}
             icon={<UserDeleteOutlined />}
+            className="max-md:w-full"
           >
             Remove from friends
           </Button>
@@ -35,10 +36,11 @@ export const Subscription = ({
         <Popover placement="bottom" content="Follow">
           <Button
             onClick={followUserCallback}
-            type="text"
+            type="primary"
             loading={isFollowingUser}
             disabled={isFollowingUser}
             icon={<UserAddOutlined />}
+            className="max-md:w-full"
           >
             Add to friends
           </Button>

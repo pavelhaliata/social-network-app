@@ -1,7 +1,8 @@
-import { Avatar, Flex, Image, Typography } from "antd";
-import { UserOutlined } from "@ant-design/icons";
+import { Flex, Typography } from "antd";
 import { UserProfile } from "../../../entities/userProfile/types/userProfileType.ts";
 import { SocialContacts } from "../SocialContacts/SocialContacts.tsx";
+import { ProfilePhoto } from "../ProfilePhoto/ProfilePhoto.tsx";
+import { ProfileDescription } from "../ProfileDescription/ProfileDescription.tsx";
 
 const { Text } = Typography;
 
@@ -12,40 +13,18 @@ type Props = {
 
 export const Profile = ({ userProfile, userStatus }: Props) => {
   return (
-    <Flex gap={50} align="center">
-      <div className="">
-        {userProfile?.photos.large ? (
-          <Image
-            src={userProfile?.photos.large}
-            alt="user logo"
-            className="max-w-[200px] w-full object-cover rounded-lg"
-          />
-        ) : (
-          <Avatar shape="square" size={164} icon={<UserOutlined />} />
-        )}
-      </div>
-      <Flex gap={10} className="flex-col">
+    <Flex gap={50} className="max-md:flex-col max-sm:items-center">
+      <ProfilePhoto userPhoto={userProfile?.photos.large} />
+      <Flex gap={8} className="flex-col flex-1">
         <div>
           <Text className="font-bold">Status: </Text>
           <Text>{userStatus}</Text>
         </div>
         <div>
-          <Text className="font-bold">Full Name: </Text>
-          <Text>{userProfile?.fullName}</Text>
+          <ProfileDescription userProfile={userProfile} />
         </div>
         <div>
-          <Text className="font-bold">About Me: </Text>
-          <Text>{userProfile?.aboutMe}</Text>
-        </div>
-        <div>
-          <Text className="font-bold">Job Description: </Text>
-          <Text>{userProfile?.lookingForAJobDescription}</Text>
-        </div>
-        <div>
-          <Text className="font-bold">Social: </Text>
-          <Flex className="gap-x-2">
-            <SocialContacts contacts={userProfile?.contacts} />
-          </Flex>
+          <SocialContacts contacts={userProfile?.contacts} />
         </div>
       </Flex>
     </Flex>

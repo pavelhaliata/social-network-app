@@ -16,11 +16,9 @@ export const SelfProfile = () => {
   };
 
   return (
-    <div className="flex items-start gap-x-14 gap-y-6 max-md:flex-col">
-      <div className="max-sm:w-full max-sm:text-center">
-        <ProfilePhoto userPhoto={userProfile?.photos.large} />
-      </div>
-      <div>
+    <div className="flex items-start gap-x-14 gap-y-6 max-md:flex-col max-sm:items-center">
+      <ProfilePhoto userPhoto={userProfile?.photos.large} />
+      <div className="flex-1">
         <div className="mb-2">
           <Text className="font-bold">Status: </Text>
           <EditStatus status={userStatus} setStatus={changeUserStatus} />

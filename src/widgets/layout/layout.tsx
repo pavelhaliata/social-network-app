@@ -7,9 +7,9 @@ import {
   WechatOutlined,
 } from "@ant-design/icons";
 import { Button, Layout, Menu } from "antd";
+import { TopProfileLink } from "../../shared/components";
 import { Link, matchPath, Outlet, useLocation } from "react-router-dom";
 import { useAppSelector } from "../../app/store";
-import { TopProfileLink } from "../../shared/components/LogOutButton/TopProfileLink.tsx";
 import { useLogoutMutation } from "../../features/auth/api/authApi.ts";
 import { useUserProfileData } from "../../entities/selfProfile/lib/hooks/useUserProfileData.ts";
 

@@ -1,4 +1,4 @@
-import { Popover } from "antd";
+import { Popover, Typography } from "antd";
 import {
   FacebookOutlined,
   GithubOutlined,
@@ -7,6 +7,8 @@ import {
   YoutubeOutlined,
 } from "@ant-design/icons";
 import { UserSocialContacts } from "../../../entities/userProfile/types/userProfileType.ts";
+
+const { Text } = Typography;
 
 type Props = {
   contacts?: UserSocialContacts;
@@ -33,32 +35,35 @@ export const SocialContacts = ({ contacts }: Props) => {
   );
 
   return (
-    <div className="flex flex-wrap gap-4">
-      {availableContacts.map((key) => {
-        const contactLink = contacts?.[key as keyof UserSocialContacts];
-        const { icon, title } =
-          contactDetails[key as keyof typeof contactDetails];
+    <>
+      <Text className="block font-bold">Social: </Text>
+      <div className="flex flex-wrap gap-x-2">
+        {availableContacts.map((key) => {
+          const contactLink = contacts?.[key as keyof UserSocialContacts];
+          const { icon, title } =
+            contactDetails[key as keyof typeof contactDetails];
 
-        return (
-          contactLink && (
-            <Popover
-              key={key}
-              placement="bottomLeft"
-              title={title}
-              content={contactLink}
-            >
-              <a
-                href={contactLink || "#"}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="p-1 rounded-md transition ease-in-out delay-150 hover:text-light-100 hover:bg-primary-500"
+          return (
+            contactLink && (
+              <Popover
+                key={key}
+                placement="bottomLeft"
+                title={title}
+                content={contactLink}
               >
-                {icon}
-              </a>
-            </Popover>
-          )
-        );
-      })}
-    </div>
+                <a
+                  href={contactLink || "#"}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="p-1 rounded-md transition ease-in-out delay-150 hover:text-light-100 hover:bg-primary-500"
+                >
+                  {icon}
+                </a>
+              </Popover>
+            )
+          );
+        })}
+      </div>
+    </>
   );
 };
